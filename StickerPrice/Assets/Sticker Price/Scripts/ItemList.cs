@@ -14,11 +14,6 @@ public class ItemList : MonoBehaviour {
 		viewport = (RectTransform)this.transform.Find ("Viewport");
 		scrollPanel = (RectTransform)viewport.transform.Find ("ContentPanel");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	public void OnValueChange() {
 		float verticalVelocity = Mathf.Abs (scrollRect.velocity.y);
@@ -36,14 +31,14 @@ public class ItemList : MonoBehaviour {
 			//isMoving = true;
 		}
 
-		if (scrollRect.transform.localPosition.y < 0) {
-			float newY = Mathf.Lerp (scrollPanel.transform.localPosition.y,
-				             0,
-				             Time.deltaTime * 5f);
-
-			Vector2 newPosition = new Vector2 (scrollPanel.transform.localPosition.x, newY);
-			scrollPanel.transform.localPosition = newPosition;
-		}
+//		if (scrollRect.transform.localPosition.y < 0) {
+//			float newY = Mathf.Lerp (scrollPanel.transform.localPosition.y,
+//				             0,
+//				             Time.deltaTime * 5f);
+//
+//			Vector2 newPosition = new Vector2 (scrollPanel.transform.localPosition.x, newY);
+//			scrollPanel.transform.localPosition = newPosition;
+//		}
 
 	}
 }
