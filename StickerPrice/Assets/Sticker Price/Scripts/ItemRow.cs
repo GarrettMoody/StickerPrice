@@ -57,7 +57,8 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	public void OnDrag(PointerEventData data) {
 		Vector2 localPointerPosition;
 		if (RectTransformUtility.ScreenPointToLocalPointInRectangle (canvasRectTransform, data.position, data.pressEventCamera, out localPointerPosition)) {
-			float newX = localPointerPosition.x - positionOffset.x;
+			float newX = localPointerPosition.x;
+			Debug.Log ("newX: " + newX + " localPointer: " + localPointerPosition.x + " posOffset: " + positionOffset + " localPos: " + itemRectTransform.localPosition.x);
 			if (newX > 0) {
 				newX = 0;
 			}

@@ -22,7 +22,7 @@ public class ScanPanel : MonoBehaviour {
 		//camTexture.requestedFPS = 60;
 		scanDisplay.texture = camTexture;
 		scanDisplay.material.mainTexture = camTexture;
-		camTexture.Play ();
+		//camTexture.Play ();
 	}
 
 	void Update() {
