@@ -13,13 +13,14 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	private bool pointerDown = false;
 	private bool lerpToButtons = false;
 	private bool lerpToReset = false;
+	private float buttonOffset = 400;
 
 	void Update() {
 		if (!pointerDown) {
 			if (lerpToButtons) {
-				float newX = Mathf.Lerp (itemRectTransform.localPosition.x, -400f, Time.deltaTime * 5f);
+				float newX = Mathf.Lerp (itemRectTransform.localPosition.x, -buttonOffset, Time.deltaTime * 5f);
 				itemRectTransform.localPosition = new Vector2 (newX, itemRectTransform.localPosition.y);
-				if (Mathf.RoundToInt(itemRectTransform.localPosition.x) == -400) {
+				if (Mathf.RoundToInt(itemRectTransform.localPosition.x) == -buttonOffset) {
 					lerpToButtons = false;
 				}
 			} else if (lerpToReset) {
@@ -47,9 +48,9 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	}
 
 	public void OnPointerUp(PointerEventData data) {
-		if (Mathf.RoundToInt(itemRectTransform.localPosition.x) < -400) {
+		if (Mathf.RoundToInt(itemRectTransform.localPosition.x) < -buttonOffset) {
 			lerpToButtons = true;
-		} else if (Mathf.RoundToInt(itemRectTransform.localPosition.x) >= -400) {
+		} else if (Mathf.RoundToInt(itemRectTransform.localPosition.x) >= -buttonOffset) {
 			lerpToReset = true;
 		}
 	}
@@ -57,8 +58,8 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	public void OnDrag(PointerEventData data) {
 		Vector2 localPointerPosition;
 		if (RectTransformUtility.ScreenPointToLocalPointInRectangle (canvasRectTransform, data.position, data.pressEventCamera, out localPointerPosition)) {
-			float newX = localPointerPosition.x;
-			Debug.Log ("newX: " + newX + " localPointer: " + localPointerPosition.x + " posOffset: " + positionOffset + " localPos: " + itemRectTransform.localPosition.x);
+			float newX = localPointerPosition.x + (itemRectTransform.rect.width / 2) - positionOffset.x;
+			Debug.Log ("newX: " + newX + " localPointerPosition: " + localPointerPosition.x + " positionOffset: " + positionOffset + " position: " + itemRectTransform.localPosition.x);
 			if (newX > 0) {
 				newX = 0;
 			}
@@ -68,7 +69,7 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	}
 
 	public void OnPointerClick(PointerEventData data) {
-		if (Mathf.RoundToInt(itemRectTransform.localPosition.x) > -405) {
+		if (Mathf.RoundToInt(itemRectTransform.localPosition.x) > (-buttonOffset - 5)) {
 			lerpToReset = true;
 			lerpToButtons = false;
 		}
