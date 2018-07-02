@@ -9,6 +9,7 @@ public class ItemList : MonoBehaviour {
 	private RectTransform viewport;
 	private RectTransform scrollPanel;
 	private float topOfListPos;
+	private List<ItemRow> itemList; 
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +17,7 @@ public class ItemList : MonoBehaviour {
 		viewport = (RectTransform)this.transform.Find ("Viewport");
 		scrollPanel = (RectTransform)viewport.transform.Find ("ContentPanel");
 		topOfListPos = scrollPanel.localPosition.y;
+		itemList = new List<ItemRow>(GetComponentsInChildren<ItemRow> ());
 	}
 
 	public void OnValueChange() {
@@ -34,5 +36,10 @@ public class ItemList : MonoBehaviour {
 			scrollPanel.transform.localPosition = newPosition;
 		}
 
+	}
+
+	public void removeItem(ItemRow item) {
+		itemList.Remove (item);
+		Destroy (item.gameObject);
 	}
 }

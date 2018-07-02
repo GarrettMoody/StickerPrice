@@ -14,6 +14,7 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	private bool lerpToButtons = false;
 	private bool lerpToReset = false;
 	private float buttonOffset = 400;
+	private ItemList parentList; 
 
 	void Update() {
 		if (!pointerDown) {
@@ -39,6 +40,7 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 		itemRectTransform = (RectTransform) this.transform;
 		lerpToReset = false;
 		lerpToButtons = false;
+		parentList = GetComponentInParent<ItemList> ();
 	}
 
 	public void OnPointerDown(PointerEventData data) {
@@ -59,7 +61,6 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 		Vector2 localPointerPosition;
 		if (RectTransformUtility.ScreenPointToLocalPointInRectangle (canvasRectTransform, data.position, data.pressEventCamera, out localPointerPosition)) {
 			float newX = localPointerPosition.x + (itemRectTransform.rect.width / 2) - positionOffset.x;
-			Debug.Log ("newX: " + newX + " localPointerPosition: " + localPointerPosition.x + " positionOffset: " + positionOffset + " position: " + itemRectTransform.localPosition.x);
 			if (newX > 0) {
 				newX = 0;
 			}
@@ -73,5 +74,9 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 			lerpToReset = true;
 			lerpToButtons = false;
 		}
+	}
+
+	public void DeleteButtonOnClickListener() {
+		parentList.removeItem (this);
 	}
 }
