@@ -47,6 +47,7 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 		lerpToReset = false;
 		lerpToButtons = false;
 		RectTransformUtility.ScreenPointToLocalPointInRectangle (itemRectTransform, data.position, data.pressEventCamera, out positionOffset);
+		parentList.resetOtherRows (this);
 	}
 
 	public void OnPointerUp(PointerEventData data) {
@@ -71,12 +72,15 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 
 	public void OnPointerClick(PointerEventData data) {
 		if (Mathf.RoundToInt(itemRectTransform.localPosition.x) > (-buttonOffset - 5)) {
-			lerpToReset = true;
-			lerpToButtons = false;
+			parentList.resetAllRows ();
 		}
 	}
 
 	public void DeleteButtonOnClickListener() {
 		parentList.removeItem (this);
+	}
+
+	public void ResetRow() {
+		lerpToReset = true;
 	}
 }

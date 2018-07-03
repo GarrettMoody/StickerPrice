@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ItemList : MonoBehaviour {
 
@@ -36,10 +37,52 @@ public class ItemList : MonoBehaviour {
 			scrollPanel.transform.localPosition = newPosition;
 		}
 
+		resetAllRows ();
+
 	}
 
 	public void removeItem(ItemRow item) {
 		itemList.Remove (item);
 		Destroy (item.gameObject);
+		redrawList ();
+	}
+
+	public void addItem(ItemRow item) {
+
+		ItemRow newItem = Instantiate (item, scrollPanel.transform);
+		newItem.GetComponent<LayoutElement> ().ignoreLayout = false;
+		newItem.transform.SetParent (scrollPanel.transform);
+		newItem.transform.SetAsLastSibling ();
+		itemList.Add (newItem);
+
+		redrawList ();
+	}
+
+	public void resetAllRows() {
+		foreach (ItemRow row in itemList) {
+			row.ResetRow ();
+		}
+	}
+
+	public void resetOtherRows(ItemRow sourceRow) {
+		foreach (ItemRow row in itemList) {
+			if (row != sourceRow) {
+				row.ResetRow ();
+			}
+		}
+	}
+
+	public void redrawList() {
+		foreach (ItemRow row in itemList) {
+			row.GetComponent<LayoutElement> ().ignoreLayout = false;
+		}
+
+		Canvas.ForceUpdateCanvases ();
+
+		foreach (ItemRow row in itemList) {
+			row.GetComponent<LayoutElement> ().ignoreLayout = true;
+		}
+
+		resetAllRows ();
 	}
 }

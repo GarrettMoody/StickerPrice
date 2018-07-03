@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 9145
+  controlID: 8657
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 9100
+  controlID: 8658
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 404, y: 221}
   m_MaxSize: {x: 8004, y: 4021}
   vertical: 0
-  controlID: 9042
+  controlID: 8659
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -370,7 +370,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: de67f5ffc051faff9efdfaff9efbffff000000006828000054290000a2290000ce290000f82900003e2a0000482a00009c2a0000
+    m_ExpandedIDs: d01ef8ffd81ef8ff7648f8ff7848f8ff4813faff4a13faff9cfbffff9efbffff000000006c28000058290000a6290000d22900003c2a0000462a000020d800000cd900005ad9000086d90000f0d90000fad90000c4f80000b0f90000fef900002afa000094fa00009efa0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -426,9 +426,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 526.7332, y: 1137.1317, z: 9.199123}
+    m_Target: {x: 481.25748, y: 1283.7659, z: -22.482634}
     speed: 2
-    m_Value: {x: 526.7332, y: 1137.1317, z: 9.199123}
+    m_Value: {x: 481.25748, y: 1283.7659, z: -22.482634}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -456,9 +456,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1004.8133
+    m_Target: 2232.623
     speed: 2
-    m_Value: 1004.8133
+    m_Value: 2232.623
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -536,19 +536,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Sticker Price/Scripts
+    - Assets/Sticker Price/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 69
   m_LastFolders:
-  - Assets/Sticker Price/Scripts
+  - Assets/Sticker Price/Prefabs
   m_LastFoldersGridSize: 69
   m_LastProjectPath: /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 6e270000
-    m_LastClickedID: 10094
-    m_ExpandedIDs: 00000000502700006c270000842700008c270000e227000000ca9a3bffffff7f
+    m_SelectedIDs: 72270000
+    m_LastClickedID: 10098
+    m_ExpandedIDs: 00000000502700006c270000842700008c270000e627000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -576,7 +576,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000502700006c270000842700008c270000e227000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000502700006c270000842700008c270000e627000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

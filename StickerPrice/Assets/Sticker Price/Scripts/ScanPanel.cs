@@ -11,14 +11,16 @@ public class ScanPanel : MonoBehaviour {
 	public RawImage scanDisplay;
 	public Text currentDateTime;
 	public Button ToggleCameraButton;
-	public GameObject itemPrefab;
+	public ItemRow itemPrefab;
 
+	private ItemList itemList;
 	private Rect screenRect;
 	private WebCamTexture camTexture;
 
 	// Use this for initialization
 	void Start() {
 		camTexture = new WebCamTexture (WebCamTexture.devices[0].name, 480, 640, 30);
+		itemList = this.transform.Find ("ContentPanel/ItemList").GetComponent<ItemList>();
 		//camTexture.requestedFPS = 60;
 		scanDisplay.texture = camTexture;
 		scanDisplay.material.mainTexture = camTexture;
@@ -52,7 +54,7 @@ public class ScanPanel : MonoBehaviour {
 		Debug.Log (result.Text);
 		camTexture.Stop ();
 
-		GameObject newItem = Instantiate (itemPrefab);
+		ItemRow newItem = Instantiate (itemPrefab);
 		newItem.transform.parent = this.transform.Find ("ContentPanel/ItemList/Viewport/ContentPanel").gameObject.transform;
 
 		Text itemText =	newItem.GetComponentInChildren<Text>();
@@ -60,8 +62,7 @@ public class ScanPanel : MonoBehaviour {
 	}
 
 	public void AddItemButtonOnClickListner() {
-		GameObject newItem = Instantiate (itemPrefab);
-		newItem.transform.parent = this.transform.Find ("ContentPanel/ItemList/Viewport/ContentPanel").gameObject.transform;
+		itemList.addItem (itemPrefab);
 	}
 
 	public void ToggleCameraButtonOnClickListener() {
