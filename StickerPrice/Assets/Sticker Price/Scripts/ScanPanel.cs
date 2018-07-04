@@ -11,8 +11,8 @@ public class ScanPanel : MonoBehaviour {
 	public RawImage scanDisplay;
 	public Text currentDateTime;
 	public Button ToggleCameraButton;
-	public ItemRow itemPrefab;
 
+	private String previousResult;
 	private ItemList itemList;
 	private Rect screenRect;
 	private WebCamTexture camTexture;
@@ -22,9 +22,10 @@ public class ScanPanel : MonoBehaviour {
 		camTexture = new WebCamTexture (WebCamTexture.devices[0].name, 480, 640, 30);
 		itemList = this.transform.Find ("ContentPanel/ItemList").GetComponent<ItemList>();
 		//camTexture.requestedFPS = 60;
+		previousResult = "";
 		scanDisplay.texture = camTexture;
 		scanDisplay.material.mainTexture = camTexture;
-		//camTexture.Play ();
+		camTexture.Play ();
 	}
 
 	void Update() {
@@ -52,17 +53,21 @@ public class ScanPanel : MonoBehaviour {
 
 	void QRCodeScanned(Result result) {
 		Debug.Log (result.Text);
-		camTexture.Stop ();
+		//camTexture.Stop ();
 
-		ItemRow newItem = Instantiate (itemPrefab);
-		newItem.transform.parent = this.transform.Find ("ContentPanel/ItemList/Viewport/ContentPanel").gameObject.transform;
+		//ItemRow newItem = Instantiate (itemPrefab);
+		//newItem.transform.parent = this.transform.Find ("ContentPanel/ItemList/Viewport/ContentPanel").gameObject.transform;
+		if (previousResult != result.Text) {
+			previousResult = result.Text;
 
-		Text itemText =	newItem.GetComponentInChildren<Text>();
-		itemText.text = result.Text;
+			ItemRow newItem = itemList.addItem ();
+			newItem.setItemDescription (result.Text);
+
+		}
 	}
 
 	public void AddItemButtonOnClickListner() {
-		itemList.addItem (itemPrefab);
+		itemList.addItem ();
 	}
 
 	public void ToggleCameraButtonOnClickListener() {

@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class ItemList : MonoBehaviour {
 
+	public ItemRow itemPrefab;
+
 	private ScrollRect scrollRect;
 	private RectTransform viewport;
 	private RectTransform scrollPanel;
@@ -47,15 +49,17 @@ public class ItemList : MonoBehaviour {
 		redrawList ();
 	}
 
-	public void addItem(ItemRow item) {
+	public ItemRow addItem() {
 
-		ItemRow newItem = Instantiate (item, scrollPanel.transform);
+		ItemRow newItem = Instantiate (itemPrefab, scrollPanel.transform);
 		newItem.GetComponent<LayoutElement> ().ignoreLayout = false;
 		newItem.transform.SetParent (scrollPanel.transform);
 		newItem.transform.SetAsLastSibling ();
 		itemList.Add (newItem);
 
 		redrawList ();
+
+		return newItem;
 	}
 
 	public void resetAllRows() {
