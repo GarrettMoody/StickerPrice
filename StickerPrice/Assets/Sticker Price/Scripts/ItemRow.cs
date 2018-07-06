@@ -14,53 +14,59 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	//Private Variables
 	private string itemDescription;
 	private float itemPrice;
-
-	//Drag & Position Variables
-	private Vector2 positionOffset;
+	private ItemList parentList; 
 	private RectTransform canvasRectTransform;
 	private RectTransform itemRectTransform;
+
+	//Drag & Position Variables
+	private Vector2 pointerStart;
+	private Vector2 localRectStart;
 	private bool pointerDown = false;
-	private bool lerpToButtons = false;
-	private bool lerpToReset = false;
-	private bool lerpToDelete = false;
-	private bool lerpToPosition = false;
-	private float buttonOffset = 400;
-	private float deleteOffset = 800;
-	private float fullDeleteOffset = 1200;
-	private ItemList parentList; 
+	private int lerpMode = 0;
+	private bool horizontalMode = false;
+	private bool verticalMode = false;
+	private float buttonOffset = -400;
+	private float deleteOffset = -800;
+	private float fullDeleteOffset = -1200;
 	private float dragX;
 
+	//Constants
+	private const int NO_LERP = 0;
+	private const int LERP_TO_BUTTONS = 1;
+	private const int LERP_TO_RESET = 2;
+	private const int LERP_TO_DELETE = 3;
+	private const int LERP_TO_POSITION = 4;
+
 	void Update() {
-		if (!pointerDown) {
-			if (lerpToButtons) { //Lerping to show buttons
-				float newX = Mathf.Lerp (itemRectTransform.localPosition.x, -buttonOffset, Time.deltaTime * 5f);
+			if (lerpMode == LERP_TO_BUTTONS) { //Lerping to show buttons
+				float newX = Mathf.Lerp (itemRectTransform.localPosition.x, buttonOffset, Time.deltaTime * 5f);
 				itemRectTransform.localPosition = new Vector2 (newX, itemRectTransform.localPosition.y);
-				if (Mathf.RoundToInt (itemRectTransform.localPosition.x) == -buttonOffset) {
-					lerpToButtons = false;
+				if (Mathf.RoundToInt (itemRectTransform.localPosition.x) == buttonOffset) {
+					lerpMode = NO_LERP;
 				}
-			} else if (lerpToReset) { //Lerping to hide all buttons
+			} else if (lerpMode == LERP_TO_RESET) { //Lerping to hide all buttons
 				float newX = Mathf.Lerp (itemRectTransform.localPosition.x, 0f, Time.deltaTime * 5f);
 				itemRectTransform.localPosition = new Vector2 (newX, itemRectTransform.localPosition.y);
 				if (Mathf.RoundToInt (itemRectTransform.localPosition.x) == 0) {
-					lerpToReset = false;
+					lerpMode = NO_LERP;
+					//horizontalMode = false;//then let go of the mouse. In either case, we want to bring the row back to show buttons.
 				}
-			} else if (lerpToDelete) { //Lerping to show only Delete button
-				float newX = Mathf.Lerp (itemRectTransform.localPosition.x, -fullDeleteOffset, Time.deltaTime * 8);
+			} else if (lerpMode == LERP_TO_DELETE) { //Lerping to show only Delete button
+				float newX = Mathf.Lerp (itemRectTransform.localPosition.x, fullDeleteOffset, Time.deltaTime * 8);
 				itemRectTransform.localPosition = new Vector2 (newX, itemRectTransform.localPosition.y);
-				if (Mathf.RoundToInt (itemRectTransform.localPosition.x) == -fullDeleteOffset) {
-					lerpToDelete = false;
+				if (Mathf.RoundToInt (itemRectTransform.localPosition.x) == fullDeleteOffset) {
+					lerpMode = NO_LERP;
 				}
-			} else if (lerpToPosition) { //Lerping from delete only to mouse position
+			} else if (lerpMode == LERP_TO_POSITION) { //Lerping from delete only to mouse position
 				float newX = Mathf.Lerp (itemRectTransform.localPosition.x, dragX, Time.deltaTime * 8);
 				if (newX > 0) {
 					newX = 0;
 				}
 				itemRectTransform.localPosition = new Vector2 (newX, itemRectTransform.localPosition.y);
 				if (Mathf.RoundToInt (itemRectTransform.localPosition.x) == dragX) {
-					lerpToPosition = false;
+					lerpMode = NO_LERP;
 				}
 			}
-		}
 	}
 
 	void Awake() {
@@ -68,56 +74,66 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 		Canvas canvas = this.GetComponentInParent<Canvas> ();
 		canvasRectTransform = (RectTransform)canvas.transform;
 		itemRectTransform = (RectTransform) this.transform;
-		lerpToReset = false;
-		lerpToButtons = false;
-		lerpToDelete = false;
-		lerpToPosition = false;
+		lerpMode = NO_LERP;
 		parentList = GetComponentInParent<ItemList> ();
 	}
 
 	public void OnPointerDown(PointerEventData data) {
 		//when pointer is down, set position offset and reset all other rows in table
-		lerpToReset = false;
-		lerpToButtons = false;
-		lerpToDelete = false;
-		lerpToPosition = false;
-		RectTransformUtility.ScreenPointToLocalPointInRectangle (itemRectTransform, data.position, data.pressEventCamera, out positionOffset);
+		lerpMode = NO_LERP;
+		pointerStart = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
+		localRectStart = itemRectTransform.transform.localPosition;
 		parentList.resetOtherRows (this);
+		parentList.stopScrolling ();
+		verticalMode = false;
 	}
 
 	public void OnPointerUp(PointerEventData data) {
+		verticalMode = false;
 		//when point is up find out where the row is, and where it needs to go
 		int localX = Mathf.RoundToInt (itemRectTransform.localPosition.x);
-		if ((localX < -buttonOffset && localX >= -deleteOffset) || (lerpToPosition && localX <= -deleteOffset)) { //If row is between delete button trigger and show buttons trigger
-			lerpToPosition = false;																				  //or we were in the process of lerping to mouse position and are within delete trigger. 
-			lerpToButtons = true;																				  //this would happen if the user just crossed the line from the delete only trigger and 
-		} else if (localX >= -buttonOffset) {//less than show buttons, go to reset								  //then let go of the mouse. In either case, we want to bring the row back to show buttons.
-			lerpToButtons = false;
-			lerpToPosition = false;
-			lerpToReset = true;
-		} else if (localX < -deleteOffset && !lerpToPosition) {//passed the delete threshold and we aren't lerping back to position, delete row. 
+		if ((localX < buttonOffset && localX >= deleteOffset) || (lerpMode == LERP_TO_POSITION && localX <= deleteOffset)) { //If row is between delete button trigger and show buttons trigger
+																							  //or we were in the process of lerping to mouse position and are within delete trigger. 
+			lerpMode = LERP_TO_BUTTONS;																				  //this would happen if the user just crossed the line from the delete only trigger and 
+																												  //then let go of the mouse. In either case, we want to bring the row back to show buttons.
+		} else if (localX >= buttonOffset) {//less than show buttons, go to reset								  
+			lerpMode = LERP_TO_RESET;
+		} else if (localX < deleteOffset && lerpMode != LERP_TO_POSITION) {//passed the delete threshold and we aren't lerping back to position, delete row. 
 			DeleteButtonOnClickListener ();
 		} 
 	}
 
 	public void OnDrag(PointerEventData data) {
-		Vector2 localPointerPosition;
-		if (RectTransformUtility.ScreenPointToLocalPointInRectangle (canvasRectTransform, data.position, data.pressEventCamera, out localPointerPosition)) {//getting local pointer position
-			float newX = localPointerPosition.x + (itemRectTransform.rect.width / 2) - positionOffset.x; //Example: width of row is 1000. Pointer position may be 800 which is right side of row. positionOffset stores value from -500 to 500, in this case it would be 300. So half
+		Vector2 pointerPosition = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
+		//Vector2 localPointerPosition;
+		//RectTransformUtility.ScreenPointToLocalPointInRectangle (itemRectTransform, data.position, data.pressEventCamera, out localPointerPosition);
+
+		//Debug.Log (" Horizontal:" + horizontalMode + " Vertical:" + verticalMode + " StartX:" + pointerStart.x + " PosX:" + pointerPosition.x + " NewX:" + (pointerPosition.x - pointerStart.x) + " LocalStart:" + localRectStart.x);
+		//Debug.Log(itemRectTransform.anchoredPosition.y);
+		if (!horizontalMode && !verticalMode) {
+			if (Mathf.Abs (pointerPosition.x - pointerStart.x) > 15f) {
+				horizontalMode = true;
+			} else if (Mathf.Abs (pointerPosition.y - pointerStart.y) > 15f) {
+				verticalMode = true;
+			}
+		} 
+		if (horizontalMode) {
+			float newX = pointerPosition.x - pointerStart.x + localRectStart.x; //Example: width of row is 1000. Pointer position may be 800 which is right side of row. positionOffset stores value from -500 to 500, in this case it would be 300. So half
 			dragX = newX;																																	//of the row width (500) + 800 position - 300 offset = 1000, which is the starting postion of the row. 
-			//Debug.Log ("newX: " + newX + " localX: " + itemRectTransform.localPosition.x + " Delete: " + lerpToDelete + " Position: " + lerpToPosition);
 			if (newX > 0) { //trying to swipe right
 				newX = 0;
 			}
-			if (newX < -deleteOffset) { //passed delete threshold
-				lerpToDelete = true;
-				lerpToPosition = false;
-			} else if (newX >= -deleteOffset && Mathf.RoundToInt(itemRectTransform.localPosition.x) < -deleteOffset) {//just passed threshold off of delete
-				lerpToDelete = false; 
-				lerpToPosition = true;
+			if (newX < deleteOffset) { //passed delete threshold
+				lerpMode = LERP_TO_DELETE;
+			} else if (newX >= deleteOffset && Mathf.RoundToInt (itemRectTransform.localPosition.x) < deleteOffset) {//just passed threshold off of delete
+				lerpMode = LERP_TO_POSITION;
 			} else {//somewhere between start and delete threshold
 				itemRectTransform.localPosition = new Vector2 (newX, this.transform.localPosition.y);
 			}
+		}
+
+		if (verticalMode) {
+
 		}
 	}
 
@@ -132,7 +148,7 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	}
 
 	public void ResetRow() {
-		lerpToReset = true;
+		lerpMode = LERP_TO_RESET;
 	}
 
 	public void setItemDescription(string description) {
@@ -146,7 +162,7 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 
 	public void setItemPrice(float price) {
 		itemPrice = price;
-		itemPriceText.text = itemPrice.ToString();
+		itemPriceText.text = itemPrice.ToString("C");
 	}
 
 	public float getItemPrice() {

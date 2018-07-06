@@ -15,7 +15,7 @@ public class QRGenerator : MonoBehaviour {
 	{  
 		encoded = new Texture2D(256, 256);    
  
-		var color32 = Encode("Welcome to Sticker Price", encoded.width, encoded.height);  
+		var color32 = Encode("1.00|Welcome To Sticker Price", encoded.width, encoded.height);  
 		encoded.SetPixels32(color32);  
 		encoded.Apply();  
 

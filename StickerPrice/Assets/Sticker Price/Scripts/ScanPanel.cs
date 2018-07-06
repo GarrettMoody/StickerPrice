@@ -25,7 +25,7 @@ public class ScanPanel : MonoBehaviour {
 		previousResult = "";
 		scanDisplay.texture = camTexture;
 		scanDisplay.material.mainTexture = camTexture;
-		camTexture.Play ();
+		//camTexture.Play ();
 	}
 
 	void Update() {
@@ -60,9 +60,14 @@ public class ScanPanel : MonoBehaviour {
 		if (previousResult != result.Text) {
 			previousResult = result.Text;
 
-			ItemRow newItem = itemList.addItem ();
-			newItem.setItemDescription (result.Text);
+			String [] resultString = new string[2];
+			resultString = result.Text.Split ('|');
 
+			float itemPrice = float.Parse (resultString[0]);
+
+			ItemRow newItem = itemList.addItem ();
+			newItem.setItemDescription (resultString[1]);
+			newItem.setItemPrice (itemPrice);
 		}
 	}
 

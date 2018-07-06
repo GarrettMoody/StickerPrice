@@ -12,6 +12,7 @@ public class ItemList : MonoBehaviour {
 	private RectTransform viewport;
 	private RectTransform scrollPanel;
 	private float topOfListPos;
+	private float bottomOfListPos;
 	private List<ItemRow> itemList; 
 
 	// Use this for initialization
@@ -19,28 +20,54 @@ public class ItemList : MonoBehaviour {
 		scrollRect = this.GetComponent<ScrollRect> ();
 		viewport = (RectTransform)this.transform.Find ("Viewport");
 		scrollPanel = (RectTransform)viewport.transform.Find ("ContentPanel");
+		itemList = new List<ItemRow>(scrollPanel.GetComponentsInChildren<ItemRow>());
 		topOfListPos = scrollPanel.localPosition.y;
-		itemList = new List<ItemRow>(GetComponentsInChildren<ItemRow> ());
+		setBottomOfListPos ();
 	}
 
+
+	public void Update() {
+		MoveListToValidRange ();
+	}
+
+	public void MoveListToValidRange() {
+		if (!Input.GetMouseButton (0)) {
+			if (scrollPanel.transform.localPosition.y < topOfListPos) {//If you're at the top of the list, you can't scroll up. Lerp back down to top.
+				float newY = Mathf.Lerp (scrollPanel.transform.localPosition.y,
+					            topOfListPos,
+					            Time.deltaTime * 5f);
+
+				Vector2 newPosition = new Vector2 (scrollPanel.transform.localPosition.x, newY);
+				scrollPanel.transform.localPosition = newPosition;
+			}
+
+			if (scrollPanel.transform.localPosition.y > bottomOfListPos) {//If you're at the bottom of the list, you can't scroll down. Lerp back up to bottom.
+				float newY = Mathf.Lerp (scrollPanel.transform.localPosition.y,
+					            bottomOfListPos,
+					            Time.deltaTime * 5f);
+
+				Vector2 newPosition = new Vector2 (scrollPanel.transform.localPosition.x, newY);
+				scrollPanel.transform.localPosition = newPosition;
+			}
+		}
+	}
+		
 	public void OnValueChange() {
-		float verticalVelocity = Mathf.Abs (scrollRect.velocity.y);
-
-		if (verticalVelocity < 2f) {
-			scrollRect.velocity = Vector2.zero;
+		//Debug.Log ("OnValueChange");
+		if (Mathf.Abs(scrollRect.velocity.y) < 10f) {
+			scrollRect.StopMovement();
 		}
 
-		if (scrollPanel.transform.localPosition.y < topOfListPos) {
-			float newY = Mathf.Lerp (scrollPanel.transform.localPosition.y,
-							 topOfListPos,
-				             Time.deltaTime * 5f);
-
-			Vector2 newPosition = new Vector2 (scrollPanel.transform.localPosition.x, newY);
-			scrollPanel.transform.localPosition = newPosition;
+		if (!Input.GetMouseButton (0)) {
+			MoveListToValidRange ();
+			resetAllRows ();
 		}
 
-		resetAllRows ();
 
+	}
+
+	public void stopScrolling() {
+		scrollRect.StopMovement ();
 	}
 
 	public void removeItem(ItemRow item) {
@@ -87,6 +114,14 @@ public class ItemList : MonoBehaviour {
 			row.GetComponent<LayoutElement> ().ignoreLayout = true;
 		}
 
+		setBottomOfListPos ();
 		resetAllRows ();
+	}
+
+	public void setBottomOfListPos() {
+		//Takes number of items * the height of each item, will get you the bottom of the bottom item. We want the top of the bottom item so the 
+		//panel always shows at least one item. So we take the number of items - 1. 
+		bottomOfListPos = (itemList.Count - 1) * itemPrefab.GetComponent<RectTransform> ().rect.height + topOfListPos;
+		OnValueChange ();
 	}
 }
