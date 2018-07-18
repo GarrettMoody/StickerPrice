@@ -23,7 +23,6 @@ public class ScanPanel : MonoBehaviour
 	{
 		camTexture = new WebCamTexture (WebCamTexture.devices [0].name, 480, 640, 2);
 		itemList = this.transform.Find ("ContentPanel/ItemList").GetComponent<ItemList> ();
-		//camTexture.requestedFPS = 60;
 		previousResult = "";
 		scanDisplay.texture = camTexture;
 		scanDisplay.material.mainTexture = camTexture;
@@ -56,8 +55,6 @@ public class ScanPanel : MonoBehaviour
 		//Debug.Log (result.Text);
 		//camTexture.Stop ();
 
-		//ItemRow newItem = Instantiate (itemPrefab);
-		//newItem.transform.parent = this.transform.Find ("ContentPanel/ItemList/Viewport/ContentPanel").gameObject.transform;
 		if (previousResult != result.Text) {
 			previousResult = result.Text;
 
@@ -69,6 +66,7 @@ public class ScanPanel : MonoBehaviour
 			ItemRow newItem = itemList.addItem ();
 			newItem.setItemDescription (resultString [1]);
 			newItem.setItemPrice (itemPrice);
+			newItem.setItemOriginalPrice (itemPrice);
 		}
 	}
 
@@ -81,11 +79,9 @@ public class ScanPanel : MonoBehaviour
 	{
 		if (camTexture.isPlaying) {
 			camTexture.Stop ();
-			//ToggleCameraButton.GetComponent<Image>().color = new Color (255, 255, 255, 180);
 			ToggleCameraButton.image.color = new Color (1, 1, 1, .8f);
 		} else {
 			camTexture.Play ();
-			//ToggleCameraButton.GetComponent<Image>().color = new Color (255, 255, 255, 0);
 			ToggleCameraButton.image.color = new Color (1, 1, 1, 0);
 		}
 	}

@@ -41,7 +41,6 @@ public class ItemList : MonoBehaviour
 
 	public void MoveListToValidRange ()
 	{
-		//Debug.Log ("Lerping:" + isLerping + " Y:" + scrollPanel.transform.localPosition.y + " topPos:" + topOfListPos + " bottomPos:" + bottomOfListPos);
 		if (scrollPanel.transform.localPosition.y < topOfListPos - 5f || (scrollPanel.transform.localPosition.y > bottomOfListPos - 5f) && itemList.Count != 1) {
 			isLerping = true;
 		} else {
@@ -71,7 +70,6 @@ public class ItemList : MonoBehaviour
 
 	public void OnValueChange ()
 	{
-		//Debug.Log (scrollRect.velocity.y);
 		if (Mathf.Abs (scrollRect.velocity.y) < 10f) {
 			scrollRect.StopMovement ();
 		}
@@ -146,6 +144,7 @@ public class ItemList : MonoBehaviour
 		if (itemList != null) {
 			setItemTotal (itemList.Count);
 			if (itemList.Count > 0) {
+				setPriceTotal (0);
 				foreach (ItemRow row in itemList) {
 					setPriceTotal (priceTotal + row.getItemPrice ());
 				}

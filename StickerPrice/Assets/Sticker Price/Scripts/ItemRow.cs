@@ -13,18 +13,19 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	public Text itemPriceText;
 
 	//Private Variables
-	private string itemDescription;
-	private float itemPrice;
+	private string itemDescription = "New Item";
+	private float itemOriginalPrice = 10;
+	private float itemPrice = 10;
 	private ItemList parentList;
-	private RectTransform canvasRectTransform;
 	private RectTransform itemRectTransform;
 	private RectTransform contentRectTransform;
+	private AdjustPanel adjustPanel;
 
 	//Drag & Position Variables
 	private Vector2 pointerStart;
 	private Vector2 localRectStart;
 	private Vector2 contentStart;
-	private bool pointerDown = false;
+	//	private bool pointerDown = false;
 	private int lerpMode = 0;
 	private bool horizontalMode = false;
 	private bool verticalMode = false;
@@ -76,12 +77,11 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	void Awake ()
 	{
 		//initilizing variables
-		Canvas canvas = this.GetComponentInParent<Canvas> ();
-		canvasRectTransform = (RectTransform)canvas.transform;
 		itemRectTransform = (RectTransform)this.transform;
 		contentRectTransform = this.transform.parent.GetComponent <RectTransform> ();
 		lerpMode = NO_LERP;
 		parentList = GetComponentInParent<ItemList> ();
+		adjustPanel = parentList.transform.parent.parent.Find ("Popup").GetComponentInChildren <AdjustPanel> ();
 	}
 
 	public void OnPointerDown (PointerEventData data)
@@ -170,6 +170,12 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 		parentList.removeItem (this);
 	}
 
+	public void AdjustButtonOnClickListener ()
+	{
+		adjustPanel.openAdjustPanel (this);
+		ResetRow ();
+	}
+
 	public void ResetRow ()
 	{
 		lerpMode = LERP_TO_RESET;
@@ -196,5 +202,15 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	public float getItemPrice ()
 	{
 		return itemPrice;
+	}
+
+	public void setItemOriginalPrice (float price)
+	{
+		itemOriginalPrice = price;
+	}
+
+	public float getItemOriginalPrice ()
+	{
+		return itemOriginalPrice;
 	}
 }

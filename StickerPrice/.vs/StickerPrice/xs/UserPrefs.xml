@@ -1,0 +1,19 @@
+﻿<Properties StartupConfiguration="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/MainMenu.cs">
+    <Files>
+      <File FileName="Assets/Sticker Price/Scripts/PriceModeButton.cs" Line="38" Column="3" />
+      <File FileName="Assets/Sticker Price/Scripts/ItemList.cs" Line="1" Column="1" />
+      <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="1" Column="1" />
+      <File FileName="Assets/Sticker Price/Scripts/ItemRow.cs" Line="1" Column="1" />
+      <File FileName="Assets/Sticker Price/Scripts/AdjustPanel.cs" Line="75" Column="54" />
+      <File FileName="Assets/Sticker Price/Scripts/MainMenu.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
