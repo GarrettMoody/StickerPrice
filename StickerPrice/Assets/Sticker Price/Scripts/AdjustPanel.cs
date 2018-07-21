@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class AdjustPanel : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class AdjustPanel : MonoBehaviour
 	public Text adjustedPriceText;
 
 	private ItemRow itemRow;
+    private GameObject numberButtonsPanel;
 
 	//Price Variables
 	private float adjustedPrice;
@@ -30,7 +32,6 @@ public class AdjustPanel : MonoBehaviour
 	private const string DOLLARS_SET = "SetDollars";
 	private const string PERCENT_OFF = "PercentOff";
 	private const string PERCENT_SET = "SetPercent";
-
 
 	public void openAdjustPanel (ItemRow row)
 	{
@@ -180,11 +181,29 @@ public class AdjustPanel : MonoBehaviour
 
 	public void onPriceModeChange ()
 	{
+        //set all price mode text to black
+        foreach (Toggle toggle in modeButtonPanel.GetComponentsInChildren<Toggle>()) {
+            toggle.GetComponentInChildren<Text>().color = new Color32(0, 0, 0, 255); //black
+        }
 		IEnumerable<Toggle> activeToggle = modeButtonPanel.ActiveToggles ();
 
+        //set selected price mode text to white
+        activeToggle.First().GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 255); //white
 		priceMode = activeToggle.First ().name;
 
 		setInputFieldText (inputFieldValue);
 		calculatePriceFields ();
 	}
+
+    public void onNumberButtonDown() {
+        Button button = (Button)EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+        button.GetComponent<Image>().color = new Color32(0x3F, 0xAE, 0x2A, 0xFF); //theme green
+        button.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 255); //white
+    }
+
+    public void onNumberButtonUp() {
+        Button button = (Button)EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+        button.GetComponent<Image>().color = new Color32(255, 255, 255, 255); //white
+        button.GetComponentInChildren<Text>().color = new Color32(0x3F, 0xAE, 0x2A, 0xFF); //theme green
+    }
 }
