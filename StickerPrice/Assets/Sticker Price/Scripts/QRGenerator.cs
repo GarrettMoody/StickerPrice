@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using ZXing;
 using ZXing.QrCode;
+using PdfSharp;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.AcroForms;
+using PdfSharp.Pdf.IO;
 
 public class QRGenerator : MonoBehaviour
 {
@@ -37,8 +41,18 @@ public class QRGenerator : MonoBehaviour
 		return writer.Write (textForEncoding);  
 	}
 
-	void OnGUI ()
-	{  
-		GUI.DrawTexture (new Rect (100, 100, 256, 256), encoded);  
-	}
+    public void onButtonClick() {
+        PdfDocument pdf = PdfReader.Open("SampleTest.pdf", PdfDocumentOpenMode.Modify);
+        if(pdf != null) {
+            PdfTextField textField = (PdfTextField)pdf.AcroForm.Fields["Text1"];
+            if (textField != null)
+            {
+                PdfString newValue = new PdfString("Hello World");
+                textField.Value = newValue;
+
+                pdf.Save("SampleTest.pdf");
+                pdf.Close();
+            }
+        }
+    }
 }
