@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using ZXing;
 using ZXing.QrCode;
+using UnityEngine.UI;
+using System.IO;
+
 
 public class QRGenerator : MonoBehaviour
 {
-
 	public Texture2D encoded;
 	public string Lastresult;
 
-	//public RawImage ima;
+	public RawImage ima;
+    public RawImage template;
 
 	void Start ()
 	{  
@@ -18,9 +21,9 @@ public class QRGenerator : MonoBehaviour
  
 		var color32 = Encode ("I Love Sticker Price", encoded.width, encoded.height);  
 		encoded.SetPixels32 (color32);  
-		encoded.Apply ();  
+		encoded.Apply ();
 
-		//ima.texture = encoded;  
+		ima.texture = encoded;  
 
 	}
 
@@ -37,8 +40,24 @@ public class QRGenerator : MonoBehaviour
 		return writer.Write (textForEncoding);  
 	}
 
-	void OnGUI ()
-	{  
-		GUI.DrawTexture (new Rect (100, 100, 256, 256), encoded);  
-	}
+    public void onButtonClicked() {
+        StartCoroutine(takeScreenshot());
+    }
+
+    public IEnumerator takeScreenshot() {
+        yield return new WaitForEndOfFrame();
+
+        int width = System.Convert.ToInt32(template.rectTransform.rect.width);
+        int height = System.Convert.ToInt32(template.rectTransform.rect.height);
+        Vector2 temp = template.rectTransform.transform.position;
+        float startX = temp.x - width / 2;
+        float startY = temp.y - height / 2;
+
+        Texture2D texture = new Texture2D(width, height, TextureFormat.RGB24, false);
+        texture.ReadPixels(new Rect(startX, startY, width, height), 0, 0);
+        texture.Apply();
+
+        byte[] bytes = texture.EncodeToPNG();
+        File.WriteAllBytes(Application.dataPath + "Screenshot.jpg", bytes);
+    }
 }

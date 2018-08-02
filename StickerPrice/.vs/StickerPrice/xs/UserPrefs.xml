@@ -1,14 +1,8 @@
 ﻿<Properties StartupConfiguration="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/AdjustPanel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/QRGenerator.cs">
     <Files>
-      <File FileName="Assets/Sticker Price/Scripts/PriceModeButton.cs" Line="38" Column="3" />
-      <File FileName="Assets/Sticker Price/Scripts/ItemList.cs" Line="1" Column="1" />
-      <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/Sticker Price/Scripts/ItemRow.cs" Line="1" Column="1" />
-      <File FileName="Assets/Sticker Price/Scripts/AdjustPanel.cs" Line="75" Column="54" />
-      <File FileName="Assets/Sticker Price/Scripts/MainMenu.cs" Line="35" Column="46" />
-      <File FileName="Assets/Sticker Price/Scripts/QRGenerator.cs" Line="19" Column="46" />
+      <File FileName="Assets/Sticker Price/Scripts/QRGenerator.cs" Line="9" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -16,5 +10,11 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
+  <MultiItemStartupConfigurations>
+    <MultiItemSolutionRunConfiguration Id="__IOS__" Name="__IOS__">
+      <Items>
+        <StartupItem ItemId="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}" ItemName="Assembly-CSharp" />
+      </Items>
+    </MultiItemSolutionRunConfiguration>
+  </MultiItemStartupConfigurations>
 </Properties>

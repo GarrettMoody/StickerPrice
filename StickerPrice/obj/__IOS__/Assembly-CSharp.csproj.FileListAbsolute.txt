@@ -1,0 +1,2 @@
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/__IOS__/Assembly-CSharp.csprojResolveAssemblyReference.cache
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/__IOS__/Assembly-CSharp.csproj.CoreCompileInputs.cache
