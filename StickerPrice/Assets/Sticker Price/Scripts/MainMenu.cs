@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour {
 	private Button printButton;
 	private Button scanButton;
 	private Button trackButton;
-    public GameObject createMenu;
+    public GameObject stickerFormatMenu;
     public GameObject scanPanel;
 
 
@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour {
 	
 	public void createButtonOnClickListener() {
         this.gameObject.SetActive(false);
-        createMenu.gameObject.SetActive(true);
+        stickerFormatMenu.gameObject.SetActive(true);
 	}
 
 	public void printButtonOnClickListener() {

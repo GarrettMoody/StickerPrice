@@ -12,7 +12,6 @@ public class QRGenerator : MonoBehaviour
 	public Texture2D encoded;
 	public string Lastresult;
 
-	public RawImage ima;
     public RawImage template;
 
 	void Start ()
@@ -23,8 +22,12 @@ public class QRGenerator : MonoBehaviour
 		encoded.SetPixels32 (color32);  
 		encoded.Apply ();
 
-		ima.texture = encoded;  
-
+        RawImage [] QRCodes = template.GetComponentsInChildren<RawImage>();
+        foreach(RawImage image in QRCodes) {
+            if(image.name != "Template") {
+                image.texture = encoded;
+            }
+        }
 	}
 
 	// for generate qrcode

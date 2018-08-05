@@ -33,6 +33,12 @@ public class AdjustPanel : MonoBehaviour
 	private const string PERCENT_OFF = "PercentOff";
 	private const string PERCENT_SET = "SetPercent";
 
+    //Constants
+    Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
+    Color32 RED = new Color32(0xE2, 0x23, 0x1A, 0xFF);
+    Color32 WHITE = new Color32(255, 255, 255, 255);
+    Color32 DARK_GREY = new Color32(0x52, 0x53, 0x49, 0xFF);
+
 	public void openAdjustPanel (ItemRow row)
 	{
 		itemRow = row;
@@ -75,9 +81,9 @@ public class AdjustPanel : MonoBehaviour
 		itemRow.setItemPrice (adjustedPrice);
 		this.transform.parent.gameObject.SetActive (false);
 		if (adjustedPrice != itemRow.getItemOriginalPrice ()) {
-			itemRow.itemPriceText.color = new Color32 (0xE2, 0x23, 0x1A, 0xFF);
+            itemRow.itemPriceText.color = RED;
 		} else {
-			itemRow.itemPriceText.color = new Color32 (0x52, 0x53, 0x49, 0xFF);
+            itemRow.itemPriceText.color = DARK_GREY;
 		}
 	}
 
@@ -188,7 +194,7 @@ public class AdjustPanel : MonoBehaviour
 		IEnumerable<Toggle> activeToggle = modeButtonPanel.ActiveToggles ();
 
         //set selected price mode text to white
-        activeToggle.First().GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 255); //white
+        activeToggle.First().GetComponentInChildren<Text>().color = WHITE; //white
 		priceMode = activeToggle.First ().name;
 
 		setInputFieldText (inputFieldValue);
@@ -197,13 +203,13 @@ public class AdjustPanel : MonoBehaviour
 
     public void onNumberButtonDown() {
         Button button = (Button)EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-        button.GetComponent<Image>().color = new Color32(0x3F, 0xAE, 0x2A, 0xFF); //theme green
-        button.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 255); //white
+        button.GetComponent<Image>().color = THEME_GREEN; 
+        button.GetComponentInChildren<Text>().color = WHITE; 
     }
 
     public void onNumberButtonUp() {
         Button button = (Button)EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-        button.GetComponent<Image>().color = new Color32(255, 255, 255, 255); //white
-        button.GetComponentInChildren<Text>().color = new Color32(0x3F, 0xAE, 0x2A, 0xFF); //theme green
+        button.GetComponent<Image>().color = WHITE; 
+        button.GetComponentInChildren<Text>().color = THEME_GREEN;
     }
 }
