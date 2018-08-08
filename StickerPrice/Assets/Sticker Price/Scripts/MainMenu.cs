@@ -9,19 +9,27 @@ public class MainMenu : MonoBehaviour {
 	private Button printButton;
 	private Button scanButton;
 	private Button trackButton;
+    private Button moreButton;
     public GameObject stickerFormatMenu;
     public GameObject scanPanel;
+    public GameObject moreMenu;
 
 
 	// Use this for initialization
 	void Start () {
-		createButton = (Button)this.GetComponent ("CreateButton");
-		printButton = (Button)this.GetComponent ("PrintButton");
-		scanButton = (Button)this.GetComponent ("ScanButton");
-		trackButton = (Button)this.GetComponent ("TrackButton");
+        createButton = (Button)this.transform.Find("MenuButtons/CreateButton").gameObject.GetComponent<Button>();
+        createButton.onClick.AddListener(createButtonOnClickListener);
+        printButton = (Button)this.transform.Find ("MenuButtons/PrintButton").gameObject.GetComponent<Button>();
+        printButton.onClick.AddListener(printButtonOnClickListener);
+        scanButton = (Button)this.transform.Find ("MenuButtons/ScanButton").gameObject.GetComponent<Button>();
+        scanButton.onClick.AddListener(scanButtonOnClickListener);
+        trackButton = (Button)this.transform.Find ("MenuButtons/TrackButton").gameObject.GetComponent<Button>();
+        trackButton.onClick.AddListener(trackButtonOnClickListener);
+        moreButton = (Button)this.transform.Find("MoreButton").gameObject.GetComponent<Button>();
+        moreButton.onClick.AddListener(moreButtonOnClickListener);
 	}
 	
-	public void createButtonOnClickListener() {
+	void createButtonOnClickListener() {
         this.gameObject.SetActive(false);
         stickerFormatMenu.gameObject.SetActive(true);
 	}
@@ -39,4 +47,8 @@ public class MainMenu : MonoBehaviour {
 
 	}
 
+    public void moreButtonOnClickListener() {
+        this.gameObject.SetActive(false);
+        moreMenu.gameObject.SetActive(true);
+    }
 }
