@@ -10,10 +10,10 @@ public class ItemList : MonoBehaviour
 	public ItemRow itemPrefab;
 	public Text priceTotalText;
 	public Text itemsTotalText;
+    public ScrollRect scrollRect;
+    public RectTransform viewport;
+    public RectTransform contentPanel;
 
-	private ScrollRect scrollRect;
-	private RectTransform viewport;
-	private RectTransform scrollPanel;
 	private float bottomOfListPos;
 	private List<ItemRow> itemList;
 
@@ -26,10 +26,7 @@ public class ItemList : MonoBehaviour
 	void Start ()
 	{
 		calculateItemsAndPrice ();
-		scrollRect = this.GetComponent<ScrollRect> ();
-		viewport = (RectTransform)this.transform.Find ("Viewport");
-		scrollPanel = (RectTransform)viewport.transform.Find ("ContentPanel");
-		itemList = new List<ItemRow> (scrollPanel.GetComponentsInChildren<ItemRow> ());
+		itemList = new List<ItemRow> (contentPanel.GetComponentsInChildren<ItemRow> ());
 		setBottomOfListPos ();
 	}
 
@@ -41,29 +38,29 @@ public class ItemList : MonoBehaviour
 
 	public void MoveListToValidRange ()
 	{
-		if (scrollPanel.transform.localPosition.y < topOfListPos - 5f || (scrollPanel.transform.localPosition.y > bottomOfListPos - 5f) && itemList.Count != 1) {
+		if (contentPanel.transform.localPosition.y < topOfListPos - 5f || (contentPanel.transform.localPosition.y > bottomOfListPos - 5f) && itemList.Count != 1) {
 			isLerping = true;
 		} else {
 			isLerping = false;
 		}
 
 		if (!Input.GetMouseButton (0)) {
-			if (scrollPanel.transform.localPosition.y < topOfListPos - 5f) {//If you're at the top of the list, you can't scroll up. Lerp back down to top.
-				float newY = Mathf.Lerp (scrollPanel.transform.localPosition.y,
+			if (contentPanel.transform.localPosition.y < topOfListPos - 5f) {//If you're at the top of the list, you can't scroll up. Lerp back down to top.
+				float newY = Mathf.Lerp (contentPanel.transform.localPosition.y,
 					             topOfListPos,
 					             Time.deltaTime * 10f);
 
-				Vector2 newPosition = new Vector2 (scrollPanel.transform.localPosition.x, newY);
-				scrollPanel.transform.localPosition = newPosition;
+				Vector2 newPosition = new Vector2 (contentPanel.transform.localPosition.x, newY);
+				contentPanel.transform.localPosition = newPosition;
 			}
 
-			if (scrollPanel.transform.localPosition.y > bottomOfListPos - 5f) {//If you're at the bottom of the list, you can't scroll down. Lerp back up to bottom.
-				float newY = Mathf.Lerp (scrollPanel.transform.localPosition.y,
+			if (contentPanel.transform.localPosition.y > bottomOfListPos - 5f) {//If you're at the bottom of the list, you can't scroll down. Lerp back up to bottom.
+				float newY = Mathf.Lerp (contentPanel.transform.localPosition.y,
 					             bottomOfListPos,
 					             Time.deltaTime * 10f);
 
-				Vector2 newPosition = new Vector2 (scrollPanel.transform.localPosition.x, newY);
-				scrollPanel.transform.localPosition = newPosition;
+				Vector2 newPosition = new Vector2 (contentPanel.transform.localPosition.x, newY);
+				contentPanel.transform.localPosition = newPosition;
 			}
 		}
 	}
@@ -96,9 +93,9 @@ public class ItemList : MonoBehaviour
 	public ItemRow addItem ()
 	{
 
-		ItemRow newItem = Instantiate (itemPrefab, scrollPanel.transform);
+		ItemRow newItem = Instantiate (itemPrefab, contentPanel.transform);
 		newItem.GetComponent<LayoutElement> ().ignoreLayout = false;
-		newItem.transform.SetParent (scrollPanel.transform);
+		newItem.transform.SetParent (contentPanel.transform);
 		newItem.transform.SetAsLastSibling ();
 		itemList.Add (newItem);
 

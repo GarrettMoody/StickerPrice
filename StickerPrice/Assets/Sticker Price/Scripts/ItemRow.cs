@@ -25,7 +25,7 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	private Vector2 pointerStart;
 	private Vector2 localRectStart;
 	private Vector2 contentStart;
-	//	private bool pointerDown = false;
+
 	private int lerpMode = 0;
 	private bool horizontalMode = false;
 	private bool verticalMode = false;

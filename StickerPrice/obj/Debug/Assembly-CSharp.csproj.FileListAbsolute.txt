@@ -1,4 +1,3 @@
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.csprojResolveAssemblyReference.cache
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Assembly-CSharp.dll
@@ -249,3 +248,5 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.IvyParser.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.pdb
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.csproj.CopyComplete

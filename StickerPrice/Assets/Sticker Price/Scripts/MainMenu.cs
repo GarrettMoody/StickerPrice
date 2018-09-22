@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
 
-	private Button createButton;
-	private Button printButton;
-	private Button scanButton;
-	private Button trackButton;
-    private Button moreButton;
+    public Button createButton;
+	public Button printButton;
+	public Button scanButton;
+    public Button trackButton;
+    public Button moreButton;
     public GameObject stickerFormatMenu;
     public GameObject scanPanel;
     public GameObject moreMenu;
@@ -17,19 +17,10 @@ public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        createButton = (Button)this.transform.Find("MenuButtons/CreateButton").gameObject.GetComponent<Button>();
-        createButton.onClick.AddListener(createButtonOnClickListener);
-        printButton = (Button)this.transform.Find ("MenuButtons/PrintButton").gameObject.GetComponent<Button>();
-        printButton.onClick.AddListener(printButtonOnClickListener);
-        scanButton = (Button)this.transform.Find ("MenuButtons/ScanButton").gameObject.GetComponent<Button>();
-        scanButton.onClick.AddListener(scanButtonOnClickListener);
-        trackButton = (Button)this.transform.Find ("MenuButtons/TrackButton").gameObject.GetComponent<Button>();
-        trackButton.onClick.AddListener(trackButtonOnClickListener);
-        moreButton = (Button)this.transform.Find("MoreButton").gameObject.GetComponent<Button>();
-        moreButton.onClick.AddListener(moreButtonOnClickListener);
+
 	}
 	
-	void createButtonOnClickListener() {
+	public void createButtonOnClickListener() {
         this.gameObject.SetActive(false);
         stickerFormatMenu.gameObject.SetActive(true);
 	}

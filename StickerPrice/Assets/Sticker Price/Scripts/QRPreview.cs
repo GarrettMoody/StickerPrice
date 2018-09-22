@@ -10,11 +10,13 @@ public class QRPreview : MonoBehaviour {
     public float LERP_SPEED = 5f;
 
     //Private Variables
-    private ScrollRect scrollRect;
+    public ScrollRect scrollRect;
+    private GameObject[] valueComponent;
     private Vector2[] valueComponentCenters;
-    private Vector2 scrollOffset;
-    private GameObject content;
-    private GameObject viewport;
+    public Vector2 scrollOffset;
+    public GameObject viewport;
+    public GameObject content;
+
 
     private bool isScrolling = false;
     private bool isMoving = false;
@@ -23,22 +25,14 @@ public class QRPreview : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        scrollRect = this.GetComponent<ScrollRect>();
-        content = scrollRect.content.gameObject;
-        viewport = scrollRect.viewport.gameObject;
         horizontal = scrollRect.horizontal;
-
-        valueComponentCenters = new Vector2[content.transform.childCount];
-
-        int i = 0;
-        foreach(Transform child in content.transform) {
-            RectTransform rect = child.gameObject.GetComponent<RectTransform>();
-            valueComponentCenters[i] = rect.localPosition;
-            i++;
+        valueComponent = content.GetComponentsInChildren<GameObject>();
+        valueComponentCenters = new Vector2[valueComponent.Length];
+        for (int i = 0; i < valueComponent.Length; i++) {
+            valueComponentCenters[i] = valueComponent[i].gameObject.GetComponent<RectTransform>().rect.position;
         }
-
+       
         scrollOffset = valueComponentCenters[0];
-
     }
 
     // Update is called once per frame
@@ -50,13 +44,14 @@ public class QRPreview : MonoBehaviour {
             { //We are moving, but too slow to scroll. Time to lerp to position.
                 List<float> distancesFromCenter = new List<float>();
 
+                //do math for horizontal movement
                 if (horizontal)
                 {
                     foreach (Vector2 position in valueComponentCenters)
                     {
                         distancesFromCenter.Add(Mathf.Abs(-content.transform.localPosition.x + scrollOffset.x - position.x));
                     }
-                } else {
+                } else { //math for verticle movement
                     foreach (Vector2 position in valueComponentCenters)
                     {
                         distancesFromCenter.Add(Mathf.Abs(-content.transform.localPosition.y + scrollOffset.y - position.y));
