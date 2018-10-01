@@ -19,6 +19,9 @@ public class StickerDetailMenu : MonoBehaviour {
     public InputField price;
     public ToggleGroup colorCode;
     public GameObject qrPreviewContent;
+    public Toggle descriptionVisible;
+    public Toggle ownerVisible;
+    public Toggle priceVisible;
     private QROption[] qrOptions;
 
 	// Use this for initialization
@@ -97,5 +100,25 @@ public class StickerDetailMenu : MonoBehaviour {
         this.gameObject.SetActive(true);
         templateNumberText.text = "Template - " + templateNumber.ToString();
 
+    }
+
+    public void OnDescriptionToggle() {
+        foreach(QROption option in qrOptions) {
+            option.description.gameObject.SetActive(descriptionVisible.isOn);
+        }
+    }
+
+    public void OnOwnerToggle() {
+        foreach (QROption option in qrOptions)
+        {
+            option.productOwner.gameObject.SetActive(ownerVisible.isOn);
+        }
+    }
+
+    public void OnPriceToggle() {
+        foreach (QROption option in qrOptions)
+        {
+            option.price.gameObject.SetActive(priceVisible.isOn);
+        }
     }
 }

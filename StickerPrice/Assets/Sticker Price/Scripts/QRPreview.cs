@@ -13,7 +13,7 @@ public class QRPreview : MonoBehaviour {
     public ScrollRect scrollRect;
     private GameObject[] valueComponent;
     private Vector2[] valueComponentCenters;
-    public Vector2 scrollOffset;
+    private Vector2 scrollOffset;
     public GameObject viewport;
     public GameObject content;
 
@@ -26,10 +26,13 @@ public class QRPreview : MonoBehaviour {
     void Start()
     {
         horizontal = scrollRect.horizontal;
-        valueComponent = content.GetComponentsInChildren<GameObject>();
+        valueComponent = new GameObject[content.transform.childCount];
+        for (int i = 0; i < content.transform.childCount; i++) {
+            valueComponent[i] = content.transform.GetChild(i).gameObject;
+        }
         valueComponentCenters = new Vector2[valueComponent.Length];
         for (int i = 0; i < valueComponent.Length; i++) {
-            valueComponentCenters[i] = valueComponent[i].gameObject.GetComponent<RectTransform>().rect.position;
+            valueComponentCenters[i] = valueComponent[i].gameObject.GetComponent<RectTransform>().localPosition;
         }
        
         scrollOffset = valueComponentCenters[0];
