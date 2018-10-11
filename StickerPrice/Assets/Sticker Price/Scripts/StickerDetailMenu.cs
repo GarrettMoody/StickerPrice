@@ -138,25 +138,26 @@ public class StickerDetailMenu : MonoBehaviour {
 
     public void OnQuantityAddButtonClick() 
     {
-        if(quantity != null)
+        int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0" );
+        if (qty < 999999)
         {
-            quantity.text = (int.Parse(quantity.text) + 1).ToString();
-        }
-        else
+            quantity.text = (qty + 1).ToString();
+        } else
         {
-            quantity.text = "1";
+            quantity.text = "999999";
         }
     }
 
     public void OnQuantityMinusButtonClick()
     {
-        if (quantity != null)
+        int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
+        if (qty > 0)
         {
-            quantity.text = (int.Parse(quantity.text) - 1).ToString();
+            quantity.text = (qty - 1).ToString();
         }
         else
         {
-            quantity.text = "1";
+            quantity.text = "0";
         }
     }
 }
