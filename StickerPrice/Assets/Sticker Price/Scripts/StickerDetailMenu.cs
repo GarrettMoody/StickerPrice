@@ -14,7 +14,7 @@ public class StickerDetailMenu : MonoBehaviour {
     //Private Variables
     public Text templateNumberText;
     public InputField description;
-    public InputField numberOfStickers;
+    public InputField quantity;
     public InputField productOwner;
     public InputField price;
     public ToggleGroup colorCode;
@@ -24,8 +24,21 @@ public class StickerDetailMenu : MonoBehaviour {
     public Toggle priceVisible;
     private QROption[] qrOptions;
 
-	// Use this for initialization
-	void Awake () {
+    public InputField Quantity
+    {
+        get
+        {
+            return quantity;
+        }
+
+        set
+        {
+            quantity = value;
+        }
+    }
+
+    // Use this for initialization
+    void Awake () {
 
         qrOptions = qrPreviewContent.GetComponentsInChildren<QROption>();
 
@@ -58,6 +71,7 @@ public class StickerDetailMenu : MonoBehaviour {
         UpdateQRCode();
         foreach(QROption option in qrOptions) {
             option.setDescription(description.text);
+
         }
     }
 
@@ -119,6 +133,30 @@ public class StickerDetailMenu : MonoBehaviour {
         foreach (QROption option in qrOptions)
         {
             option.price.gameObject.SetActive(priceVisible.isOn);
+        }
+    }
+
+    public void OnQuantityAddButtonClick() 
+    {
+        if(quantity != null)
+        {
+            quantity.text = (int.Parse(quantity.text) + 1).ToString();
+        }
+        else
+        {
+            quantity.text = "1";
+        }
+    }
+
+    public void OnQuantityMinusButtonClick()
+    {
+        if (quantity != null)
+        {
+            quantity.text = (int.Parse(quantity.text) - 1).ToString();
+        }
+        else
+        {
+            quantity.text = "1";
         }
     }
 }
