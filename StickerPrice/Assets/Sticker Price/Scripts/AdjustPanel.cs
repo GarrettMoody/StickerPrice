@@ -34,49 +34,49 @@ public class AdjustPanel : MonoBehaviour
 	private const string PERCENT_SET = "SetPercent";
 
     //Constants
-    Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
-    Color32 RED = new Color32(0xE2, 0x23, 0x1A, 0xFF);
-    Color32 WHITE = new Color32(255, 255, 255, 255);
-    Color32 DARK_GREY = new Color32(0x52, 0x53, 0x49, 0xFF);
+    readonly Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
+    readonly Color32 RED = new Color32(0xE2, 0x23, 0x1A, 0xFF);
+    readonly Color32 WHITE = new Color32(255, 255, 255, 255);
+    readonly Color32 DARK_GREY = new Color32(0x52, 0x53, 0x49, 0xFF);
 
-	public void openAdjustPanel (ItemRow row)
+	public void OpenAdjustPanel (ItemRow row)
 	{
 		itemRow = row;
-		initializeVariables ();
+		InitializeVariables ();
 		this.transform.parent.gameObject.SetActive (true);
 		this.gameObject.SetActive (true);
 	}
 
-	private void initializeVariables ()
+    private void InitializeVariables ()
 	{
-		setItemDescriptionText (itemRow.getItemDescription ());
-		setOriginalPrice (itemRow.getItemOriginalPrice ());
-		setInputFieldValue (0);
+		SetItemDescriptionText (itemRow.getItemDescription ());
+		SetOriginalPrice (itemRow.getItemOriginalPrice ());
+		SetInputFieldValue (0);
 		adjustedPrice = originalPrice;
 	}
 
-	public void onNumberButtonPress (int number)
+    public void OnNumberButtonPress (int number)
 	{
-		setInputFieldValue (float.Parse (inputFieldValue.ToString () + number.ToString ()));
+		SetInputFieldValue (float.Parse (inputFieldValue.ToString () + number.ToString ()));
 	}
 
-	public void onDoubleZeroButtonPress ()
+    public void OnDoubleZeroButtonPress ()
 	{
-		setInputFieldValue (float.Parse (inputFieldValue.ToString () + "00"));
+		SetInputFieldValue (float.Parse (inputFieldValue.ToString () + "00"));
 	}
 
-	public void onClearButtonPress ()
+    public void OnClearButtonPress ()
 	{
-		initializeVariables ();
+		InitializeVariables ();
 	}
 
-	public void onCancelButtonPress ()
+    public void OnCancelButtonPress ()
 	{
 		this.transform.parent.gameObject.SetActive (false);
 		this.gameObject.SetActive (false);
 	}
 
-	public void onAcceptButtonPress ()
+    public void OnAcceptButtonPress ()
 	{
 		itemRow.setItemPrice (adjustedPrice);
 		this.transform.parent.gameObject.SetActive (false);
@@ -87,12 +87,12 @@ public class AdjustPanel : MonoBehaviour
 		}
 	}
 
-	public void setItemDescriptionText (string text)
+    public void SetItemDescriptionText (string text)
 	{
 		itemDescription.text = text;
 	}
 
-	public void setInputFieldText (float value)
+    public void SetInputFieldText (float value)
 	{
 		if (priceMode == DOLLARS_SET || priceMode == DOLLARS_OFF) {
 			float dollarValue = value / 100;
@@ -104,51 +104,51 @@ public class AdjustPanel : MonoBehaviour
 
 	}
 
-	private void setAdjustedPrice (float value)
+    private void SetAdjustedPrice (float value)
 	{
 		adjustedPrice = value;
 		adjustedPriceText.text = adjustedPrice.ToString ("C");
 	}
 
-	private float getAdjustedPrice ()
+    private float GetAdjustedPrice ()
 	{
 		return adjustedPrice;
 	}
 
-	private void setOriginalPrice (float value)
+    private void SetOriginalPrice (float value)
 	{
 		originalPrice = value;
 		originalPriceText.text = originalPrice.ToString ("C");
 	}
 
-	private float getOriginalPrice ()
+    private float GetOriginalPrice ()
 	{
 		return originalPrice;
 	}
 
-	private void setDollarDiscount (float value)
+    private void SetDollarDiscount (float value)
 	{
 		dollarDiscount = value;
 		dollarDiscountText.text = dollarDiscount.ToString ("C");
 	}
 
-	private float getDollarDisount ()
+    private float GetDollarDisount ()
 	{
 		return dollarDiscount;
 	}
 
-	private void setPercentDiscount (float value)
+    private void SetPercentDiscount (float value)
 	{
 		percentDiscount = value;
 		percentDiscountText.text = "  " + percentDiscount.ToString ("P1");
 	}
 
-	private float getPercentDiscount ()
+    private float GetPercentDiscount ()
 	{
 		return percentDiscount;
 	}
 
-	private void setInputFieldValue (float value)
+    private void SetInputFieldValue (float value)
 	{
 		inputFieldValue = value;
 		float calculatedValue;
@@ -160,32 +160,32 @@ public class AdjustPanel : MonoBehaviour
 			inputField.text = calculatedValue.ToString ("P");
 		}
 
-		calculatePriceFields ();
+		CalculatePriceFields ();
 	}
 
-	public void calculatePriceFields ()
+    public void CalculatePriceFields ()
 	{
 		float calculatedValue = inputFieldValue / 100;
 		if (priceMode == DOLLARS_OFF) {
-			setDollarDiscount (calculatedValue);
-			setPercentDiscount (dollarDiscount / originalPrice);
-			setAdjustedPrice (originalPrice - dollarDiscount);
+			SetDollarDiscount (calculatedValue);
+			SetPercentDiscount (dollarDiscount / originalPrice);
+			SetAdjustedPrice (originalPrice - dollarDiscount);
 		} else if (priceMode == DOLLARS_SET) {
-			setDollarDiscount (originalPrice - calculatedValue);
-			setPercentDiscount (dollarDiscount / originalPrice);
-			setAdjustedPrice (calculatedValue);
+			SetDollarDiscount (originalPrice - calculatedValue);
+			SetPercentDiscount (dollarDiscount / originalPrice);
+			SetAdjustedPrice (calculatedValue);
 		} else if (priceMode == PERCENT_OFF) {
-			setDollarDiscount (calculatedValue / 100 * originalPrice);
-			setPercentDiscount (calculatedValue / 100);
-			setAdjustedPrice (originalPrice - dollarDiscount);
+			SetDollarDiscount (calculatedValue / 100 * originalPrice);
+			SetPercentDiscount (calculatedValue / 100);
+			SetAdjustedPrice (originalPrice - dollarDiscount);
 		} else if (priceMode == PERCENT_SET) {
-			setDollarDiscount ((100 - calculatedValue) / 100 * originalPrice);
-			setPercentDiscount ((100 - calculatedValue) / 100);
-			setAdjustedPrice (originalPrice - dollarDiscount);
+			SetDollarDiscount ((100 - calculatedValue) / 100 * originalPrice);
+			SetPercentDiscount ((100 - calculatedValue) / 100);
+			SetAdjustedPrice (originalPrice - dollarDiscount);
 		} 
 	}
 
-	public void onPriceModeChange ()
+    public void OnPriceModeChange ()
 	{
         //set all price mode text to black
         foreach (Toggle toggle in modeButtonPanel.GetComponentsInChildren<Toggle>()) {
@@ -197,17 +197,17 @@ public class AdjustPanel : MonoBehaviour
         activeToggle.First().GetComponentInChildren<Text>().color = WHITE; //white
 		priceMode = activeToggle.First ().name;
 
-		setInputFieldText (inputFieldValue);
-		calculatePriceFields ();
+		SetInputFieldText (inputFieldValue);
+		CalculatePriceFields ();
 	}
 
-    public void onNumberButtonDown() {
+    public void OnNumberButtonDown() {
         Button button = (Button)EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
         button.GetComponent<Image>().color = THEME_GREEN; 
         button.GetComponentInChildren<Text>().color = WHITE; 
     }
 
-    public void onNumberButtonUp() {
+    public void OnNumberButtonUp() {
         Button button = (Button)EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
         button.GetComponent<Image>().color = WHITE; 
         button.GetComponentInChildren<Text>().color = THEME_GREEN;

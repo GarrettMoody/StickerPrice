@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
 using ZXing.QrCode;
+using UnityEngine.EventSystems;
 
 public class StickerDetailMenu : MonoBehaviour {
 
@@ -23,7 +24,6 @@ public class StickerDetailMenu : MonoBehaviour {
     public Toggle ownerVisible;
     public Toggle priceVisible;
     private QROption[] qrOptions;
-
     public InputField Quantity
     {
         get
@@ -36,6 +36,13 @@ public class StickerDetailMenu : MonoBehaviour {
             quantity = value;
         }
     }
+
+    //Constants
+    readonly Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
+    readonly Color32 RED = new Color32(0xE2, 0x23, 0x1A, 0xFF);
+    readonly Color32 WHITE = new Color32(255, 255, 255, 255);
+    readonly Color32 DARK_GREY = new Color32(0x52, 0x53, 0x49, 0xFF);
+
 
     // Use this for initialization
     void Awake () {
@@ -50,6 +57,9 @@ public class StickerDetailMenu : MonoBehaviour {
         foreach(QROption option in qrOptions) {
             option.GetComponentInChildren<RawImage>().texture = encoded;
         }
+        ChangeToggleColor(descriptionVisible);
+        ChangeToggleColor(ownerVisible);
+        ChangeToggleColor(priceVisible);
 	}
 
     // for generate qrcode
@@ -120,6 +130,7 @@ public class StickerDetailMenu : MonoBehaviour {
         foreach(QROption option in qrOptions) {
             option.description.gameObject.SetActive(descriptionVisible.isOn);
         }
+        ChangeToggleColor(descriptionVisible);
     }
 
     public void OnOwnerToggle() {
@@ -127,12 +138,36 @@ public class StickerDetailMenu : MonoBehaviour {
         {
             option.productOwner.gameObject.SetActive(ownerVisible.isOn);
         }
+        ChangeToggleColor(ownerVisible);
     }
 
     public void OnPriceToggle() {
         foreach (QROption option in qrOptions)
         {
             option.price.gameObject.SetActive(priceVisible.isOn);
+        }
+        ChangeToggleColor(priceVisible);
+    }
+
+    void ChangeToggleColor(Toggle toggle) {
+        if (toggle.isOn)
+        {
+            ColorBlock colors = descriptionVisible.colors;
+            colors.normalColor = THEME_GREEN;
+
+            toggle.colors = colors;
+        }
+        else
+        {
+            ColorBlock colors = toggle.colors;
+            colors.normalColor = WHITE;
+
+            toggle.colors = colors;
+        }
+
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 

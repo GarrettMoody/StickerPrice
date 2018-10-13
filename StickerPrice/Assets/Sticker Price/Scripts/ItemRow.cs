@@ -172,7 +172,7 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 
 	public void AdjustButtonOnClickListener ()
 	{
-		adjustPanel.openAdjustPanel (this);
+		adjustPanel.OpenAdjustPanel (this);
 		ResetRow ();
 	}
 
