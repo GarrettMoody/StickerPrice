@@ -24,5 +24,6 @@ public class QROption : MonoBehaviour
 
     public void setPrice(string value) {
         price.text = value;
+        
     }
 }

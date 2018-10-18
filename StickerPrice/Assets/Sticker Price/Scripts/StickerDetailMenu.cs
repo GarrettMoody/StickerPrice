@@ -24,18 +24,6 @@ public class StickerDetailMenu : MonoBehaviour {
     public Toggle ownerVisible;
     public Toggle priceVisible;
     private QROption[] qrOptions;
-    public InputField Quantity
-    {
-        get
-        {
-            return quantity;
-        }
-
-        set
-        {
-            quantity = value;
-        }
-    }
 
     //Constants
     readonly Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
