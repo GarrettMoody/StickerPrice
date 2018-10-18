@@ -1,19 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Template {
-    public string title;
-    public string size;
-    public int numPerSheet;
-    public QRCode qrCode;
+public class Template : MonoBehaviour {
+    public Text title;
+    public Text size;
+    public Text numPerSheet;
+    public Image qrCode;
 
-    public Template (string title,string size,int numPerSheet,QRCode qrCode) 
+    public void Start()
     {
-        this.title = title;
-        this.size = size;
-        this.numPerSheet = numPerSheet;
-        this.qrCode = qrCode;
+        
+    }
+
+    public void setTitle(string title)
+    {
+        this.title.text = title;
+    }
+
+    public void setSize(string size)
+    {
+        this.size.text = size;
+    }
+
+    public void setNumPerSheet (string numPerSheet)
+    {
+        this.numPerSheet.text = numPerSheet;
+    }
+
+    public void initializeVariables(string title, string size, string numPerSheet)
+    {
+        setTitle(title);
+        setSize(size);
+        setNumPerSheet(numPerSheet);
     }
 
 }

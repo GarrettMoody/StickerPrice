@@ -7952,7 +7952,7 @@ MonoBehaviour:
   stickerDetailMenu: {fileID: 237730695}
   scrollView: {fileID: 310620792}
   scrollContent: {fileID: 1387849310}
-  scrollItemPrefab: {fileID: 1735423555218088, guid: 52d32c3decfa89a46906f04af21797af,
+  scrollItemPrefab: {fileID: 114339269087313466, guid: 52d32c3decfa89a46906f04af21797af,
     type: 2}
 --- !u!114 &628910318
 MonoBehaviour:
@@ -18176,7 +18176,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.0000017766889}
-  m_SizeDelta: {x: 100, y: 0}
+  m_SizeDelta: {x: 986, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1400103922
 GameObject:
@@ -26340,7 +26340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2033724265
 RectTransform:
   m_ObjectHideFlags: 0
