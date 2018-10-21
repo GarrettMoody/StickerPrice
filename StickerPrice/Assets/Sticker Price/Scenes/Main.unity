@@ -8027,7 +8027,7 @@ MonoBehaviour:
   stickerDetailMenu: {fileID: 237730695}
   scrollView: {fileID: 310620792}
   scrollContent: {fileID: 1387849310}
-  scrollItemPrefab: {fileID: 114339269087313466, guid: 52d32c3decfa89a46906f04af21797af,
+  templatePrefab: {fileID: 114339269087313466, guid: 52d32c3decfa89a46906f04af21797af,
     type: 2}
 --- !u!114 &628910318
 MonoBehaviour:
@@ -18511,7 +18511,7 @@ GameObject:
   - component: {fileID: 1387849312}
   - component: {fileID: 1387849311}
   m_Layer: 5
-  m_Name: content
+  m_Name: ScrollContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

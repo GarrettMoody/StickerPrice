@@ -6,7 +6,7 @@ public class StickerFormatMenu : MonoBehaviour {
     public StickerDetailMenu stickerDetailMenu;
     public ScrollRect scrollView;
     public GameObject scrollContent;
-    public Template scrollItemPrefab;
+    public Template templatePrefab;
 
     public class TemplateStructure
     {
@@ -31,7 +31,7 @@ public class StickerFormatMenu : MonoBehaviour {
                                                                   new TemplateStructure("Template - 1234", "1 x 1.75", "30 per sheet")};
         for (int i = 0; i < allTemplates.Length; i ++)
         {
-            template = (Template)Instantiate(scrollItemPrefab);
+            template = (Template)Instantiate(templatePrefab);
             template.initializeVariables(allTemplates[i].description, allTemplates[i].size, allTemplates[i].numPerSheet);
             template.transform.SetParent(scrollContent.transform, false);
         }
@@ -48,15 +48,5 @@ public class StickerFormatMenu : MonoBehaviour {
 
     public void OnTemplate1234Clicked() {
         stickerDetailMenu.OpenMenu(1234);
-    }
-
-    public void generateTemplates(Template template)
-    {
-        Template scrollItemObj = (Template)Instantiate(scrollItemPrefab);
-        
-        scrollItemObj = template;
-      /*  scrollItemObj.transform.Find("Title").gameObject.GetComponent<Text>().text = template.title;
-        scrollItemObj.transform.Find("Size").gameObject.GetComponent<Text>().text = template.size;
-        scrollItemObj.transform.Find("Number Of Stickers").gameObject.GetComponent<Text>().text = template.numPerSheet.ToString();*/
     }
 }
