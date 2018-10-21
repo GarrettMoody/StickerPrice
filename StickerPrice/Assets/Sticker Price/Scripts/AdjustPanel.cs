@@ -49,8 +49,8 @@ public class AdjustPanel : MonoBehaviour
 
     private void InitializeVariables ()
 	{
-		SetItemDescriptionText (itemRow.getItemDescription ());
-		SetOriginalPrice (itemRow.getItemOriginalPrice ());
+		SetItemDescriptionText (itemRow.GetItemDescription ());
+		SetOriginalPrice (itemRow.GetItemOriginalPrice ());
 		SetInputFieldValue (0);
 		adjustedPrice = originalPrice;
 	}
@@ -78,9 +78,9 @@ public class AdjustPanel : MonoBehaviour
 
     public void OnAcceptButtonPress ()
 	{
-		itemRow.setItemPrice (adjustedPrice);
+		itemRow.SetItemPrice (adjustedPrice);
 		this.transform.parent.gameObject.SetActive (false);
-		if (adjustedPrice != itemRow.getItemOriginalPrice ()) {
+		if (adjustedPrice != itemRow.GetItemOriginalPrice ()) {
             itemRow.itemPriceText.color = RED;
 		} else {
             itemRow.itemPriceText.color = DARK_GREY;

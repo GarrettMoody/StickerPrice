@@ -25,9 +25,9 @@ public class ItemList : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		calculateItemsAndPrice ();
+		CalculateItemsAndPrice ();
 		itemList = new List<ItemRow> (contentPanel.GetComponentsInChildren<ItemRow> ());
-		setBottomOfListPos ();
+		SetBottomOfListPos ();
 	}
 
 
@@ -73,24 +73,24 @@ public class ItemList : MonoBehaviour
 
 		if (!Input.GetMouseButton (0)) {
 			MoveListToValidRange ();
-			resetAllRows ();
+			ResetAllRows ();
 		}
 	}
 
-	public void stopScrolling ()
+	public void StopScrolling ()
 	{
 		scrollRect.StopMovement ();
 	}
 
-	public void removeItem (ItemRow item)
+	public void RemoveItem (ItemRow item)
 	{
 		itemList.Remove (item);
 		Destroy (item.gameObject);
-		redrawList ();
-		calculateItemsAndPrice ();
+		RedrawList ();
+		CalculateItemsAndPrice ();
 	}
 
-	public ItemRow addItem ()
+	public ItemRow AddItem ()
 	{
 
 		ItemRow newItem = Instantiate (itemPrefab, contentPanel.transform);
@@ -99,62 +99,91 @@ public class ItemList : MonoBehaviour
 		newItem.transform.SetAsLastSibling ();
 		itemList.Add (newItem);
 
-		redrawList ();
-		calculateItemsAndPrice ();
+		RedrawList ();
+		CalculateItemsAndPrice ();
 		return newItem;
 	}
 
-	public void resetAllRows ()
+	public void ResetAllRows ()
 	{
-		foreach (ItemRow row in itemList) {
-			row.ResetRow ();
-		}
+        if (itemList != null)
+        {
+            foreach (ItemRow row in itemList)
+            {
+                row.ResetRow();
+            }
+        }
+    }
+
+	public void ResetOtherRows (ItemRow sourceRow)
+	{
+        if (itemList != null)
+        {
+            foreach (ItemRow row in itemList)
+            {
+                if (row != sourceRow)
+                {
+                    row.ResetRow();
+                }
+            }
+        }
+    }
+
+    public void RedrawList ()
+	{
+        if (itemList != null)
+        {
+            foreach (ItemRow row in itemList)
+            {
+                row.GetComponent<LayoutElement>().ignoreLayout = false;
+            }
+        }
+
+        Canvas.ForceUpdateCanvases ();
+
+        if (itemList != null)
+        {
+            foreach (ItemRow row in itemList)
+            {
+                row.GetComponent<LayoutElement>().ignoreLayout = true;
+            }
+        }
+
+        SetBottomOfListPos ();
+		ResetAllRows ();
 	}
 
-	public void resetOtherRows (ItemRow sourceRow)
+	public void CalculateItemsAndPrice ()
 	{
-		foreach (ItemRow row in itemList) {
-			if (row != sourceRow) {
-				row.ResetRow ();
-			}
-		}
-	}
+        //Reset totals
+        SetItemTotal(0);
+        SetPriceTotal(0);
 
-	public void redrawList ()
-	{
-		foreach (ItemRow row in itemList) {
-			row.GetComponent<LayoutElement> ().ignoreLayout = false;
-		}
+        if (itemList != null)
+        {
+            foreach (ItemRow row in itemList)
+            {
+                SetItemTotal(GetItemTotal() + row.GetQuantity());
+                SetPriceTotal(GetPriceTotal() + (row.GetQuantity() * row.GetItemPrice()));
+            }
+        }
+        //if (itemList != null) {
+        //	SetItemTotal (itemList.Count);
+        //	if (itemList.Count > 0) {
+        //		SetPriceTotal (0);
+        //		foreach (ItemRow row in itemList) {
+        //			SetPriceTotal (priceTotal + row.GetItemPrice ());
+        //		}
+        //	} else {
+        //		SetPriceTotal (0);
+        //	}
+        //} else {
+        //	SetPriceTotal (0);
+        //	SetItemTotal (0);
+        //}
+    }
 
-		Canvas.ForceUpdateCanvases ();
-
-		foreach (ItemRow row in itemList) {
-			row.GetComponent<LayoutElement> ().ignoreLayout = true;
-		}
-
-		setBottomOfListPos ();
-		resetAllRows ();
-	}
-
-	public void calculateItemsAndPrice ()
-	{
-		if (itemList != null) {
-			setItemTotal (itemList.Count);
-			if (itemList.Count > 0) {
-				setPriceTotal (0);
-				foreach (ItemRow row in itemList) {
-					setPriceTotal (priceTotal + row.getItemPrice ());
-				}
-			} else {
-				setPriceTotal (0);
-			}
-		} else {
-			setPriceTotal (0);
-			setItemTotal (0);
-		}
-	}
-
-	public void setBottomOfListPos ()
+    public void SetBottomOfListPos ()
 	{
 		//Takes number of items * the height of each item, will get you the bottom of the bottom item. We want the top of the bottom item so the 
 		//panel always shows at least one item. So we take the number of items - 1. 
@@ -162,44 +191,44 @@ public class ItemList : MonoBehaviour
 		OnValueChange ();
 	}
 
-	public void setIsLerping (bool value)
+    public void SetIsLerping (bool value)
 	{
 		isLerping = value;
 	}
 
-	public bool getIsLerping ()
+	public bool GetIsLerping ()
 	{
 		return isLerping;
 	}
 
-	public void updatePriceTotalText ()
+    public void UpdatePriceTotalText ()
 	{
 		priceTotalText.text = "Total: " + priceTotal.ToString ("C");
 	}
 
-	public float getPriceTotal ()
+    public float GetPriceTotal ()
 	{
 		return priceTotal;
 	}
 
-	public void setPriceTotal (float value)
+    public void SetPriceTotal (float value)
 	{
 		priceTotal = value;
-		updatePriceTotalText ();
+		UpdatePriceTotalText ();
 	}
 
-	public int getItemTotal ()
+    public int GetItemTotal ()
 	{
 		return itemTotal;
 	}
 
-	public void setItemTotal (int value)
+    public void SetItemTotal (int value)
 	{
 		itemTotal = value;
-		updateItemTotalText ();
+		UpdateItemTotalText ();
 	}
 
-	public void updateItemTotalText ()
+    public void UpdateItemTotalText ()
 	{
 		itemsTotalText.text = itemTotal.ToString () + " Items";
 	}

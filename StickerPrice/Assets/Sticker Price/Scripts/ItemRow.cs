@@ -11,11 +11,15 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 
 	public Text itemDescriptionText;
 	public Text itemPriceText;
+    public Button plusButton;
+    public Button minusButton;
+    public InputField quantityInputField;
 
 	//Private Variables
 	private string itemDescription = "New Item";
 	private float itemOriginalPrice = 10;
 	private float itemPrice = 10;
+    private int quantity = 1;
 	private ItemList parentList;
 	private RectTransform itemRectTransform;
 	private RectTransform contentRectTransform;
@@ -91,8 +95,8 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 		pointerStart = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
 		localRectStart = itemRectTransform.transform.localPosition;
 		contentStart = contentRectTransform.transform.localPosition;
-		parentList.resetOtherRows (this);
-		parentList.stopScrolling ();
+		parentList.ResetOtherRows (this);
+		parentList.StopScrolling ();
 		verticalMode = false;
 	}
 
@@ -129,7 +133,7 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 			}
 		} 
 
-		if (horizontalMode && !parentList.getIsLerping ()) {//If the list is lerping to a position, we do not want to allow the user to scroll horizontally. 
+		if (horizontalMode && !parentList.GetIsLerping ()) {//If the list is lerping to a position, we do not want to allow the user to scroll horizontally. 
 			float newX = pointerPosition.x - pointerStart.x + localRectStart.x; //Example: width of row is 1000. Pointer position may be 800 which is right side of row. positionOffset stores value from -500 to 500, in this case it would be 300. So half
 			dragX = newX;																																	//of the row width (500) + 800 position - 300 offset = 1000, which is the starting postion of the row. 
 			if (newX > 0) { //trying to swipe right
@@ -161,13 +165,21 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 	public void OnPointerClick (PointerEventData data)
 	{
 		if (Mathf.RoundToInt (itemRectTransform.localPosition.x) > (-buttonOffset - 5)) {
-			parentList.resetAllRows ();
+			parentList.ResetAllRows ();
 		}
-	}
+    }
+
+    public void OnPlusButtonClick() {
+        SetQuantity(quantity + 1);
+    }
+
+    public void OnMinusButtonClick() {
+        SetQuantity(quantity - 1);
+    }
 
 	public void DeleteButtonOnClickListener ()
 	{
-		parentList.removeItem (this);
+		parentList.RemoveItem (this);
 	}
 
 	public void AdjustButtonOnClickListener ()
@@ -181,36 +193,57 @@ public class ItemRow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IP
 		lerpMode = LERP_TO_RESET;
 	}
 
-	public void setItemDescription (string description)
+	public void SetItemDescription (string description)
 	{
 		itemDescription = description;
 		itemDescriptionText.text = itemDescription;
 	}
 
-	public string getItemDescription ()
+	public string GetItemDescription ()
 	{
 		return itemDescription;
 	}
 
-	public void setItemPrice (float price)
+	public void SetItemPrice (float price)
 	{
 		itemPrice = price;
 		itemPriceText.text = itemPrice.ToString ("C");
-		parentList.calculateItemsAndPrice ();
+		parentList.CalculateItemsAndPrice ();
 	}
 
-	public float getItemPrice ()
+	public float GetItemPrice ()
 	{
 		return itemPrice;
 	}
 
-	public void setItemOriginalPrice (float price)
+	public void SetItemOriginalPrice (float price)
 	{
 		itemOriginalPrice = price;
 	}
 
-	public float getItemOriginalPrice ()
+	public float GetItemOriginalPrice ()
 	{
 		return itemOriginalPrice;
 	}
+
+    public int GetQuantity() {
+        return quantity;
+    }
+
+    public void SetQuantity(int value) {
+        if (value >= 0 && value <= 99)
+        {
+            quantity = value;
+            UpdateQuantity();
+        }
+    }
+
+    public void UpdateQuantity() {
+        quantityInputField.text = quantity.ToString();
+        parentList.CalculateItemsAndPrice();
+    }
+
+    public void OnQuantityInputFieldValueChanged() {
+        quantity = int.Parse(quantityInputField.text);
+    }
 }

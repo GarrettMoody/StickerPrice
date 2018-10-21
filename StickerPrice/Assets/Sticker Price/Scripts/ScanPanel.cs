@@ -63,16 +63,16 @@ public class ScanPanel : MonoBehaviour
 
 			float itemPrice = float.Parse (resultString [0]);
 
-			ItemRow newItem = itemList.addItem ();
-			newItem.setItemDescription (resultString [1]);
-			newItem.setItemPrice (itemPrice);
-			newItem.setItemOriginalPrice (itemPrice);
+			ItemRow newItem = itemList.AddItem ();
+			newItem.SetItemDescription (resultString [1]);
+			newItem.SetItemPrice (itemPrice);
+			newItem.SetItemOriginalPrice (itemPrice);
 		}
 	}
 
 	public void AddItemButtonOnClickListner ()
 	{
-		itemList.addItem ();
+		itemList.AddItem ();
 	}
 
 	public void ToggleCameraButtonOnClickListener ()
