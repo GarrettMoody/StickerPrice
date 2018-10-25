@@ -108,9 +108,9 @@ public class StickerDetailMenu : MonoBehaviour {
         }
     }
 
-    public void OpenMenu(int templateNumber) {
+    public void OpenMenu(string templateDescription) {
         this.gameObject.SetActive(true);
-        templateNumberText.text = "Template - " + templateNumber.ToString();
+        templateNumberText.text = templateDescription;
 
     }
 
