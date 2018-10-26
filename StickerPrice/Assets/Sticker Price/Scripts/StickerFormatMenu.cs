@@ -26,9 +26,10 @@ public class StickerFormatMenu : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
-        TemplateStructure[] allTemplates = new TemplateStructure[] {new TemplateStructure(22805, "1.5 x 1.5", "25 per sheet"),
-                                                                  new TemplateStructure(6450, "1 x 1", "63 per sheet"),
-                                                                  new TemplateStructure(1234, "1 x 1.75", "30 per sheet")};
+        TemplateStructure[] allTemplates = new TemplateStructure[] {new TemplateStructure(22805, "1.5\" x 1.5\"", "25 per sheet"),
+                                                                  new TemplateStructure(6450, "1\" x 1\"", "63 per sheet"),
+                                                                  new TemplateStructure(1234, "1\" x 1.75\"", "30 per sheet"),
+                                                                  new TemplateStructure(99999, "2\" x 2\"", "24 per sheet")};
         for (int i = 0; i < allTemplates.Length; i ++)
         {
             Template template = (Template)Instantiate(templatePrefab);

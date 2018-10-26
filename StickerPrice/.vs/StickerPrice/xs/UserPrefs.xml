@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/ItemList.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/StickerFormatMenu.cs">
     <Files>
       <File FileName="Assets/Sticker Price/Scripts/QRPreview.cs" Line="176" Column="10" />
       <File FileName="Assets/Sticker Price/Scripts/StickerDetailMenu.cs" Line="130" Column="6" />
@@ -8,6 +8,8 @@
       <File FileName="Assets/Sticker Price/Scripts/ItemRow.cs" Line="246" Column="53" />
       <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="17" Column="14" />
       <File FileName="Assets/Sticker Price/Scripts/ItemList.cs" Line="7" Column="14" />
+      <File FileName="Assets/Sticker Price/Scripts/Template.cs" Line="1" Column="1" />
+      <File FileName="Assets/Sticker Price/Scripts/StickerFormatMenu.cs" Line="29" Column="102" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
