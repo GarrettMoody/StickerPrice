@@ -14,6 +14,7 @@ public class StickerDetailMenu : MonoBehaviour {
 
     //Private Variables
     public Text templateNumberText;
+    public Text numberPerSheet;
     public InputField description;
     public InputField quantity;
     public InputField productOwner;
@@ -108,10 +109,10 @@ public class StickerDetailMenu : MonoBehaviour {
         }
     }
 
-    public void OpenMenu(string templateDescription) {
+    public void OpenMenu(Template template) {
         this.gameObject.SetActive(true);
-        templateNumberText.text = templateDescription;
-
+        templateNumberText.text = template.title.text;
+        numberPerSheet.text = template.numberPerSheet + " Blank Stickers - Pages 1/1";
     }
 
     public void OnDescriptionToggle() {

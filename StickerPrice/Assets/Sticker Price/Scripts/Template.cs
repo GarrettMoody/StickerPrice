@@ -8,6 +8,7 @@ public class Template : MonoBehaviour {
     public Text size;
     public Text numPerSheet;
     public Image qrCode;
+    public string numberPerSheet;
 
     public void Start()
     {
@@ -26,7 +27,8 @@ public class Template : MonoBehaviour {
 
     public void setNumPerSheet (string numPerSheet)
     {
-        this.numPerSheet.text = numPerSheet;
+        this.numPerSheet.text = numPerSheet + " Per Sheet";
+        numberPerSheet = numPerSheet;
     }
 
     public void initializeVariables(string title, string size, string numPerSheet)

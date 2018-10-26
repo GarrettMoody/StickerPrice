@@ -2832,6 +2832,7 @@ MonoBehaviour:
   scrollRect: {fileID: 1050864745}
   detailsPanel: {fileID: 1369582113}
   templateNumberText: {fileID: 672800705}
+  numberPerSheet: {fileID: 648736813}
   description: {fileID: 1104392237}
   quantity: {fileID: 430582183}
   productOwner: {fileID: 979804027}
@@ -8180,7 +8181,7 @@ GameObject:
   - component: {fileID: 648736814}
   - component: {fileID: 648736813}
   m_Layer: 5
-  m_Name: Text
+  m_Name: NumberPerSheet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

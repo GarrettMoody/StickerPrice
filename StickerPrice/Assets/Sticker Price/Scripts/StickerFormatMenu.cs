@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -15,10 +17,10 @@ public class StickerFormatMenu : MonoBehaviour {
         public string size;
         public string numPerSheet;
 
-        public TemplateStructure(int templateId, string size, string numPerSheet)
+        public TemplateStructure(string  templateId, string length, string width, string numPerSheet)
         {
             this.description = "Template - " + templateId;
-            this.size = size;
+            this.size = length + "\" x " + width + "\"";
             this.numPerSheet = numPerSheet;
         }
     }
@@ -26,24 +28,35 @@ public class StickerFormatMenu : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
-        TemplateStructure[] allTemplates = new TemplateStructure[] {new TemplateStructure(22805, "1.5\" x 1.5\"", "25 per sheet"),
-                                                                  new TemplateStructure(6450, "1\" x 1\"", "63 per sheet"),
-                                                                  new TemplateStructure(1234, "1\" x 1.75\"", "30 per sheet"),
-                                                                  new TemplateStructure(99999, "2\" x 2\"", "24 per sheet")};
-        for (int i = 0; i < allTemplates.Length; i ++)
+
+        string path = "Assets/Sticker Price/Data Files/Templates.csv";
+        List<TemplateStructure> allTemplates = new List<TemplateStructure>();
+
+        //Read template data from the file
+        StreamReader reader = new StreamReader(path);        
+        string line;
+        while (!reader.EndOfStream)
+        {
+            line = reader.ReadLine();
+            string[] values = line.Split(',');
+            allTemplates.Add(new TemplateStructure(values[0], values[1], values[2], values[3]));
+        }
+        reader.Close();
+
+        foreach (TemplateStructure templateData in allTemplates)
         {
             Template template = (Template)Instantiate(templatePrefab);
-            template.initializeVariables(allTemplates[i].description, allTemplates[i].size, allTemplates[i].numPerSheet);
+            template.initializeVariables(templateData.description, templateData.size, templateData.numPerSheet);
             template.transform.SetParent(scrollContent.transform, false);
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;
-            entry.callback.AddListener((eventData) => { OnTemplateClicked(template.title.text); });
+            entry.callback.AddListener((eventData) => { OnTemplateClicked(template); });
             template.transform.GetComponent<EventTrigger>().triggers.Add(entry);
         }
         scrollView.verticalNormalizedPosition = 1;
     }
 
-    public void OnTemplateClicked(string description) {
-        stickerDetailMenu.OpenMenu(description);
+    public void OnTemplateClicked(Template template) {
+        stickerDetailMenu.OpenMenu(template);
     }
 }
