@@ -8,6 +8,7 @@ public class Template : MonoBehaviour {
     public Text size;
     public Text numPerSheet;
     public Image qrCode;
+    public string templateId;
     public string numberPerSheet;
 
     public void Start()
@@ -15,9 +16,9 @@ public class Template : MonoBehaviour {
         
     }
 
-    public void setTitle(string title)
+    public void setTitle()
     {
-        this.title.text = title;
+        title.text = "Template - " + templateId;
     }
 
     public void setSize(string size)
@@ -25,17 +26,18 @@ public class Template : MonoBehaviour {
         this.size.text = size;
     }
 
-    public void setNumPerSheet (string numPerSheet)
+    public void setNumPerSheet ()
     {
-        this.numPerSheet.text = numPerSheet + " Per Sheet";
-        numberPerSheet = numPerSheet;
+        this.numPerSheet.text = numberPerSheet + " Per Sheet";
     }
 
-    public void initializeVariables(string title, string size, string numPerSheet)
+    public void initializeVariables(string templateId, string size, string numberPerSheet)
     {
-        setTitle(title);
+        this.templateId = templateId;
+        this.numberPerSheet = numberPerSheet;
+        setTitle();
         setSize(size);
-        setNumPerSheet(numPerSheet);
+        setNumPerSheet();
     }
 
 }

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using ZXing;
 using ZXing.QrCode;
 using UnityEngine.EventSystems;
+using System.IO;
+using System;
 
 public class StickerDetailMenu : MonoBehaviour {
 
@@ -25,6 +27,12 @@ public class StickerDetailMenu : MonoBehaviour {
     public Toggle ownerVisible;
     public Toggle priceVisible;
     private QROption[] qrOptions;
+    private Template template;
+    private int pageCount = 1;
+    private int currentPage = 1;
+    private int numberInSheet = 0;
+    private int qtyAdded = 0;
+    private int qtyLeft = 0;
 
     //Constants
     readonly Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
@@ -110,9 +118,10 @@ public class StickerDetailMenu : MonoBehaviour {
     }
 
     public void OpenMenu(Template template) {
+        this.template = template;
         this.gameObject.SetActive(true);
         templateNumberText.text = template.title.text;
-        numberPerSheet.text = template.numberPerSheet + " Blank Stickers - Pages 1/1";
+        UpdateNumberPerSheetText();
     }
 
     public void OnDescriptionToggle() {
@@ -183,5 +192,66 @@ public class StickerDetailMenu : MonoBehaviour {
         {
             quantity.text = "0";
         }
+    }
+
+    public void OnQuantityChanged()
+    {
+        int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
+        int numPerSheet = int.Parse(template.numberPerSheet);
+        qtyAdded = 0;
+        qtyLeft = 0;
+        if (qty > numPerSheet)
+        {
+            pageCount = (int)Math.Ceiling((double)qty/numPerSheet);
+            numberInSheet = numPerSheet;
+        } else
+        {
+            pageCount = 1;
+            currentPage = 1;
+            numberInSheet = qty;
+        }
+        UpdateNumberPerSheetText();
+    }
+
+    public void OnSaveButtonClick()
+    {
+        string path = "Assets/Sticker Price/Data Files/SavedStickers.csv";
+
+        //Write some text to the test.txt file
+        StreamWriter writer = new StreamWriter(path, true);
+        writer.WriteLine(description.text  
+                        + "," + productOwner.text 
+                        + "," + price.text 
+                        + "," + quantity.text 
+                        + "," + template.templateId
+                         );
+        writer.Close();
+    }
+
+    public void OnAddToPageButtonClick()
+    { 
+        if (pageCount > currentPage)
+        {
+            currentPage = currentPage + 1;
+            int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
+            int numPerSheet = int.Parse(template.numberPerSheet);
+            if (qty > numPerSheet)
+            {
+                qtyAdded = qtyAdded + numPerSheet;
+                qtyLeft = qty - qtyAdded;
+                numberInSheet = qtyLeft > numPerSheet ? numPerSheet : qtyLeft;
+            }
+            else
+            {
+                numberInSheet = qty;
+            }
+        }
+        UpdateNumberPerSheetText();
+    }
+
+    public void UpdateNumberPerSheetText()
+    {
+        string qtyInSheet = numberInSheet != 0 ? numberInSheet.ToString() : template.numberPerSheet;
+        numberPerSheet.text = qtyInSheet + " Blank Stickers - Pages " + currentPage + "/" + pageCount;
     }
 }
