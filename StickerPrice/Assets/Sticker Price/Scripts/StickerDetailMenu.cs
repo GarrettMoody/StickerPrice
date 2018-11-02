@@ -13,6 +13,7 @@ public class StickerDetailMenu : MonoBehaviour {
     //Public Variables
     public ScrollRect scrollRect;
     public GameObject detailsPanel;
+    public SavedStickers savedStickers;
 
     //Private Variables
     public Text templateNumberText;
@@ -22,6 +23,7 @@ public class StickerDetailMenu : MonoBehaviour {
     public InputField productOwner;
     public InputField price;
     public ToggleGroup colorCode;
+    public string stickerDescription;
     public GameObject qrPreviewContent;
     public Toggle descriptionVisible;
     public Toggle ownerVisible;
@@ -124,6 +126,18 @@ public class StickerDetailMenu : MonoBehaviour {
         UpdateNumberPerSheetText();
     }
 
+    public void OpenMenu(Sticker sticker)
+    {
+        template = sticker.template;
+        this.gameObject.SetActive(true);
+        templateNumberText.text = template.title.text;
+        UpdateNumberPerSheetText();
+        description.text = sticker.itemDescription.text;
+        productOwner.text = sticker.owner;
+        price.text = sticker.price.text;
+       // quantity.text = sticker.quantity;
+    }
+
     public void OnDescriptionToggle() {
         foreach(QROption option in qrOptions) {
             option.description.gameObject.SetActive(descriptionVisible.isOn);
@@ -216,14 +230,14 @@ public class StickerDetailMenu : MonoBehaviour {
     public void OnSaveButtonClick()
     {
         string path = "Assets/Sticker Price/Data Files/SavedStickers.csv";
-
-        //Write some text to the test.txt file
         StreamWriter writer = new StreamWriter(path, true);
-        writer.WriteLine(description.text  
+        writer.WriteLine(template.templateId
+                        + "," + getStickerDescription()
+                        + "," + description.text  
                         + "," + productOwner.text 
                         + "," + price.text 
-                        + "," + quantity.text 
-                        + "," + template.templateId
+                        + "," + quantity.text
+                        + "," + DateTime.Now.ToString("dd MMMM yyyy h:mm tt")
                          );
         writer.Close();
     }
@@ -249,9 +263,19 @@ public class StickerDetailMenu : MonoBehaviour {
         UpdateNumberPerSheetText();
     }
 
+    public void OnFavoriteButtonClick()
+    {
+        savedStickers.activate();
+    }
+
     public void UpdateNumberPerSheetText()
     {
         string qtyInSheet = numberInSheet != 0 ? numberInSheet.ToString() : template.numberPerSheet;
         numberPerSheet.text = qtyInSheet + " Blank Stickers - Pages " + currentPage + "/" + pageCount;
+    }
+
+    private string getStickerDescription()
+    {
+        return (stickerDescription != null && stickerDescription != "" ? stickerDescription : description.text);
     }
 }
