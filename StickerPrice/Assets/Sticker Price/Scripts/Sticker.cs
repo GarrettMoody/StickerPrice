@@ -37,7 +37,7 @@ public class Sticker : MonoBehaviour {
 
     public void setPrice(string price)
     {
-        this.price.text = price;
+        this.price.text = "$" + price;
     }
 
     public void setDateSaved(string dateSaved)
@@ -73,6 +73,7 @@ public class Sticker : MonoBehaviour {
         setOwner(owner);
         setDateSaved(dateSaved);
         setQuantity(quantity);
+        setTemplate(template);
     }
 
 }

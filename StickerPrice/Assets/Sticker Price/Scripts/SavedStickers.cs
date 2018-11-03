@@ -12,6 +12,7 @@ public class SavedStickers : MonoBehaviour {
     public GameObject scrollContent;
     public Sticker stickerPrefab;
     public Template templatePrefab;
+    public Text fileCount;
 
     // Use this for initialization
     void Start () {
@@ -32,13 +33,15 @@ public class SavedStickers : MonoBehaviour {
         //Read sticker data from the file
         StreamReader reader = new StreamReader(path);
         string line;
+        int count = 0;
         while (!reader.EndOfStream)
         {
+            count++;
             line = reader.ReadLine();
             string[] values = line.Split(',');
-            Debug.Log(values[0]);
             Sticker sticker = (Sticker)Instantiate(stickerPrefab);
-            sticker.initializeVariables(getTemplate(values[0]), values[1], values[2], values[3], values[4], values[5], values[6]);
+            Template template = getTemplate(values[0]);
+            sticker.initializeVariables(template, values[1], values[2], values[3], values[4], values[5], values[6]);
             sticker.transform.SetParent(scrollContent.transform, false);
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;
@@ -47,10 +50,12 @@ public class SavedStickers : MonoBehaviour {
         }
         reader.Close();
         scrollView.verticalNormalizedPosition = 1;
+        fileCount.text = "Number Of Files: " + count;
     }
 
     public Template getTemplate(string templateId)
     {
+       
         string path = "Assets/Sticker Price/Data Files/Templates.csv";
         Template template = (Template)Instantiate(templatePrefab);
         //Read template data from the file
@@ -60,11 +65,11 @@ public class SavedStickers : MonoBehaviour {
         {
             line = reader.ReadLine();
             string[] values = line.Split(',');
-            if (values[0] != templateId)
+            if (values[0] == templateId)
             {
-                continue;
+                template.initializeVariables(values[0], values[1] + "\" x " + values[2] + "\"", values[3]);
+                break;
             }
-            template.initializeVariables(values[0], values[1] + "\" x " + values[2] + "\"", values[3]);
         }
         reader.Close();
         return template;
@@ -72,6 +77,7 @@ public class SavedStickers : MonoBehaviour {
 
     public void OnStickerClicked(Sticker sticker)
     {
+        this.gameObject.SetActive(false);
         stickerDetailMenu.OpenMenu(sticker);
     }
 

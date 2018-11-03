@@ -135,7 +135,7 @@ public class StickerDetailMenu : MonoBehaviour {
         description.text = sticker.itemDescription.text;
         productOwner.text = sticker.owner;
         price.text = sticker.price.text;
-       // quantity.text = sticker.quantity;
+        quantity.text = int.Parse(sticker.quantity).ToString();
     }
 
     public void OnDescriptionToggle() {
@@ -265,6 +265,7 @@ public class StickerDetailMenu : MonoBehaviour {
 
     public void OnFavoriteButtonClick()
     {
+        this.gameObject.SetActive(false);
         savedStickers.activate();
     }
 
