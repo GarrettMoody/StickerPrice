@@ -25,12 +25,12 @@ public class StickerFormatMenu : MonoBehaviour {
             line = reader.ReadLine();
             string[] values = line.Split(',');
             Template template = (Template)Instantiate(templatePrefab);
-            template.initializeVariables(values[0], values[1] + "\" x " + values[2] + "\"", values[3]);
+            template.InitializeVariables(values[0], values[1] + "\" x " + values[2] + "\"", values[3]);
             template.transform.SetParent(scrollContent.transform, false);
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = EventTriggerType.PointerClick;
-            entry.callback.AddListener((eventData) => { OnTemplateClicked(template); });
-            template.transform.GetComponent<EventTrigger>().triggers.Add(entry);
+            //EventTrigger.Entry entry = new EventTrigger.Entry();
+            //entry.eventID = EventTriggerType.PointerClick;
+            //entry.callback.AddListener((eventData) => { OnTemplateClicked(template); });
+            //template.transform.GetComponent<EventTrigger>().triggers.Add(entry);
         }
         reader.Close();
         scrollView.verticalNormalizedPosition = 1;

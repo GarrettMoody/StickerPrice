@@ -67,7 +67,7 @@ public class SavedStickers : MonoBehaviour {
             string[] values = line.Split(',');
             if (values[0] == templateId)
             {
-                template.initializeVariables(values[0], values[1] + "\" x " + values[2] + "\"", values[3]);
+                template.InitializeVariables(values[0], values[1] + "\" x " + values[2] + "\"", values[3]);
                 break;
             }
         }
