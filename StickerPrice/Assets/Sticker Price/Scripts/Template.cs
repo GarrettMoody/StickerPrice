@@ -4,7 +4,8 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Template : MonoBehaviour {
+public class Template : MonoBehaviour
+{
     public Text title;
     public Text size;
     public Text numPerSheet;
@@ -12,33 +13,40 @@ public class Template : MonoBehaviour {
     public string templateId;
     public string numberPerSheet;
 
+    private StickerFormatMenu stickerFormatMenu;
+
     public void Start()
     {
-        
+        stickerFormatMenu = this.GetComponentInParent<StickerFormatMenu>();
     }
 
-    public void setTitle()
+    public void SetTitle()
     {
         title.text = "Template - " + templateId;
     }
 
-    public void setSize(string size)
+    public void SetSize(string size)
     {
         this.size.text = size;
     }
 
-    public void setNumPerSheet ()
+    public void SetNumPerSheet()
     {
         this.numPerSheet.text = numberPerSheet + " Per Sheet";
     }
 
-    public void initializeVariables(string templateId, string size, string numberPerSheet)
+    public void InitializeVariables(string templateId, string size, string numberPerSheet)
     {
         this.templateId = templateId;
         this.numberPerSheet = numberPerSheet;
-        setTitle();
-        setSize(size);
-        setNumPerSheet();
+        SetTitle();
+        SetSize(size);
+        SetNumPerSheet();
+    }
+
+    public void OnTemplateClick()
+    {
+        stickerFormatMenu.OnTemplateClicked(this);
     }
 
 }
