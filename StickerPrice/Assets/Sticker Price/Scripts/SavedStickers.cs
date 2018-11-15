@@ -41,7 +41,7 @@ public class SavedStickers : MonoBehaviour {
             string[] values = line.Split(',');
             Sticker sticker = (Sticker)Instantiate(stickerPrefab);
             Template template = getTemplate(values[0]);
-            sticker.initializeVariables(template, values[1], values[2], values[3], values[4], values[5], values[6]);
+            sticker.initializeVariables(template, values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
             sticker.transform.SetParent(scrollContent.transform, false);
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;

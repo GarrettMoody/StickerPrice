@@ -13,7 +13,7 @@ public class StickerDetailMenu : MonoBehaviour {
     //Public Variables
     public ScrollRect scrollRect;
     public GameObject detailsPanel;
-    public SavedStickers savedStickers;
+    public DialogPopup dialog;
 
     //Private Variables
     public Text templateNumberText;
@@ -136,6 +136,7 @@ public class StickerDetailMenu : MonoBehaviour {
         productOwner.text = sticker.owner;
         price.text = sticker.price.text;
         quantity.text = int.Parse(sticker.quantity).ToString();
+        dialog.input.text = sticker.stickerId;
     }
 
     public void OnDescriptionToggle() {
@@ -227,7 +228,7 @@ public class StickerDetailMenu : MonoBehaviour {
         UpdateNumberPerSheetText();
     }
 
-    public void OnSaveButtonClick()
+    public void OnConfirmButtonClick()
     {
         string path = "Assets/Sticker Price/Data Files/SavedStickers.csv";
         StreamWriter writer = new StreamWriter(path, true);
@@ -238,6 +239,7 @@ public class StickerDetailMenu : MonoBehaviour {
                         + "," + price.text 
                         + "," + quantity.text
                         + "," + DateTime.Now.ToString("dd MMMM yyyy h:mm tt")
+                        + "," + dialog.input.text
                          );
         writer.Close();
     }
@@ -261,12 +263,6 @@ public class StickerDetailMenu : MonoBehaviour {
             }
         }
         UpdateNumberPerSheetText();
-    }
-
-    public void OnFavoriteButtonClick()
-    {
-        this.gameObject.SetActive(false);
-        savedStickers.activate();
     }
 
     public void UpdateNumberPerSheetText()
