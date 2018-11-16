@@ -14,8 +14,6 @@ public class StickerDetailMenu : MonoBehaviour {
     public ScrollRect scrollRect;
     public GameObject detailsPanel;
     public DialogPopup dialog;
-
-    //Private Variables
     public Text templateNumberText;
     public Text numberPerSheet;
     public InputField description;
@@ -28,6 +26,8 @@ public class StickerDetailMenu : MonoBehaviour {
     public Toggle descriptionVisible;
     public Toggle ownerVisible;
     public Toggle priceVisible;
+
+    //Private Variables
     private QROption[] qrOptions;
     private Template template;
     private int pageCount = 1;
@@ -35,6 +35,7 @@ public class StickerDetailMenu : MonoBehaviour {
     private int numberInSheet = 0;
     private int qtyAdded = 0;
     private int qtyLeft = 0;
+    private FileUtility fileUtility = new FileUtility();
 
     //Constants
     readonly Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
@@ -82,6 +83,7 @@ public class StickerDetailMenu : MonoBehaviour {
             option.setDescription(description.text);
 
         }
+        dialog.input.text = description.text;
     }
 
     public void OnNumberOfStickersChanged() {
@@ -136,7 +138,7 @@ public class StickerDetailMenu : MonoBehaviour {
         productOwner.text = sticker.owner;
         price.text = sticker.price.text;
         quantity.text = int.Parse(sticker.quantity).ToString();
-        dialog.input.text = sticker.stickerId;
+        dialog.input.text = sticker.stickerDescription.text;
     }
 
     public void OnDescriptionToggle() {
@@ -231,17 +233,30 @@ public class StickerDetailMenu : MonoBehaviour {
     public void OnConfirmButtonClick()
     {
         string path = "Assets/Sticker Price/Data Files/SavedStickers.csv";
-        StreamWriter writer = new StreamWriter(path, true);
-        writer.WriteLine(template.templateId
-                        + "," + getStickerDescription()
+        List<string> stickers = new List<string>();
+        List<string> newList = new List<string>();
+        stickers = fileUtility.readFromFile(path);
+        if (stickers != null && stickers.Count > 0)
+        {
+            stickers.ForEach(delegate (string stickerInfo)
+            {
+                string[] values = stickerInfo.Split(',');
+                if (values.Length > 0 && values[1] != dialog.input.text)
+                {
+                    newList.Add(stickerInfo);
+                }
+            });
+        }        
+        newList.Add(template.templateId
+                        + "," + dialog.input.text
                         + "," + description.text  
                         + "," + productOwner.text 
                         + "," + price.text 
                         + "," + quantity.text
-                        + "," + DateTime.Now.ToString("dd MMMM yyyy h:mm tt")
-                        + "," + dialog.input.text
+                        + "," + DateTime.Now.ToString("dd MMMM yyyy h:mm tt") 
                          );
-        writer.Close();
+        fileUtility.clearFile(path);
+        fileUtility.writeToFile(path, newList);
     }
 
     public void OnAddToPageButtonClick()
@@ -270,9 +285,5 @@ public class StickerDetailMenu : MonoBehaviour {
         string qtyInSheet = numberInSheet != 0 ? numberInSheet.ToString() : template.numberPerSheet;
         numberPerSheet.text = qtyInSheet + " Blank Stickers - Pages " + currentPage + "/" + pageCount;
     }
-
-    private string getStickerDescription()
-    {
-        return (stickerDescription != null && stickerDescription != "" ? stickerDescription : description.text);
-    }
+       
 }

@@ -13,7 +13,6 @@ public class Sticker : MonoBehaviour {
     public string quantity;
     public Color32 colorCode;
     public string color;
-    public string stickerId;
     public Template template;
 
     public void Start()
@@ -66,13 +65,8 @@ public class Sticker : MonoBehaviour {
         this.quantity = quantity;
     }
 
-    public void setStickerId(string stickerId)
-    {
-        this.stickerId = stickerId;
-    }
-
     public void initializeVariables(Template template, string stickerDescription, string itemDescription, string owner, string price, 
-                                    string quantity, string dateSaved, string stickerId)
+                                    string quantity, string dateSaved)
     {
         setStickerDescription(stickerDescription);
         setItemDescription(itemDescription);
@@ -81,7 +75,6 @@ public class Sticker : MonoBehaviour {
         setDateSaved(dateSaved);
         setQuantity(quantity);
         setTemplate(template);
-        setStickerId(stickerId);
     }
 
 }

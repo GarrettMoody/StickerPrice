@@ -13,6 +13,7 @@ public class SavedStickers : MonoBehaviour {
     public Sticker stickerPrefab;
     public Template templatePrefab;
     public Text fileCount;
+    private FileUtility fileUtility = new FileUtility();
 
     // Use this for initialization
     void Start () {
@@ -29,28 +30,22 @@ public class SavedStickers : MonoBehaviour {
     {
 
         string path = "Assets/Sticker Price/Data Files/SavedStickers.csv";
-        
-        //Read sticker data from the file
-        StreamReader reader = new StreamReader(path);
-        string line;
-        int count = 0;
-        while (!reader.EndOfStream)
+        List<string> stickers = new List<string>();
+        stickers = fileUtility.readFromFile(path);
+        stickers.ForEach(delegate (string line)
         {
-            count++;
-            line = reader.ReadLine();
             string[] values = line.Split(',');
             Sticker sticker = (Sticker)Instantiate(stickerPrefab);
             Template template = getTemplate(values[0]);
-            sticker.initializeVariables(template, values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
+            sticker.initializeVariables(template, values[1], values[2], values[3], values[4], values[5], values[6]);
             sticker.transform.SetParent(scrollContent.transform, false);
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;
             entry.callback.AddListener((eventData) => { OnStickerClicked(sticker); });
             sticker.transform.GetComponent<EventTrigger>().triggers.Add(entry);
-        }
-        reader.Close();
+        });
         scrollView.verticalNormalizedPosition = 1;
-        fileCount.text = "Number Of Files: " + count;
+        fileCount.text = "Number Of Files: " + stickers.Count;
     }
 
     public Template getTemplate(string templateId)
@@ -79,10 +74,5 @@ public class SavedStickers : MonoBehaviour {
     {
         this.gameObject.SetActive(false);
         stickerDetailMenu.OpenMenu(sticker);
-    }
-
-    public void activate()
-    {
-        this.gameObject.SetActive(true);
     }
 }
