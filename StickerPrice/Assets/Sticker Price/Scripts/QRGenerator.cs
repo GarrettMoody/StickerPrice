@@ -42,7 +42,7 @@ public class QRGenerator : MonoBehaviour
 		};  
 		return writer.Write (textForEncoding);  
 	}
-
+    //notes notes notes
     public void onButtonClicked() {
         StartCoroutine(takeScreenshot());
     }
