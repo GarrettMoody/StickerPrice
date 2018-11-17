@@ -21,6 +21,7 @@ public class ContentScroll : MonoBehaviour
     [Tooltip("The color used on the Selection Indicator to show which object is not selected.")]
     public Color32 NON_SELECTED_COLOR;
 
+
     [HideInInspector]
     public ScrollRect scrollRect;
     [HideInInspector]

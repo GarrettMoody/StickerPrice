@@ -11,4 +11,14 @@ public class StickerPriceObjects : MonoBehaviour {
         ContentScroll newScroll = Instantiate<ContentScroll>(contentScrollPrefab);
         newScroll.transform.SetParent(Selection.activeGameObject.transform);
     }
+
+    [MenuItem("GameObject/UI/StickerPrice/Dialog Popup")]
+    private static void CreateDialogPopup()
+    {
+        DialogPopup dialogPopupPrefab = (DialogPopup)AssetDatabase.LoadAssetAtPath("Assets/Sticker Price/Prefabs/DialogPopup.prefab", typeof(DialogPopup));
+        DialogPopup newScroll = Instantiate<DialogPopup>(dialogPopupPrefab);
+        newScroll.transform.SetParent(Selection.activeGameObject.transform);
+    }
+
+
 }
