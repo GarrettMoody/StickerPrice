@@ -22,13 +22,12 @@ public class SavedStickers : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
     // Use this for initialization
     void Awake()
     {
-
         string path = "Assets/Sticker Price/Data Files/SavedStickers.csv";
         List<string> stickers = new List<string>();
         stickers = fileUtility.readFromFile(path);
@@ -74,5 +73,10 @@ public class SavedStickers : MonoBehaviour {
     {
         this.gameObject.SetActive(false);
         stickerDetailMenu.OpenMenu(sticker);
+    }
+
+    public void makeChildren ()
+    {
+        
     }
 }
