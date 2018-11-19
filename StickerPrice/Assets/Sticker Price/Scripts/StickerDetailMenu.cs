@@ -80,7 +80,7 @@ public class StickerDetailMenu : MonoBehaviour {
     public void OnDescriptionChanged() {
         UpdateQRCode();
         foreach(QROption option in qrOptions) {
-            option.setDescription(description.text);
+            option.SetDescription(description.text);
 
         }
         dialog.input.text = description.text;
@@ -94,7 +94,7 @@ public class StickerDetailMenu : MonoBehaviour {
         UpdateQRCode();
         foreach (QROption option in qrOptions)
         {
-            option.setProductionOwner(productOwner.text);
+            option.SetProductionOwner(productOwner.text);
         }
     }
 
@@ -102,7 +102,7 @@ public class StickerDetailMenu : MonoBehaviour {
         UpdateQRCode();
         foreach (QROption option in qrOptions)
         {
-            option.setPrice(price.text);
+            option.SetPrice(price.text);
         }
     }
 

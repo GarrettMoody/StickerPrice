@@ -11,19 +11,23 @@ public class QROption : MonoBehaviour
     public Text productOwner;
     public Text price;
     public RawImage qrCode;
+    public Text numberOfStickers;
 
-    public void setDescription(string value)
+    public void SetDescription(string value)
     {
         description.text = value;
     }
 
-    public void setProductionOwner(string value)
+    public void SetProductionOwner(string value)
     {
         productOwner.text = value;
     }
 
-    public void setPrice(string value) {
+    public void SetPrice(string value) {
         price.text = value;
-        
+    }
+
+    public void SetNumberOfStickers(string value) {
+        numberOfStickers.text = value;
     }
 }

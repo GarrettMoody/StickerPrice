@@ -1,12 +1,15 @@
 ﻿<Properties StartupConfiguration="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/QRGenerator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Graphics/Shaders/Blur.shader">
     <Files>
-      <File FileName="Assets/Sticker Price/Scripts/QRPreview.cs" Line="176" Column="10" />
-      <File FileName="Assets/Sticker Price/Scripts/StickerDetailMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets/Sticker Price/Scripts/MainMenu.cs" Line="19" Column="2" />
-      <File FileName="Assets/Sticker Price/Scripts/Toolbar.cs" Line="56" Column="1" />
-      <File FileName="Assets/Sticker Price/Scripts/QRGenerator.cs" Line="45" Column="7" />
+      <File FileName="Assets/Sticker Price/Scripts/Template.cs" Line="47" Column="25" />
+      <File FileName="Assets/Sticker Price/Scripts/StickerFormatMenu.cs" Line="33" Column="1" />
+      <File FileName="Assets/Sticker Price/Scripts/StickerDetailMenu.cs" Line="101" Column="19" />
+      <File FileName="Assets/Editor/StickerPriceObjects.cs" Line="6" Column="20" />
+      <File FileName="Assets/Sticker Price/Scripts/ContentScroll.cs" Line="21" Column="39" />
+      <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="30" Column="32" />
+      <File FileName="Assets/Sticker Price/Scripts/QROption.cs" Line="16" Column="18" />
+      <File FileName="Assets/Sticker Price/Graphics/Shaders/Blur.shader" Line="198" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
