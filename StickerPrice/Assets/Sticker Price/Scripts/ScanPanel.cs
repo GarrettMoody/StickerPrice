@@ -12,7 +12,6 @@ public class ScanPanel : MonoBehaviour
 	public RawImage scanDisplay;
 	public Text currentDateTime;
 	public Button ToggleCameraButton;
-    public GameObject popup;
 
 	private String previousResult;
 	private ItemList itemList;
@@ -27,7 +26,7 @@ public class ScanPanel : MonoBehaviour
 		previousResult = "";
 		scanDisplay.texture = camTexture;
 		scanDisplay.material.mainTexture = camTexture;
-        popup.SetActive(false);
+      
 		//camTexture.Play ();
 	}
 
