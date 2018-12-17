@@ -13,6 +13,7 @@ public class ItemList : MonoBehaviour
     public ScrollRect scrollRect;
     public RectTransform viewport;
     public RectTransform contentPanel;
+    public AdjustPanel priceAdjustPanel;
 
 	private List<ItemRow> itemList;
 
@@ -125,6 +126,10 @@ public class ItemList : MonoBehaviour
 		ResetAllRows ();
 	}
 
+    public void OpenPriceAdjustPanel(ItemRow row) {
+        priceAdjustPanel.OpenAdjustPanel(row);
+    }
+
 	public void CalculateItemsAndPrice ()
 	{
         //Reset totals
@@ -153,7 +158,7 @@ public class ItemList : MonoBehaviour
 
     public void UpdatePriceTotalText ()
 	{
-		priceTotalText.text = "Total: " + priceTotal.ToString ("C");
+		priceTotalText.text = priceTotal.ToString ("C");
 	}
 
     public float GetPriceTotal ()

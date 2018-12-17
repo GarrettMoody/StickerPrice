@@ -12,9 +12,9 @@ public class AdjustPanel : MonoBehaviour
 	public InputField inputField;
 	public ToggleGroup modeButtonPanel;
 	public Text originalPriceText;
-	public Text percentDiscountText;
-	public Text dollarDiscountText;
 	public Text adjustedPriceText;
+    public Sprite selectedImage;
+    public Sprite unselectedImage;
 
 	private ItemRow itemRow;
     private GameObject numberButtonsPanel;
@@ -29,9 +29,7 @@ public class AdjustPanel : MonoBehaviour
 	private string priceMode = DOLLARS_OFF;
 	//priceMode Constants
 	private const string DOLLARS_OFF = "DollarsOff";
-	private const string DOLLARS_SET = "SetDollars";
 	private const string PERCENT_OFF = "PercentOff";
-	private const string PERCENT_SET = "SetPercent";
 
     //Constants
     readonly Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
@@ -52,6 +50,7 @@ public class AdjustPanel : MonoBehaviour
 		SetItemDescriptionText (itemRow.GetItemDescription ());
 		SetOriginalPrice (itemRow.GetItemOriginalPrice ());
 		SetInputFieldValue (0);
+        OnPriceModeChange();
 		adjustedPrice = originalPrice;
 	}
 
@@ -94,7 +93,7 @@ public class AdjustPanel : MonoBehaviour
 
     public void SetInputFieldText (float value)
 	{
-		if (priceMode == DOLLARS_SET || priceMode == DOLLARS_OFF) {
+		if (priceMode == DOLLARS_OFF) {
 			float dollarValue = value / 100;
 			inputField.text = dollarValue.ToString ("C");
 		} else {
@@ -126,33 +125,11 @@ public class AdjustPanel : MonoBehaviour
 		return originalPrice;
 	}
 
-    private void SetDollarDiscount (float value)
-	{
-		dollarDiscount = value;
-		dollarDiscountText.text = dollarDiscount.ToString ("C");
-	}
-
-    private float GetDollarDisount ()
-	{
-		return dollarDiscount;
-	}
-
-    private void SetPercentDiscount (float value)
-	{
-		percentDiscount = value;
-		percentDiscountText.text = "  " + percentDiscount.ToString ("P1");
-	}
-
-    private float GetPercentDiscount ()
-	{
-		return percentDiscount;
-	}
-
     private void SetInputFieldValue (float value)
 	{
 		inputFieldValue = value;
 		float calculatedValue;
-		if (priceMode == DOLLARS_OFF || priceMode == DOLLARS_SET) {
+		if (priceMode == DOLLARS_OFF) {
 			calculatedValue = inputFieldValue / 100;
 			inputField.text = calculatedValue.ToString ("C");
 		} else {
@@ -167,20 +144,8 @@ public class AdjustPanel : MonoBehaviour
 	{
 		float calculatedValue = inputFieldValue / 100;
 		if (priceMode == DOLLARS_OFF) {
-			SetDollarDiscount (calculatedValue);
-			SetPercentDiscount (dollarDiscount / originalPrice);
 			SetAdjustedPrice (originalPrice - dollarDiscount);
-		} else if (priceMode == DOLLARS_SET) {
-			SetDollarDiscount (originalPrice - calculatedValue);
-			SetPercentDiscount (dollarDiscount / originalPrice);
-			SetAdjustedPrice (calculatedValue);
 		} else if (priceMode == PERCENT_OFF) {
-			SetDollarDiscount (calculatedValue / 100 * originalPrice);
-			SetPercentDiscount (calculatedValue / 100);
-			SetAdjustedPrice (originalPrice - dollarDiscount);
-		} else if (priceMode == PERCENT_SET) {
-			SetDollarDiscount ((100 - calculatedValue) / 100 * originalPrice);
-			SetPercentDiscount ((100 - calculatedValue) / 100);
 			SetAdjustedPrice (originalPrice - dollarDiscount);
 		} 
 	}
@@ -189,13 +154,17 @@ public class AdjustPanel : MonoBehaviour
 	{
         //set all price mode text to black
         foreach (Toggle toggle in modeButtonPanel.GetComponentsInChildren<Toggle>()) {
-            toggle.GetComponentInChildren<Text>().color = new Color32(0, 0, 0, 255); //black
+            if(toggle.isOn) {
+                toggle.GetComponentInChildren<Image>().sprite = selectedImage;
+            } else {
+                toggle.GetComponentInChildren<Image>().sprite = unselectedImage;
+            }
         }
-		IEnumerable<Toggle> activeToggle = modeButtonPanel.ActiveToggles ();
 
-        //set selected price mode text to white
-        activeToggle.First().GetComponentInChildren<Text>().color = WHITE; //white
-		priceMode = activeToggle.First ().name;
+        Toggle activeToggle = modeButtonPanel.ActiveToggles().First();
+        if (activeToggle.name == "DollarModeToggle") {
+
+        }
 
 		SetInputFieldText (inputFieldValue);
 		CalculatePriceFields ();
