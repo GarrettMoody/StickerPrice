@@ -7,7 +7,7 @@
       <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="76" Column="16" />
       <File FileName="Assets/Sticker Price/Scripts/StickerDetailMenu.cs" Line="112" Column="25" />
       <File FileName="Assets/Sticker Price/Scripts/QRPreview.cs" Line="1" Column="1" />
-      <File FileName="Assets/Sticker Price/Scripts/AdjustPanel.cs" Line="166" Column="13" />
+      <File FileName="Assets/Sticker Price/Scripts/AdjustPanel.cs" Line="164" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

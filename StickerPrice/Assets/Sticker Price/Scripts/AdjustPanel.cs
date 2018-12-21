@@ -15,6 +15,7 @@ public class AdjustPanel : MonoBehaviour
 	public Text adjustedPriceText;
     public Sprite selectedImage;
     public Sprite unselectedImage;
+    public GameObject scanPanel;
 
 	private ItemRow itemRow;
     private GameObject numberButtonsPanel;
@@ -71,19 +72,20 @@ public class AdjustPanel : MonoBehaviour
 
     public void OnCancelButtonPress ()
 	{
-		this.transform.parent.gameObject.SetActive (false);
 		this.gameObject.SetActive (false);
+        scanPanel.SetActive(true);
 	}
 
     public void OnAcceptButtonPress ()
 	{
 		itemRow.SetItemPrice (adjustedPrice);
-		this.transform.parent.gameObject.SetActive (false);
+        this.gameObject.SetActive(false);
 		if (adjustedPrice != itemRow.GetItemOriginalPrice ()) {
             itemRow.itemPriceText.color = RED;
 		} else {
             itemRow.itemPriceText.color = DARK_GREY;
 		}
+        scanPanel.SetActive(true);
 	}
 
     public void SetItemDescriptionText (string text)
@@ -144,9 +146,9 @@ public class AdjustPanel : MonoBehaviour
 	{
 		float calculatedValue = inputFieldValue / 100;
 		if (priceMode == DOLLARS_OFF) {
-			SetAdjustedPrice (originalPrice - dollarDiscount);
+            SetAdjustedPrice (originalPrice - calculatedValue);
 		} else if (priceMode == PERCENT_OFF) {
-			SetAdjustedPrice (originalPrice - dollarDiscount);
+            SetAdjustedPrice (originalPrice - (originalPrice * calculatedValue / 100));
 		} 
 	}
 
@@ -161,9 +163,11 @@ public class AdjustPanel : MonoBehaviour
             }
         }
 
-        Toggle activeToggle = modeButtonPanel.ActiveToggles().First();
-        if (activeToggle.name == "DollarModeToggle") {
-
+        Toggle activeToggle = modeButtonPanel.ActiveToggles().FirstOrDefault();
+        if (activeToggle != null && activeToggle.name == "PercentModeToggle") {
+            priceMode = PERCENT_OFF;
+        } else {
+            priceMode = DOLLARS_OFF; //This is the default
         }
 
 		SetInputFieldText (inputFieldValue);
