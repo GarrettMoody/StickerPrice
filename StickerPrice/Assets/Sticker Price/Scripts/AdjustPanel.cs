@@ -50,7 +50,12 @@ public class AdjustPanel : MonoBehaviour
 	{
 		SetItemDescriptionText (itemRow.GetItemDescription ());
 		SetOriginalPrice (itemRow.GetItemOriginalPrice ());
-		SetInputFieldValue (0);
+        //If the price was adjusted
+        if (itemRow.GetItemPrice() != itemRow.GetItemOriginalPrice()) {
+            SetInputFieldValue((itemRow.GetItemOriginalPrice() - itemRow.GetItemPrice()) * 100); //Set the input value to the original - current to get current discount
+        } else {
+            SetInputFieldValue(0);
+        }
         OnPriceModeChange();
 		adjustedPrice = originalPrice;
 	}

@@ -29,8 +29,13 @@ public class Toolbar : MonoBehaviour {
 
     public void ScanButtonOnClickListener()
     {
-        DeactivateAllPages();
-        scanPanel.gameObject.SetActive(true);
+        //If we are already on the scan panel page, then this button is used to scan items
+        if(scanPanel.gameObject.activeInHierarchy) {
+            scanPanel.GetComponent<ScanPanel>().ScanButtonOnClickListener();
+        } else { //go to the scan panel page
+            DeactivateAllPages();
+            scanPanel.gameObject.SetActive(true);
+        }
     }
 
     public void TrackButtonOnClickListener()

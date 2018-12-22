@@ -7,6 +7,7 @@ using ZXing.QrCode;
 using UnityEngine.EventSystems;
 using System.IO;
 using System;
+using System.Globalization;
 
 public class StickerDetailMenu : MonoBehaviour {
 
@@ -32,6 +33,7 @@ public class StickerDetailMenu : MonoBehaviour {
     private int numberInSheet = 0;
     private int qtyAdded = 0;
     private int qtyLeft = 0;
+    private float priceValue;
     private FileUtility fileUtility = new FileUtility();
 
     //Constants
@@ -93,7 +95,11 @@ public class StickerDetailMenu : MonoBehaviour {
     }
 
     public void OnPriceChanged() {
-        price.text = "$" + price.text;
+        //priceValue = float.Parse(price.text, NumberStyles.Currency);
+        //string priceText = String.Format("{0:C}", priceValue);
+        //if(priceText != price.text) {
+        //    price.text = priceText;
+        //}
         UpdateQRCode();
         foreach (QROption option in qrOptions)
         {

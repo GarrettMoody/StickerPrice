@@ -26,6 +26,7 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 	private RectTransform itemRectTransform;
 	private RectTransform contentRectTransform;
     private Vector2 deletePointerThreshold;
+    private string scanString;
 
 	private int lerpMode = 0;
 	private bool verticalMode = false;
@@ -183,7 +184,6 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log(deletePointerThreshold.x);
         if (verticalMode)
         { //Scrolling Vertically
             parentList.scrollRect.OnDrag(eventData);
@@ -218,7 +218,6 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("END");
         if (verticalMode) {
             parentList.scrollRect.OnEndDrag(eventData);
         } else {
@@ -228,12 +227,10 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
             }
             else if (horizontalScrollRect.horizontalNormalizedPosition < DELETE_OFFSET && horizontalScrollRect.horizontalNormalizedPosition >= BUTTON_OFFSET)
             {
-                Debug.Log("BUTTON");
                 lerpMode = LERP_TO_BUTTONS;
             }
             else if (horizontalScrollRect.horizontalNormalizedPosition < BUTTON_OFFSET)
             {
-                Debug.Log("RESET");
                 lerpMode = LERP_TO_RESET;
             }
         }
@@ -249,5 +246,13 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         if (horizontalScrollRect.horizontalNormalizedPosition > DELETE_OFFSET) {
             DeleteButtonOnClickListener();
         }
+    }
+
+    public string GetScanString () {
+        return scanString;
+    }
+
+    public void SetScanString(string value) {
+        scanString = value;
     }
 }

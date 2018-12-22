@@ -187,4 +187,8 @@ public class ItemList : MonoBehaviour
 	{
 		itemsTotalText.text = itemTotal.ToString () + " Items";
 	}
+
+    public List<ItemRow> GetItemRows() {
+        return itemList;
+    }
 }

@@ -3041,7 +3041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8601,7 +8601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9380,7 +9380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.36078432, g: 0.67058825, b: 0.2509804, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -15138,6 +15138,13 @@ MonoBehaviour:
   scanDisplay: {fileID: 1628306553}
   currentDateTime: {fileID: 358904981}
   ToggleCameraButton: {fileID: 1840019130}
+  itemList: {fileID: 626275777}
+  screenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!114 &1261204268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15151,7 +15158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.24705882, g: 0.68235296, b: 0.16470589, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -18076,7 +18083,7 @@ MonoBehaviour:
   m_ContentType: 9
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 2
+  m_KeyboardType: 1
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 0
@@ -21003,7 +21010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -21276,12 +21283,12 @@ Prefab:
     - target: {fileID: 224338546816960312, guid: a108acd8a945c43659b4d1bbf86ff953,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 262.29224
+      value: 291.4358
       objectReference: {fileID: 0}
     - target: {fileID: 224709305381535906, guid: a108acd8a945c43659b4d1bbf86ff953,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 87.43074
+      value: 58.28716
       objectReference: {fileID: 0}
     - target: {fileID: 224860255678929892, guid: a108acd8a945c43659b4d1bbf86ff953,
         type: 2}
@@ -21326,17 +21333,37 @@ Prefab:
     - target: {fileID: 224603909645826894, guid: a108acd8a945c43659b4d1bbf86ff953,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 224338546816960312, guid: a108acd8a945c43659b4d1bbf86ff953,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 174.86148
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 224709305381535906, guid: a108acd8a945c43659b4d1bbf86ff953,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 174.86148
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224603909645826894, guid: a108acd8a945c43659b4d1bbf86ff953,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224338546816960312, guid: a108acd8a945c43659b4d1bbf86ff953,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224709305381535906, guid: a108acd8a945c43659b4d1bbf86ff953,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114225618043478818, guid: a108acd8a945c43659b4d1bbf86ff953,
+        type: 2}
+      propertyPath: m_Text
+      value: $10.00
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a108acd8a945c43659b4d1bbf86ff953, type: 2}
@@ -23453,7 +23480,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1261204267}
-        m_MethodName: ToggleCameraButtonOnClickListener
+        m_MethodName: ScanButtonOnClickListener
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23477,7 +23504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

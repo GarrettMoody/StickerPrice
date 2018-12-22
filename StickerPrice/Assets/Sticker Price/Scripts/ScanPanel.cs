@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
 using ZXing.QrCode;
+using System.Globalization;
 
 public class ScanPanel : MonoBehaviour
 {
@@ -13,62 +14,79 @@ public class ScanPanel : MonoBehaviour
 	public Text currentDateTime;
 	public Button ToggleCameraButton;
 
-	private String previousResult;
-	private ItemList itemList;
-	private Rect screenRect;
-	private WebCamTexture camTexture;
+	public ItemList itemList;
+    public Rect screenRect;
+    private WebCamTexture camTexture;
+    private bool scanReady = false; //Is the camera accepting QR code input?
+    private float scanTimer; //Time remaining for scanner to be turned on
+    [Tooltip("The amount of time the scanner will read after clicking the scan button.")]
+    public const float SCAN_TIMER = .25f; 
 
 	// Use this for initialization
 	void Start ()
 	{
 		camTexture = new WebCamTexture (WebCamTexture.devices [0].name, 480, 640, 2);
-		itemList = this.transform.Find ("ContentPanel/ItemList").GetComponent<ItemList> ();
-		previousResult = "";
 		scanDisplay.texture = camTexture;
 		scanDisplay.material.mainTexture = camTexture;
       
-		//camTexture.Play ();
+		camTexture.Play ();
 	}
 
 	void Update ()
 	{
-		currentDateTime.text = System.DateTime.Now.ToString ("F") + ' ' + System.DateTime.Now.ToString ("tt");
-		IBarcodeReader barcodeReader = new BarcodeReader ();
-		//decode the current frame
-		if (camTexture.isPlaying) {
-			Result result = barcodeReader.Decode (camTexture.GetPixels32 (), camTexture.width, camTexture.height);
+        currentDateTime.text = System.DateTime.Now.ToString("F") + ' ' + System.DateTime.Now.ToString("tt");
 
-			if (result != null) {
-				QRCodeScanned (result);
-			}
-		}
+        if (scanReady) {
+            scanTimer -= Time.deltaTime;
+
+            IBarcodeReader barcodeReader = new BarcodeReader();
+            //decode the current frame
+            if (camTexture.isPlaying)
+            {
+                Result result = barcodeReader.Decode(camTexture.GetPixels32(), camTexture.width, camTexture.height);
+
+                if (result != null)
+                {
+                    QRCodeScanned(result);
+                }
+            }
+
+            if(scanTimer <= 0f) {
+                scanReady = false;
+            }
+        }
 	}
 
 	public void ScanButtonOnClickListener ()
 	{
-		if (camTexture != null) {
-			camTexture.Play ();
-		}
+        scanReady = true;
+        scanTimer = SCAN_TIMER;
 	}
 
 	void QRCodeScanned (Result result)
 	{
-		//Debug.Log (result.Text);
-		//camTexture.Stop ();
+        scanReady = false;
+        bool addItem = true; //do we still need to add the item to the list?
+        foreach (ItemRow row in itemList.GetItemRows()) {
+            if(row.GetScanString() == result.Text) { //Does item already exist in list
+                row.SetQuantity(row.GetQuantity() + 1); //item already exists, add quantity
+                addItem = false;
+            }
+        }
 
-		if (previousResult != result.Text) {
-			previousResult = result.Text;
+        if(addItem) { //Check if we still need to add the item to the list or if we already added quantity to an existing item
+            String[] resultString = new string[4];
+            resultString = result.Text.Split('|');
 
-			String[] resultString = new string[2];
-			resultString = result.Text.Split ('|');
+            float itemPrice = float.Parse(resultString[1], NumberStyles.Currency);
 
-			float itemPrice = float.Parse (resultString [0]);
-
-			ItemRow newItem = itemList.AddItem ();
-			newItem.SetItemDescription (resultString [1]);
-			newItem.SetItemPrice (itemPrice);
-			newItem.SetItemOriginalPrice (itemPrice);
-		}
+            ItemRow newItem = itemList.AddItem();
+            newItem.SetScanString(result.Text);
+            newItem.SetItemDescription(resultString[2]);
+            newItem.SetItemPrice(itemPrice);
+            newItem.SetItemOriginalPrice(itemPrice);
+        }
+	
 	}
 
 	public void AddItemButtonOnClickListner ()
