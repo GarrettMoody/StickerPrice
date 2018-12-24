@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using ZXing;
-using ZXing.QrCode;
 using UnityEngine.EventSystems;
 using System.IO;
 using System;
@@ -48,30 +46,15 @@ public class StickerDetailMenu : MonoBehaviour {
 
         qrOptions = qrPreviewContent.GetComponentsInChildren<QROption>();
 
-        Texture2D encoded = new Texture2D (256, 256);   
-        Color32[] color32 = Encode("I Love Sticker Price", encoded.width, encoded.height);
-        encoded.SetPixels32(color32);
-        encoded.Apply();
+
+        Texture2D encoded = QRCodeGenerator.CreateQRCode("I Love StickerPrice", 256, 256);
 
         foreach(QROption option in qrOptions) {
             option.GetComponentInChildren<RawImage>().texture = encoded;
         }
 	}
 
-    // for generate qrcode
-    private static Color32[] Encode(string textForEncoding, int width, int height)
-    {
-        BarcodeWriter writer = new BarcodeWriter
-        {
-            Format = BarcodeFormat.QR_CODE,
-            Options = new QrCodeEncodingOptions
-            {
-                Height = height,
-                Width = width
-            }
-        };
-        return writer.Write(textForEncoding);
-    }
+   
 
     public void OnDescriptionChanged() {
         UpdateQRCode();
@@ -112,10 +95,7 @@ public class StickerDetailMenu : MonoBehaviour {
     }
 
     private void UpdateQRCode() {
-        Texture2D encoded = new Texture2D (256, 256); 
-        Color32[] newCode = Encode("I Love Sticker Price|" + price.text + "|" + description.text + "|" + productOwner.text, 256, 256);
-        encoded.SetPixels32(newCode);
-        encoded.Apply();
+        Texture2D encoded = QRCodeGenerator.CreateQRCode("I Love Sticker Price|" + price.text + "|" + description.text + "|" + productOwner.text, 256, 256);
         foreach (QROption option in qrOptions)
         {
             option.GetComponentInChildren<RawImage>().texture = encoded;

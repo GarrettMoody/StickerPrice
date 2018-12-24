@@ -16,6 +16,7 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
     public InputField quantityInputField;
     public ScrollRect horizontalScrollRect;
     public RectTransform horizontalContentPanel;
+    public RawImage QRCode;
 
 	//Private Variables
 	private string itemDescription = "New Item";
@@ -254,5 +255,7 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 
     public void SetScanString(string value) {
         scanString = value;
+        Texture2D qrCode = QRCodeGenerator.CreateQRCode(scanString);
+        QRCode.texture = qrCode;
     }
 }
