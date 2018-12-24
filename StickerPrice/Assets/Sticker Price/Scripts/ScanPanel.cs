@@ -15,12 +15,13 @@ public class ScanPanel : MonoBehaviour
 	public Button ToggleCameraButton;
 
 	public ItemList itemList;
-    public Rect screenRect;
+    //public Rect screenRect;
     private WebCamTexture camTexture;
     private bool scanReady = false; //Is the camera accepting QR code input?
     private float scanTimer; //Time remaining for scanner to be turned on
     [Tooltip("The amount of time the scanner will read after clicking the scan button.")]
-    public const float SCAN_TIMER = .25f; 
+    public const float SCAN_TIMER = .25f;
+    public ErrorMessage scanError;
 
 	// Use this for initialization
 	void Start ()
@@ -53,6 +54,7 @@ public class ScanPanel : MonoBehaviour
 
             if(scanTimer <= 0f) {
                 scanReady = false;
+                scanError.DisplayError(4);
             }
         }
 	}

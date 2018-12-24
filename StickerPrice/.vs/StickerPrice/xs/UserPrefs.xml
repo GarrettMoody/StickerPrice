@@ -1,27 +1,23 @@
 ﻿<Properties StartupConfiguration="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ExampleColorReceiver.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ErrorMessage.cs">
     <Files>
       <File FileName="Assets/Sticker Price/Scripts/StickerDetailMenu.cs" Line="98" Column="37" />
       <File FileName="Assets/Sticker Price/Scripts/AdjustPanel.cs" Line="55" Column="95" />
-      <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="87" Column="53" />
+      <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="18" Column="7" />
       <File FileName="Assets/Sticker Price/Scripts/ItemRow.cs" Line="256" Column="28" />
       <File FileName="Assets/Sticker Price/Scripts/ContentScroll.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Draggable.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ColorIndicator.cs" Line="8" Column="33" />
-      <File FileName="Assets/Scripts/ExampleColorReceiver.cs" Line="14" Column="1" />
+      <File FileName="Assets/ErrorMessage.cs" Line="45" Column="28" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="StickerPrice" expanded="True">
             <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="ExampleColorReceiver.cs" selected="True" />
-              </Node>
               <Node name="Sticker Price" expanded="True">
                 <Node name="Scripts" expanded="True" />
               </Node>
+              <Node name="ErrorMessage.cs" selected="True" />
             </Node>
           </Node>
         </State>
