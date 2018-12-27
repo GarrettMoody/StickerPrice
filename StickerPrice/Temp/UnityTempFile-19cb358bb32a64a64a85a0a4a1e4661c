@@ -198,6 +198,7 @@
 'Assets/Sticker Price/Scripts/MainMenu.cs'
 'Assets/Sticker Price/Scripts/PriceModeButton.cs'
 'Assets/Sticker Price/Scripts/QRCode.cs'
+'Assets/Sticker Price/Scripts/QRCodeGenerator.cs'
 'Assets/Sticker Price/Scripts/QRGenerator.cs'
 'Assets/Sticker Price/Scripts/QROption.cs'
 'Assets/Sticker Price/Scripts/QRPreview.cs'
