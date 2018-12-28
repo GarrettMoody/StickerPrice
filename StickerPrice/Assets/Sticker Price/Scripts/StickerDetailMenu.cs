@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ZXing;
+using ZXing.QrCode;
 using UnityEngine.EventSystems;
 using System.IO;
 using System;
-using System.Globalization;
+using Newtonsoft.Json;
 
-public class StickerDetailMenu : MonoBehaviour {
+public class StickerDetailMenu : MonoBehaviour
+{
 
     //Public Variables
     public ScrollRect scrollRect;
@@ -31,7 +34,6 @@ public class StickerDetailMenu : MonoBehaviour {
     private int numberInSheet = 0;
     private int qtyAdded = 0;
     private int qtyLeft = 0;
-    private float priceValue;
     private FileUtility fileUtility = new FileUtility();
 
     //Constants
@@ -42,34 +44,55 @@ public class StickerDetailMenu : MonoBehaviour {
 
 
     // Use this for initialization
-    void Awake () {
+    void Awake()
+    {
 
         qrOptions = qrPreviewContent.GetComponentsInChildren<QROption>();
 
+        Texture2D encoded = new Texture2D(256, 256);
+        Color32[] color32 = Encode("I Love Sticker Price", encoded.width, encoded.height);
+        encoded.SetPixels32(color32);
+        encoded.Apply();
 
-        Texture2D encoded = QRCodeGenerator.CreateQRCode("I Love StickerPrice", 256, 256);
-
-        foreach(QROption option in qrOptions) {
+        foreach (QROption option in qrOptions)
+        {
             option.GetComponentInChildren<RawImage>().texture = encoded;
         }
-	}
+    }
 
-   
+    // for generate qrcode
+    private static Color32[] Encode(string textForEncoding, int width, int height)
+    {
+        BarcodeWriter writer = new BarcodeWriter
+        {
+            Format = BarcodeFormat.QR_CODE,
+            Options = new QrCodeEncodingOptions
+            {
+                Height = height,
+                Width = width
+            }
+        };
+        return writer.Write(textForEncoding);
+    }
 
-    public void OnDescriptionChanged() {
+    public void OnDescriptionChanged()
+    {
         UpdateQRCode();
-        foreach(QROption option in qrOptions) {
+        foreach (QROption option in qrOptions)
+        {
             option.SetDescription(description.text);
 
         }
         dialog.input.text = description.text;
     }
 
-    public void OnNumberOfStickersChanged() {
+    public void OnNumberOfStickersChanged()
+    {
         UpdateQRCode();
     }
 
-    public void OnProductOwnerChanged() {
+    public void OnProductOwnerChanged()
+    {
         UpdateQRCode();
         foreach (QROption option in qrOptions)
         {
@@ -77,12 +100,9 @@ public class StickerDetailMenu : MonoBehaviour {
         }
     }
 
-    public void OnPriceChanged() {
-        //priceValue = float.Parse(price.text, NumberStyles.Currency);
-        //string priceText = String.Format("{0:C}", priceValue);
-        //if(priceText != price.text) {
-        //    price.text = priceText;
-        //}
+    public void OnPriceChanged()
+    {
+        //price.text = "$" + price.text;
         UpdateQRCode();
         foreach (QROption option in qrOptions)
         {
@@ -90,22 +110,28 @@ public class StickerDetailMenu : MonoBehaviour {
         }
     }
 
-    public void OnColorCodeChanged() {
+    public void OnColorCodeChanged()
+    {
         UpdateQRCode();
     }
 
-    private void UpdateQRCode() {
-        Texture2D encoded = QRCodeGenerator.CreateQRCode("I Love Sticker Price|" + price.text + "|" + description.text + "|" + productOwner.text, 256, 256);
+    private void UpdateQRCode()
+    {
+        Texture2D encoded = new Texture2D(256, 256);
+        Color32[] newCode = Encode("I Love Sticker Price|" + price.text + "|" + description.text + "|" + productOwner.text, 256, 256);
+        encoded.SetPixels32(newCode);
+        encoded.Apply();
         foreach (QROption option in qrOptions)
         {
             option.GetComponentInChildren<RawImage>().texture = encoded;
         }
     }
 
-    public void OpenMenu(Template template) {
+    public void OpenMenu(Template template)
+    {
         this.template = template;
         this.gameObject.SetActive(true);
-        templateNumberText.text = template.title.text;
+        //templateNumberText.text = template.title.text;
         UpdateNumberPerSheetText();
     }
 
@@ -122,13 +148,14 @@ public class StickerDetailMenu : MonoBehaviour {
         dialog.input.text = sticker.stickerDescription.text;
     }
 
-    public void OnQuantityAddButtonClick() 
+    public void OnQuantityAddButtonClick()
     {
-        int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0" );
+        int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
         if (qty < 999999)
         {
             quantity.text = (qty + 1).ToString();
-        } else
+        }
+        else
         {
             quantity.text = "999999";
         }
@@ -155,9 +182,10 @@ public class StickerDetailMenu : MonoBehaviour {
         qtyLeft = 0;
         if (qty > numPerSheet)
         {
-            pageCount = (int)Math.Ceiling((double)qty/numPerSheet);
+            pageCount = (int)Math.Ceiling((double)qty / numPerSheet);
             numberInSheet = numPerSheet;
-        } else
+        }
+        else
         {
             pageCount = 1;
             currentPage = 1;
@@ -168,35 +196,29 @@ public class StickerDetailMenu : MonoBehaviour {
 
     public void OnConfirmButtonClick()
     {
-        string path = "Assets/Sticker Price/Data Files/SavedStickers.csv";
-        List<string> stickers = new List<string>();
-        List<string> newList = new List<string>();
-        stickers = fileUtility.readFromFile(path);
+        string path = "Assets/Sticker Price/Data Files/SavedStickers.json";
+        List<StickerJson> newList = new List<StickerJson>();
+        var stickers = JsonConvert.DeserializeObject<List<StickerJson>>(fileUtility.readJson(path));
         if (stickers != null && stickers.Count > 0)
         {
-            stickers.ForEach(delegate (string stickerInfo)
+            stickers.ForEach(delegate (StickerJson sticker)
             {
-                string[] values = stickerInfo.Split(',');
-                if (values.Length > 0 && values[1] != dialog.input.text)
+                if (sticker.stickerDescription != dialog.input.text)
                 {
-                    newList.Add(stickerInfo);
+                    newList.Add(sticker);
                 }
             });
-        }        
-        newList.Add(template.templateId
-                        + "," + dialog.input.text
-                        + "," + description.text  
-                        + "," + productOwner.text 
-                        + "," + price.text 
-                        + "," + quantity.text
-                        + "," + DateTime.Now.ToString("dd MMMM yyyy h:mm tt") 
-                         );
+        }
+
+        StickerJson stickerData = new StickerJson(dialog.input.text, description.text, price.text, DateTime.Now.ToString("dd MMMM yyyy h:mm tt"), productOwner.text
+         , quantity.text, template.templateId);
+        newList.Add(stickerData);
         fileUtility.clearFile(path);
-        fileUtility.writeToFile(path, newList);
+        fileUtility.writeJson(path, JsonConvert.SerializeObject(newList));
     }
 
     public void OnAddToPageButtonClick()
-    { 
+    {
         if (pageCount > currentPage)
         {
             currentPage = currentPage + 1;
@@ -221,5 +243,5 @@ public class StickerDetailMenu : MonoBehaviour {
         string qtyInSheet = numberInSheet != 0 ? numberInSheet.ToString() : template.numberPerSheet;
         numberPerSheet.text = qtyInSheet + " Blank Stickers - Pages " + currentPage + "/" + pageCount;
     }
-       
+
 }

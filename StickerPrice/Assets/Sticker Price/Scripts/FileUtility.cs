@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using Newtonsoft.Json;
 
 public class FileUtility {
 
@@ -18,6 +19,14 @@ public class FileUtility {
         return values;
     }
 
+    public string readJson(string filePath)
+    {
+        StreamReader reader = new StreamReader(filePath);
+        string json = reader.ReadToEnd();
+        reader.Close();
+        return json;
+    }
+
     public void writeToFile (string filePath, List<string> values)
     {
         StreamWriter writer = new StreamWriter(filePath, true);
@@ -25,6 +34,11 @@ public class FileUtility {
             writer.WriteLine(value);
         });
         writer.Close();
+    }
+
+    public void writeJson(string filePath, object json)
+    {
+        File.WriteAllText(filePath, json.ToString());
     }
 
     public void clearFile (string filePath)
