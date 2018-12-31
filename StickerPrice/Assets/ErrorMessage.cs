@@ -36,6 +36,7 @@ public class ErrorMessage : MonoBehaviour {
         yield return new WaitForSeconds(numberOfSeconds);
         StartCoroutine(FadeOut());
     }
+
     IEnumerator FadeIn() {
         ErrorOverlayButton.GetComponent<Image>().raycastTarget = true;
         for (float i = 0f; i < OPACITY; i += .05f)

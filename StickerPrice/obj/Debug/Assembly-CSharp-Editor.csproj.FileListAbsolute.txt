@@ -308,3 +308,5 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp-Editor.csproj.CopyComplete
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp-Editor.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp-Editor.pdb
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Newtonsoft.Json.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Newtonsoft.Json.xml

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler, IPointerUpHandler // IPointerDownHandler
 {
@@ -10,7 +11,7 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 	//Public Variables
 
 	public Text itemDescriptionText;
-	public Text itemPriceText;
+    public TextMeshProUGUI itemPriceText;
     public Button plusButton;
     public Button minusButton;
     public InputField quantityInputField;
