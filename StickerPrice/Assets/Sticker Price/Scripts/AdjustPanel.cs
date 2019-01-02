@@ -85,11 +85,6 @@ public class AdjustPanel : MonoBehaviour
 	{
 		itemRow.SetItemPrice (adjustedPrice);
         this.gameObject.SetActive(false);
-		if (adjustedPrice != itemRow.GetItemOriginalPrice ()) {
-            itemRow.itemPriceText.color = RED;
-		} else {
-            itemRow.itemPriceText.color = DARK_GREY;
-		}
         scanPanel.SetActive(true);
 	}
 
