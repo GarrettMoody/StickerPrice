@@ -11,6 +11,7 @@ public class ItemList : MonoBehaviour
 	public Text priceTotalText;
 	public Text itemsTotalText;
     public Text priceSubtotalText;
+    public Text discountText;
     public Text taxText;
     public ScrollRect scrollRect;
     public RectTransform viewport;
@@ -23,6 +24,7 @@ public class ItemList : MonoBehaviour
     private float priceTotal = 0f;
     private float priceSubtotal = 0f;
     private float taxTotal = 0f;
+    private float discount = 0f;
 	private int itemTotal = 0;
 
 	// Use this for initialization
@@ -146,10 +148,6 @@ public class ItemList : MonoBehaviour
 		ResetAllRows ();
 	}
 
-    public void OpenPriceAdjustPanel(ItemRow row) {
-        priceAdjustPanel.OpenAdjustPanel(row);
-    }
-
 	public void CalculateItemsAndPrice ()
 	{
         //Reset totals
@@ -210,7 +208,9 @@ public class ItemList : MonoBehaviour
     }
 
     public void UpdatePriceTotalText() {
-        priceTotalText.text = priceTotal.ToString("C2");
+        if(priceTotalText != null) {
+            priceTotalText.text = priceTotal.ToString("C2");
+        }
     }
 
     public int GetItemTotal ()
@@ -234,7 +234,9 @@ public class ItemList : MonoBehaviour
     }
 
     public void UpdateTaxText() {
-        taxText.text = taxTotal.ToString("C2");
+        if(taxText != null) {
+            taxText.text = taxTotal.ToString("C2");
+        }
     }
 
     public void UpdateItemTotalText ()
@@ -244,5 +246,22 @@ public class ItemList : MonoBehaviour
 
     public List<ItemRow> GetItemRows() {
         return itemList;
+    }
+
+    public void DiscountButtonOnClickListener() {
+        this.gameObject.SetActive(false);
+        priceAdjustPanel.OpenAdjustPanel(this);
+    }
+
+    public float GetDiscountPrice() {
+        return discount;
+    }
+
+    public void SetDiscountPrice(float value) {
+        discount = value;
+    }
+
+    public void OpenPriceAdjustPanel(ItemRow row) {
+        priceAdjustPanel.OpenAdjustPanel(row);
     }
 }

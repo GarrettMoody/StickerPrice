@@ -64,7 +64,8 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         itemRectTransform = this.GetComponent<RectTransform>();
 		contentRectTransform = this.transform.parent.GetComponent <RectTransform> ();
 		parentList = GetComponentInParent<ItemList> ();
-	}
+        UpdatePriceText();
+    }
 
     void LerpToHorizontalPosition(float currentPosition, float targetPosition, float lerpTime) 
     {

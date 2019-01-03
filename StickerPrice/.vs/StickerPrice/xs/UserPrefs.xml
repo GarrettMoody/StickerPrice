@@ -1,11 +1,12 @@
 ﻿<Properties StartupConfiguration="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/ItemList.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/AdjustPanel.cs">
     <Files>
-      <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="91" Column="36" />
-      <File FileName="Assets/Sticker Price/Scripts/ItemRow.cs" Line="149" Column="5" />
-      <File FileName="Assets/Sticker Price/Scripts/CheckoutPanel.cs" Line="8" Column="5" />
-      <File FileName="Assets/Sticker Price/Scripts/ItemList.cs" Line="19" Column="1" />
+      <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="125" Column="39" />
+      <File FileName="Assets/Sticker Price/Scripts/ItemRow.cs" Line="26" Column="31" />
+      <File FileName="Assets/Sticker Price/Scripts/CheckoutPanel.cs" Line="8" Column="30" />
+      <File FileName="Assets/Sticker Price/Scripts/ItemList.cs" Line="19" Column="16" />
+      <File FileName="Assets/Sticker Price/Scripts/AdjustPanel.cs" Line="41" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,7 +15,7 @@
             <Node name="Assets" expanded="True">
               <Node name="Sticker Price" expanded="True">
                 <Node name="Scripts" expanded="True">
-                  <Node name="ItemList.cs" selected="True" />
+                  <Node name="AdjustPanel.cs" selected="True" />
                 </Node>
               </Node>
             </Node>
