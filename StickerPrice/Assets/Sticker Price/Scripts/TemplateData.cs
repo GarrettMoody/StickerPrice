@@ -20,6 +20,14 @@ public class TemplateData
         numberPerSheet = "";
     }
 
+    public TemplateData(string templateId)
+    {
+        this.templateId = templateId;
+        size = "";
+        qrCode = "";
+        numberPerSheet = "";
+    }
+
     public TemplateData(string templateId, string size, string qrCode, string numberPerSheet)
     {
         this.templateId = templateId;
@@ -75,7 +83,7 @@ public class TemplateData
         return templateList;
     }
 
-    public TemplateData getTemplate(string templateId)
+    public TemplateData getTemplate()
     {
         TemplateData templateData = new TemplateData();
         readTemplates();
@@ -83,7 +91,7 @@ public class TemplateData
         {
             templateList.ForEach(delegate (TemplateData template)
             {
-                if (template.templateId == templateId)
+                if (template.templateId == this.templateId)
                 {
                     templateData = template;
                 }

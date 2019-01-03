@@ -29,7 +29,7 @@ public class SavedStickers : MonoBehaviour {
         allStickers.ForEach(delegate (StickerData stickerData)
         {
             Sticker sticker = (Sticker)Instantiate(stickerPrefab);
-            sticker.initializeVariables(new TemplateData().getTemplate(stickerData.templateId), stickerData);
+            sticker.initializeVariables(new TemplateData(stickerData.templateId).getTemplate(), stickerData);
             sticker.transform.SetParent(scrollContent.transform, false);
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;
