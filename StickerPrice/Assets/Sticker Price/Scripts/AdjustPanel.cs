@@ -18,6 +18,7 @@ public class AdjustPanel : MonoBehaviour
     public GameObject scanPanel;
 
 	private ItemRow itemRow;
+    private ItemList list;
     private GameObject numberButtonsPanel;
 
 	//Price Variables
@@ -41,12 +42,19 @@ public class AdjustPanel : MonoBehaviour
 	public void OpenAdjustPanel (ItemRow row)
 	{
 		itemRow = row;
-		InitializeVariables ();
+		InitializeVariablesForItem ();
 		this.transform.parent.gameObject.SetActive (true);
 		this.gameObject.SetActive (true);
 	}
 
-    private void InitializeVariables ()
+    public void OpenAdjustPanel (ItemList list) {
+        this.list = list;
+        InitializeVariablesForList();
+        this.transform.parent.gameObject.SetActive(true);
+        this.gameObject.SetActive(true);
+    }
+
+    private void InitializeVariablesForItem ()
 	{
 		SetItemDescriptionText (itemRow.GetItemDescription ());
 		SetOriginalPrice (itemRow.GetItemOriginalPrice ());
@@ -60,6 +68,15 @@ public class AdjustPanel : MonoBehaviour
 		adjustedPrice = originalPrice;
 	}
 
+    private void InitializeVariablesForList() {
+        SetItemDescriptionText("Transaction Adjustment");
+        SetOriginalPrice(list.GetPriceSubtotal());
+        SetInputFieldValue(list.GetDiscountPrice());
+        OnPriceModeChange();
+        adjustedPrice = originalPrice;
+
+    }
+
     public void OnNumberButtonPress (int number)
 	{
 		SetInputFieldValue (float.Parse (inputFieldValue.ToString () + number.ToString ()));
@@ -72,7 +89,7 @@ public class AdjustPanel : MonoBehaviour
 
     public void OnClearButtonPress ()
 	{
-		InitializeVariables ();
+		InitializeVariablesForItem ();
 	}
 
     public void OnCancelButtonPress ()
@@ -85,11 +102,6 @@ public class AdjustPanel : MonoBehaviour
 	{
 		itemRow.SetItemPrice (adjustedPrice);
         this.gameObject.SetActive(false);
-		if (adjustedPrice != itemRow.GetItemOriginalPrice ()) {
-            itemRow.itemPriceText.color = RED;
-		} else {
-            itemRow.itemPriceText.color = DARK_GREY;
-		}
         scanPanel.SetActive(true);
 	}
 

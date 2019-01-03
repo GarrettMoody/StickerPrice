@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler, IPointerUpHandler // IPointerDownHandler
 {
@@ -10,7 +11,8 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 	//Public Variables
 
 	public Text itemDescriptionText;
-	public Text itemPriceText;
+    public TextMeshProUGUI itemPriceText;
+    public Text adjustedPriceText;
     public Button plusButton;
     public Button minusButton;
     public InputField quantityInputField;
@@ -62,7 +64,8 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         itemRectTransform = this.GetComponent<RectTransform>();
 		contentRectTransform = this.transform.parent.GetComponent <RectTransform> ();
 		parentList = GetComponentInParent<ItemList> ();
-	}
+        UpdatePriceText();
+    }
 
     void LerpToHorizontalPosition(float currentPosition, float targetPosition, float lerpTime) 
     {
@@ -112,7 +115,7 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 	public void SetItemPrice (float price)
 	{
 		itemPrice = price;
-		itemPriceText.text = itemPrice.ToString ("C");
+        UpdatePriceText();
 		parentList.CalculateItemsAndPrice ();
 	}
 
@@ -124,6 +127,7 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 	public void SetItemOriginalPrice (float price)
 	{
 		itemOriginalPrice = price;
+        UpdatePriceText();
 	}
 
 	public float GetItemOriginalPrice ()
@@ -140,6 +144,22 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         {
             quantity = value;
             UpdateQuantity();
+        }
+    }
+
+    public void UpdatePriceText() {
+        //Was the price adjusted for this item?
+        if(GetItemPrice() != GetItemOriginalPrice()) {
+            //Price is adjusted. Strikethrough original price and display adjusted price
+            itemPriceText.SetText(GetItemOriginalPrice().ToString("C2"));
+            itemPriceText.fontStyle = FontStyles.Strikethrough;
+            adjustedPriceText.text = GetItemPrice().ToString("C2");
+            adjustedPriceText.gameObject.SetActive(true);
+        } else {
+            //Price is original price. Hide adjusted price
+            itemPriceText.SetText(GetItemPrice().ToString("C2"));
+            itemPriceText.fontStyle = FontStyles.Normal;
+            adjustedPriceText.gameObject.SetActive(false);
         }
     }
 

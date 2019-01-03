@@ -10,15 +10,21 @@ public class ItemList : MonoBehaviour
 	public ItemRow itemPrefab;
 	public Text priceTotalText;
 	public Text itemsTotalText;
+    public Text priceSubtotalText;
+    public Text discountText;
+    public Text taxText;
     public ScrollRect scrollRect;
     public RectTransform viewport;
     public RectTransform contentPanel;
     public AdjustPanel priceAdjustPanel;
 
+    private const float TAX_AMOUNT = 0.05f;
 	private List<ItemRow> itemList;
-
 	private bool isLerping = false;
-	private float priceTotal = 0f;
+    private float priceTotal = 0f;
+    private float priceSubtotal = 0f;
+    private float taxTotal = 0f;
+    private float discount = 0f;
 	private int itemTotal = 0;
 
 	// Use this for initialization
@@ -28,11 +34,11 @@ public class ItemList : MonoBehaviour
 		itemList = new List<ItemRow> (contentPanel.GetComponentsInChildren<ItemRow> ());
 	}
 
-
-	public void Update ()
-	{
-
-	}
+    private void Awake()
+    {
+        CalculateItemsAndPrice();
+        itemList = new List<ItemRow>(contentPanel.GetComponentsInChildren<ItemRow>());
+    }
 
 	public void OnValueChange ()
 	{
@@ -61,6 +67,14 @@ public class ItemList : MonoBehaviour
 		CalculateItemsAndPrice ();
 	}
 
+    public void RemoveAllItems () {
+        while(itemList.Count > 0) {
+            RemoveItem(itemList[0]);
+        }
+        RedrawList();
+        CalculateItemsAndPrice();
+    }
+    
 	public ItemRow AddItem ()
 	{
 
@@ -77,6 +91,14 @@ public class ItemList : MonoBehaviour
 		CalculateItemsAndPrice ();
 		return newItem;
 	}
+
+    public ItemRow AddItem (ItemRow row) {
+        ItemRow newItem = Instantiate(row, contentPanel.transform);
+        itemList.Add(newItem);
+        RedrawList();
+        CalculateItemsAndPrice();
+        return newItem;
+    }
 
 	public void ResetAllRows ()
 	{
@@ -126,24 +148,22 @@ public class ItemList : MonoBehaviour
 		ResetAllRows ();
 	}
 
-    public void OpenPriceAdjustPanel(ItemRow row) {
-        priceAdjustPanel.OpenAdjustPanel(row);
-    }
-
 	public void CalculateItemsAndPrice ()
 	{
         //Reset totals
         SetItemTotal(0);
-        SetPriceTotal(0);
+        SetPriceSubtotal(0);
 
         if (itemList != null)
         {
             foreach (ItemRow row in itemList)
             {
                 SetItemTotal(GetItemTotal() + row.GetQuantity());
-                SetPriceTotal(GetPriceTotal() + (row.GetQuantity() * row.GetItemPrice()));
+                SetPriceSubtotal(GetPriceSubtotal() + (row.GetQuantity() * row.GetItemPrice()));
             }
         }
+
+        SetTaxTotal(GetPriceSubtotal() * TAX_AMOUNT);
     }
 
     public void SetIsLerping (bool value)
@@ -156,21 +176,42 @@ public class ItemList : MonoBehaviour
 		return isLerping;
 	}
 
-    public void UpdatePriceTotalText ()
+    public void UpdatePriceSubtotalText ()
 	{
-		priceTotalText.text = priceTotal.ToString ("C");
+        priceSubtotalText.text = priceSubtotal.ToString ("C2");
 	}
 
-    public float GetPriceTotal ()
+    public float GetPriceSubtotal ()
 	{
-		return priceTotal;
+		return priceSubtotal;
 	}
 
-    public void SetPriceTotal (float value)
+    public void SetPriceSubtotal (float value)
 	{
-		priceTotal = value;
-		UpdatePriceTotalText ();
+		priceSubtotal = value;
+		UpdatePriceSubtotalText ();
+        UpdatePriceTotalAndTax();
 	}
+
+    public void UpdatePriceTotalAndTax() {
+        SetTaxTotal(GetPriceSubtotal() * TAX_AMOUNT);
+        SetPriceTotal(GetPriceSubtotal() + GetTaxTotal());
+    }
+
+    public float GetPriceTotal() {
+        return priceTotal;
+    }
+
+    public void SetPriceTotal(float value) {
+        priceTotal = value;
+        UpdatePriceTotalText();
+    }
+
+    public void UpdatePriceTotalText() {
+        if(priceTotalText != null) {
+            priceTotalText.text = priceTotal.ToString("C2");
+        }
+    }
 
     public int GetItemTotal ()
 	{
@@ -183,6 +224,21 @@ public class ItemList : MonoBehaviour
 		UpdateItemTotalText ();
 	}
 
+    public float GetTaxTotal() {
+        return taxTotal;
+    }
+
+    public void SetTaxTotal(float tax) {
+        taxTotal = tax;
+        UpdateTaxText();
+    }
+
+    public void UpdateTaxText() {
+        if(taxText != null) {
+            taxText.text = taxTotal.ToString("C2");
+        }
+    }
+
     public void UpdateItemTotalText ()
 	{
 		itemsTotalText.text = itemTotal.ToString () + " Items";
@@ -190,5 +246,22 @@ public class ItemList : MonoBehaviour
 
     public List<ItemRow> GetItemRows() {
         return itemList;
+    }
+
+    public void DiscountButtonOnClickListener() {
+        this.gameObject.SetActive(false);
+        priceAdjustPanel.OpenAdjustPanel(this);
+    }
+
+    public float GetDiscountPrice() {
+        return discount;
+    }
+
+    public void SetDiscountPrice(float value) {
+        discount = value;
+    }
+
+    public void OpenPriceAdjustPanel(ItemRow row) {
+        priceAdjustPanel.OpenAdjustPanel(row);
     }
 }
