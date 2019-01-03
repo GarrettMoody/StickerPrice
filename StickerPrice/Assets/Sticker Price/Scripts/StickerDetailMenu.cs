@@ -1,13 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
 using ZXing.QrCode;
-using UnityEngine.EventSystems;
-using System.IO;
 using System;
-using Newtonsoft.Json;
 
 public class StickerDetailMenu : MonoBehaviour
 {
@@ -16,7 +11,6 @@ public class StickerDetailMenu : MonoBehaviour
     public ScrollRect scrollRect;
     public GameObject detailsPanel;
     public DialogPopup dialog;
-    public Text templateNumberText;
     public Text numberPerSheet;
     public InputField description;
     public InputField quantity;
@@ -28,13 +22,12 @@ public class StickerDetailMenu : MonoBehaviour
 
     //Private Variables
     private QROption[] qrOptions;
-    private Template template;
+    private TemplateData templateData;
     private int pageCount = 1;
     private int currentPage = 1;
     private int numberInSheet = 0;
     private int qtyAdded = 0;
     private int qtyLeft = 0;
-    private FileUtility fileUtility = new FileUtility();
 
     //Constants
     readonly Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
@@ -127,25 +120,29 @@ public class StickerDetailMenu : MonoBehaviour
         }
     }
 
-    public void OpenMenu(Template template)
+    public void OpenMenu(TemplateData templateData)
     {
-        this.template = template;
+        this.templateData = templateData;
         this.gameObject.SetActive(true);
-        //templateNumberText.text = template.title.text;
         UpdateNumberPerSheetText();
+        UpdateInputFields(new StickerData());
     }
 
     public void OpenMenu(Sticker sticker)
     {
-        template = sticker.template;
+        templateData = sticker.templateData;
         this.gameObject.SetActive(true);
-        templateNumberText.text = template.title.text;
         UpdateNumberPerSheetText();
-        description.text = sticker.itemDescription.text;
-        productOwner.text = sticker.owner;
-        price.text = sticker.price.text;
-        quantity.text = int.Parse(sticker.quantity).ToString();
-        dialog.input.text = sticker.stickerDescription.text;
+        UpdateInputFields(sticker.stickerData);
+    }
+
+    public void UpdateInputFields(StickerData stickerData)
+    {
+        description.text = stickerData.itemDescription;
+        productOwner.text = stickerData.owner;
+        price.text = stickerData.price;
+        quantity.text = int.Parse(stickerData.quantity != null && stickerData.quantity !="" ? stickerData.quantity : "0").ToString();
+        dialog.input.text = stickerData.stickerDescription;
     }
 
     public void OnQuantityAddButtonClick()
@@ -163,7 +160,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     public void OnQuantityMinusButtonClick()
     {
-        int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
+        int qty = int.Parse(quantity.text.ToString() != null && quantity.text.ToString() != "" ? quantity.text.ToString() : "0");
         if (qty > 0)
         {
             quantity.text = (qty - 1).ToString();
@@ -177,7 +174,7 @@ public class StickerDetailMenu : MonoBehaviour
     public void OnQuantityChanged()
     {
         int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
-        int numPerSheet = int.Parse(template.numberPerSheet);
+        int numPerSheet = int.Parse(templateData.numberPerSheet);
         qtyAdded = 0;
         qtyLeft = 0;
         if (qty > numPerSheet)
@@ -195,26 +192,11 @@ public class StickerDetailMenu : MonoBehaviour
     }
 
     public void OnConfirmButtonClick()
-    {
-        string path = "Assets/Sticker Price/Data Files/SavedStickers.json";
-        List<StickerJson> newList = new List<StickerJson>();
-        var stickers = JsonConvert.DeserializeObject<List<StickerJson>>(fileUtility.readJson(path));
-        if (stickers != null && stickers.Count > 0)
-        {
-            stickers.ForEach(delegate (StickerJson sticker)
-            {
-                if (sticker.stickerDescription != dialog.input.text)
-                {
-                    newList.Add(sticker);
-                }
-            });
-        }
-
-        StickerJson stickerData = new StickerJson(dialog.input.text, description.text, price.text, DateTime.Now.ToString("dd MMMM yyyy h:mm tt"), productOwner.text
-         , quantity.text, template.templateId);
-        newList.Add(stickerData);
-        fileUtility.clearFile(path);
-        fileUtility.writeJson(path, JsonConvert.SerializeObject(newList));
+    {      
+        StickerData stickerData = new StickerData(dialog.input.text, description.text, price.text, DateTime.Now.ToString("dd MMMM yyyy h:mm tt"), productOwner.text
+         , quantity.text, templateData.templateId);
+        stickerData.createSticker();
+        
     }
 
     public void OnAddToPageButtonClick()
@@ -223,7 +205,7 @@ public class StickerDetailMenu : MonoBehaviour
         {
             currentPage = currentPage + 1;
             int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
-            int numPerSheet = int.Parse(template.numberPerSheet);
+            int numPerSheet = int.Parse(templateData.numberPerSheet);
             if (qty > numPerSheet)
             {
                 qtyAdded = qtyAdded + numPerSheet;
@@ -240,7 +222,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     public void UpdateNumberPerSheetText()
     {
-        string qtyInSheet = numberInSheet != 0 ? numberInSheet.ToString() : template.numberPerSheet;
+        string qtyInSheet = numberInSheet != 0 ? numberInSheet.ToString() : templateData.numberPerSheet;
         numberPerSheet.text = qtyInSheet + " Blank Stickers - Pages " + currentPage + "/" + pageCount;
     }
 

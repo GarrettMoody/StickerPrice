@@ -9,45 +9,38 @@ public class Sticker : MonoBehaviour {
     public Text numAndSize;
     public Text price;
     public Text dateSaved;
-    public string owner;
-    public string quantity;
     public Color32 colorCode;
-    public string color;
-    public Template template;
+    public TemplateData templateData;
+    public StickerData stickerData;
 
     public void Start()
     {
 
     }
 
-    public void setStickerDescription(string stickerDescription)
+    public void setStickerDescription()
     {
-        this.stickerDescription.text = stickerDescription;
+        this.stickerDescription.text = stickerData.stickerDescription;
     }
 
-    public void setItemDescription(string itemDescription)
+    public void setItemDescription()
     {
-        this.itemDescription.text = itemDescription;
+        this.itemDescription.text = stickerData.itemDescription;
     }
 
     public void setNumAndSize()
     {
-        numAndSize.text = template.numberPerSheet + " - " + template.size;
+        numAndSize.text = templateData.numberPerSheet + " - " + templateData.size;
     }
 
-    public void setPrice(string price)
+    public void setPrice()
     {
-        this.price.text = "$" + price;
+        this.price.text =  stickerData.price;
     }
 
-    public void setDateSaved(string dateSaved)
+    public void setDateSaved()
     {
-        this.dateSaved.text = dateSaved;
-    }
-
-    public void setOwner(string owner)
-    {
-        this.owner = owner;
+        this.dateSaved.text = stickerData.dateSaved;
     }
 
     public void setColorCode(Color32 colorCode)
@@ -55,26 +48,24 @@ public class Sticker : MonoBehaviour {
         this.colorCode = colorCode;
     }
 
-    public void setTemplate (Template template)
+    public void setTemplateData (TemplateData templateData)
     {
-        this.template = template;
+        this.templateData = templateData;
     }
 
-    public void setQuantity (string quantity)
+    public void setStickerData (StickerData stickerData)
     {
-        this.quantity = quantity;
+        this.stickerData = stickerData;
     }
 
-    public void initializeVariables(Template template, string stickerDescription, string itemDescription, string owner, string price, 
-                                    string quantity, string dateSaved)
+    public void initializeVariables(TemplateData templateData,StickerData stickerData)
     {
-        setStickerDescription(stickerDescription);
-        setItemDescription(itemDescription);
-        setPrice(price);
-        setOwner(owner);
-        setDateSaved(dateSaved);
-        setQuantity(quantity);
-        setTemplate(template);
+        setStickerData(stickerData);
+        setTemplateData(templateData);
+        setStickerDescription();
+        setItemDescription();
+        setPrice();
+        setDateSaved();
     }
 
 }

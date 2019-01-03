@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Template : MonoBehaviour
@@ -10,8 +7,7 @@ public class Template : MonoBehaviour
     public Text size;
     public Text numPerSheet;
     public Image qrCode;
-    public string templateId;
-    public string numberPerSheet;
+    public TemplateData templateData;
 
     private StickerFormatMenu stickerFormatMenu;
 
@@ -22,25 +18,24 @@ public class Template : MonoBehaviour
 
     public void SetTitle()
     {
-        title.text = "Template - " + templateId;
+        title.text = "Template - " + templateData.templateId;
     }
 
-    public void SetSize(string size)
+    public void SetSize()
     {
-        this.size.text = size;
+        this.size.text = templateData.size;
     }
 
     public void SetNumPerSheet()
     {
-        this.numPerSheet.text = numberPerSheet + " Per Sheet";
+        this.numPerSheet.text = templateData.numberPerSheet + " Per Sheet";
     }
 
-    public void InitializeVariables(string templateId, string size, string numberPerSheet)
+    public void InitializeVariables(TemplateData templateData)
     {
-        this.templateId = templateId;
-        this.numberPerSheet = numberPerSheet;
+        this.templateData = templateData;
         SetTitle();
-        SetSize(size);
+        SetSize();
         SetNumPerSheet();
     }
 
