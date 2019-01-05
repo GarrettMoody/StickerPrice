@@ -122,7 +122,7 @@ public class ScanPanel : MonoBehaviour
 
         checkoutPanel.itemList.RemoveAllItems();
         foreach (ItemRow row in itemList.GetItemRows()) {
-            checkoutPanel.itemList.AddItem(row);
+            ItemRow newRow = checkoutPanel.itemList.AddItem(row);
         }
 
         checkoutPanel.itemList.SetItemTotal(this.itemList.GetItemTotal());
