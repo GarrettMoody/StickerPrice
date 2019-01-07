@@ -91,10 +91,10 @@ public class ScanPanel : MonoBehaviour
             ItemRow newItem = itemList.AddItem();
             newItem.SetScanString(result.Text);
             newItem.SetItemDescription(resultString[2]);
+            newItem.SetProductOwner(resultString[3]);
             newItem.SetItemPrice(itemPrice);
             newItem.SetItemOriginalPrice(itemPrice);
         }
-
     }
 
     public void AddItemButtonOnClickListner()
@@ -123,11 +123,11 @@ public class ScanPanel : MonoBehaviour
         checkoutPanel.itemList.RemoveAllItems();
         foreach (ItemRow row in itemList.GetItemRows()) {
             ItemRow newRow = checkoutPanel.itemList.AddItem(row);
+            newRow.UpdatePriceText();
         }
 
         checkoutPanel.itemList.SetItemTotal(this.itemList.GetItemTotal());
         checkoutPanel.itemList.SetPriceSubtotal(this.itemList.GetPriceSubtotal());
         checkoutPanel.itemList.SetTaxTotal(this.itemList.GetTaxTotal());
-        
     }
 }

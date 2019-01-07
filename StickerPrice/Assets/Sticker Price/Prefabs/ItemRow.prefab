@@ -1634,6 +1634,7 @@ MonoBehaviour:
   itemDescriptionText: {fileID: 114522792687415124}
   itemPriceText: {fileID: 114001735068323740}
   adjustedPriceText: {fileID: 114437878691546004}
+  productOwnerText: {fileID: 114335891686771814}
   plusButton: {fileID: 114342375416248272}
   minusButton: {fileID: 114830163186745870}
   quantityInputField: {fileID: 114624431091891608}

@@ -16,17 +16,19 @@ public class AdjustPanel : MonoBehaviour
     public Sprite selectedImage;
     public Sprite unselectedImage;
     public GameObject scanPanel;
+    public CheckoutPanel checkoutPanel;
 
 	private ItemRow itemRow;
     private ItemList list;
     private GameObject numberButtonsPanel;
+    private bool isAdjustingItemRow; //Is adjusting single item? As opposed to entire transaction. 
 
 	//Price Variables
 	private float adjustedPrice;
 	private float originalPrice;
 	private float percentDiscount;
 	private float dollarDiscount;
-	private float inputFieldValue;
+	private float inputFieldValue; //This is the value in the input field. $5.00 = 500. $25.50 = 2550.
 
 	private string priceMode = DOLLARS_OFF;
 	//priceMode Constants
@@ -42,6 +44,7 @@ public class AdjustPanel : MonoBehaviour
 	public void OpenAdjustPanel (ItemRow row)
 	{
 		itemRow = row;
+        isAdjustingItemRow = true;
 		InitializeVariablesForItem ();
 		this.transform.parent.gameObject.SetActive (true);
 		this.gameObject.SetActive (true);
@@ -49,6 +52,7 @@ public class AdjustPanel : MonoBehaviour
 
     public void OpenAdjustPanel (ItemList list) {
         this.list = list;
+        isAdjustingItemRow = false;
         InitializeVariablesForList();
         this.transform.parent.gameObject.SetActive(true);
         this.gameObject.SetActive(true);
@@ -65,15 +69,15 @@ public class AdjustPanel : MonoBehaviour
             SetInputFieldValue(0);
         }
         OnPriceModeChange();
-		adjustedPrice = originalPrice;
+        adjustedPrice = originalPrice - (inputFieldValue / 100);
 	}
 
     private void InitializeVariablesForList() {
         SetItemDescriptionText("Transaction Adjustment");
         SetOriginalPrice(list.GetPriceSubtotal());
-        SetInputFieldValue(list.GetDiscountPrice());
+        SetInputFieldValue(list.GetDiscountPrice() * 100);
         OnPriceModeChange();
-        adjustedPrice = originalPrice;
+        adjustedPrice = originalPrice - (inputFieldValue / 100);
 
     }
 
@@ -89,7 +93,7 @@ public class AdjustPanel : MonoBehaviour
 
     public void OnClearButtonPress ()
 	{
-		InitializeVariablesForItem ();
+        SetInputFieldValue(0);
 	}
 
     public void OnCancelButtonPress ()
@@ -100,9 +104,15 @@ public class AdjustPanel : MonoBehaviour
 
     public void OnAcceptButtonPress ()
 	{
-		itemRow.SetItemPrice (adjustedPrice);
-        this.gameObject.SetActive(false);
-        scanPanel.SetActive(true);
+        if(isAdjustingItemRow) { //Adjusting an item
+            itemRow.SetItemPrice(adjustedPrice);
+            this.gameObject.SetActive(false);
+            scanPanel.SetActive(true);
+        } else { //Adjusting a transaction
+            checkoutPanel.itemList.SetDiscountPrice(GetOriginalPrice() - GetAdjustedPrice());
+            this.gameObject.SetActive(false);
+            checkoutPanel.gameObject.SetActive(true);
+        }
 	}
 
     public void SetItemDescriptionText (string text)

@@ -13,6 +13,7 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 	public Text itemDescriptionText;
     public TextMeshProUGUI itemPriceText;
     public Text adjustedPriceText;
+    public Text productOwnerText;
     public Button plusButton;
     public Button minusButton;
     public InputField quantityInputField;
@@ -21,15 +22,16 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
     public RawImage QRCode;
 
 	//Private Variables
-	private string itemDescription = "New Item";
-	private float itemOriginalPrice = 10;
-	private float itemPrice = 10;
-    private int quantity = 1;
-	private ItemList parentList;
+    [SerializeField, HideInInspector] private string itemDescription = "New Item";
+    [SerializeField, HideInInspector] private float itemOriginalPrice = 10;
+    [SerializeField, HideInInspector] private float itemPrice = 10;
+    [SerializeField, HideInInspector] private int quantity = 1;
+    [SerializeField, HideInInspector] private string productOwner;
+    [SerializeField, HideInInspector] private ItemList parentList;
 	private RectTransform itemRectTransform;
 	private RectTransform contentRectTransform;
     private Vector2 deletePointerThreshold;
-    private string scanString;
+    [SerializeField, HideInInspector] private string scanString;
 
 	private int lerpMode = 0;
 	private bool verticalMode = false;
@@ -116,7 +118,7 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 	{
 		itemPrice = price;
         UpdatePriceText();
-		parentList.CalculateItemsAndPrice ();
+		parentList.CalculateTotals ();
 	}
 
 	public float GetItemPrice ()
@@ -165,7 +167,7 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
 
     public void UpdateQuantity() {
         quantityInputField.text = quantity.ToString();
-        parentList.CalculateItemsAndPrice();
+        parentList.CalculateTotals();
     }
 
     public void OnQuantityInputFieldValueChanged() {
@@ -277,5 +279,18 @@ public class ItemRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragH
         scanString = value;
         Texture2D qrCode = QRCodeGenerator.CreateQRCode(scanString);
         QRCode.texture = qrCode;
+    }
+
+    public string GetProductOwner() {
+        return productOwner;
+    }
+
+    public void SetProductOwner(string value) {
+        productOwner = value;
+        UpdateProductOwnerText();
+    }
+
+    public void UpdateProductOwnerText() {
+        productOwnerText.text = productOwner;
     }
 }

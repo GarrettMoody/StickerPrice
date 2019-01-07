@@ -11,6 +11,7 @@ public class ItemList : MonoBehaviour
 	public Text priceTotalText;
 	public Text itemsTotalText;
     public Text priceSubtotalText;
+    public GameObject discountPanel;
     public Text discountText;
     public Text taxText;
     public ScrollRect scrollRect;
@@ -30,13 +31,13 @@ public class ItemList : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		CalculateItemsAndPrice ();
+		CalculateTotals ();
 		itemList = new List<ItemRow> (contentPanel.GetComponentsInChildren<ItemRow> ());
 	}
 
     private void Awake()
     {
-        CalculateItemsAndPrice();
+        CalculateTotals();
         itemList = new List<ItemRow>(contentPanel.GetComponentsInChildren<ItemRow>());
     }
 
@@ -64,7 +65,7 @@ public class ItemList : MonoBehaviour
                                              //contentPanel.sizeDelta.y - itemPrefab.GetComponent<RectTransform>().rect.height);
 
         RedrawList();
-		CalculateItemsAndPrice ();
+		CalculateTotals ();
 	}
 
     public void RemoveAllItems () {
@@ -72,7 +73,7 @@ public class ItemList : MonoBehaviour
             RemoveItem(itemList[0]);
         }
         RedrawList();
-        CalculateItemsAndPrice();
+        CalculateTotals();
     }
     
 	public ItemRow AddItem ()
@@ -88,15 +89,17 @@ public class ItemList : MonoBehaviour
                                              //contentPanel.sizeDelta.y + itemPrefab.GetComponent<RectTransform>().rect.height);
 
 		RedrawList ();
-		CalculateItemsAndPrice ();
+		CalculateTotals ();
 		return newItem;
 	}
 
     public ItemRow AddItem (ItemRow row) {
         ItemRow newItem = Instantiate(row, contentPanel.transform);
+        float newPrice = newItem.GetItemPrice();
+
         itemList.Add(newItem);
         RedrawList();
-        CalculateItemsAndPrice();
+        CalculateTotals();
         return newItem;
     }
 
@@ -148,12 +151,13 @@ public class ItemList : MonoBehaviour
 		ResetAllRows ();
 	}
 
-	public void CalculateItemsAndPrice ()
+	public void CalculateTotals ()
 	{
         //Reset totals
         SetItemTotal(0);
         SetPriceSubtotal(0);
 
+        //For each item in the list add to item total and subtotal
         if (itemList != null)
         {
             foreach (ItemRow row in itemList)
@@ -162,8 +166,8 @@ public class ItemList : MonoBehaviour
                 SetPriceSubtotal(GetPriceSubtotal() + (row.GetQuantity() * row.GetItemPrice()));
             }
         }
-
-        SetTaxTotal(GetPriceSubtotal() * TAX_AMOUNT);
+        SetTaxTotal((GetPriceSubtotal() - GetDiscountPrice()) * TAX_AMOUNT);
+        SetPriceTotal(GetPriceSubtotal() + GetTaxTotal() - GetDiscountPrice());
     }
 
     public void SetIsLerping (bool value)
@@ -189,15 +193,10 @@ public class ItemList : MonoBehaviour
     public void SetPriceSubtotal (float value)
 	{
 		priceSubtotal = value;
-		UpdatePriceSubtotalText ();
-        UpdatePriceTotalAndTax();
+        UpdatePriceSubtotalText();
 	}
 
-    public void UpdatePriceTotalAndTax() {
-        SetTaxTotal(GetPriceSubtotal() * TAX_AMOUNT);
-        SetPriceTotal(GetPriceSubtotal() + GetTaxTotal());
-    }
-
+  
     public float GetPriceTotal() {
         return priceTotal;
     }
@@ -259,9 +258,24 @@ public class ItemList : MonoBehaviour
 
     public void SetDiscountPrice(float value) {
         discount = value;
+        UpdateDiscountPriceText();
+        CalculateTotals();
+    }
+
+    public void UpdateDiscountPriceText() {
+        if(discount != 0) { //If there is a discounted price
+            discountPanel.SetActive(true); //Display the discount
+        } else {
+            discountPanel.SetActive(false);
+        }
+        discountText.text = discount.ToString("C2");
     }
 
     public void OpenPriceAdjustPanel(ItemRow row) {
         priceAdjustPanel.OpenAdjustPanel(row);
+    }
+
+    public void OpenPriceAdjustPanel(ItemList list) {
+        priceAdjustPanel.OpenAdjustPanel(list);
     }
 }
