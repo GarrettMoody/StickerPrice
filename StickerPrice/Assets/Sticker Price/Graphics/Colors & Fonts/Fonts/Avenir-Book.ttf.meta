@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 83e5eb37c2585479380df1aa5af670b4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Avenir
+  fontNames:
+  - Avenir
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 14da89016dae3450eba17576d6af94f8, type: 3}
+  - {fileID: 12800000, guid: eca1af3694464423cb36a44bdf958442, type: 3}
+  - {fileID: 12800000, guid: a2297fc6c759c41f394118c3a3ec7ee5, type: 3}
+  - {fileID: 12800000, guid: 3b83f7a7799e8497ca166f9ba67b542c, type: 3}
+  - {fileID: 12800000, guid: 578bfbac91f4e4034acede729898ffdc, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
