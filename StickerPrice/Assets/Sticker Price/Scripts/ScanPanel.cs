@@ -27,7 +27,7 @@ public class ScanPanel : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        camTexture = new WebCamTexture(WebCamTexture.devices[0].name, 480, 640, 2);
+        camTexture = new WebCamTexture(WebCamTexture.devices[0].name, 480, 640, 60);
         scanDisplay.texture = camTexture;
         scanDisplay.material.mainTexture = camTexture;
 
