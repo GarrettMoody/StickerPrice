@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemList : MonoBehaviour
+public class ItemList : ContentList
 {
 
+    [Header("ItemList Variables")]
 	public ItemRow itemPrefab;
 	public Text priceTotalText;
 	public Text itemsTotalText;
@@ -14,14 +15,11 @@ public class ItemList : MonoBehaviour
     public GameObject discountPanel;
     public Text discountText;
     public Text taxText;
-    public ScrollRect scrollRect;
-    public RectTransform viewport;
-    public RectTransform contentPanel;
+
     public AdjustPanel priceAdjustPanel;
 
     private const float TAX_AMOUNT = 0.05f;
-	private List<ItemRow> itemList;
-	private bool isLerping = false;
+	
     private float priceTotal = 0f;
     private float priceSubtotal = 0f;
     private float taxTotal = 0f;
@@ -29,127 +27,47 @@ public class ItemList : MonoBehaviour
 	private int itemTotal = 0;
 
 	// Use this for initialization
-	void Start ()
+	public override void Start ()
 	{
+        base.Start();
 		CalculateTotals ();
-		itemList = new List<ItemRow> (contentPanel.GetComponentsInChildren<ItemRow> ());
 	}
 
-    private void Awake()
+    public override void Awake()
     {
-        CalculateTotals();
-        itemList = new List<ItemRow>(contentPanel.GetComponentsInChildren<ItemRow>());
-    }
-
-	public void OnValueChange ()
-	{
-		if (Mathf.Abs (scrollRect.velocity.y) < 10f) {
-			scrollRect.StopMovement ();
-		}
-
-		if (!Input.GetMouseButton (0)) {
-			ResetAllRows ();
-		}
-	}
-
-	public void StopScrolling ()
-	{
-		scrollRect.StopMovement ();
-	}
-
-	public void RemoveItem (ItemRow item)
-	{
-		itemList.Remove (item);
-		Destroy (item.gameObject);
-        //contentPanel.sizeDelta = new Vector2(contentPanel.sizeDelta.x,
-                                             //contentPanel.sizeDelta.y - itemPrefab.GetComponent<RectTransform>().rect.height);
-
-        RedrawList();
-		CalculateTotals ();
-	}
-
-    public void RemoveAllItems () {
-        while(itemList.Count > 0) {
-            RemoveItem(itemList[0]);
-        }
-        RedrawList();
+        base.Awake();
         CalculateTotals();
     }
-    
+
+    override public void RemoveRow(ContentRow row)
+    {
+        base.RemoveRow(row);
+        CalculateTotals();
+    }
+
+    override public void RemoveAllRows () {
+        base.RemoveAllRows();
+        CalculateTotals();
+    }
+
 	public ItemRow AddItem ()
 	{
-
-		ItemRow newItem = Instantiate (itemPrefab, contentPanel.transform);
-		//newItem.GetComponent<LayoutElement> ().ignoreLayout = false;
+        ItemRow newItem = Instantiate(itemPrefab);
 		newItem.transform.SetParent (contentPanel.transform);
 		newItem.transform.SetAsLastSibling ();
-		itemList.Add (newItem);
-
-        //contentPanel.sizeDelta = new Vector2(contentPanel.sizeDelta.x, 
-                                             //contentPanel.sizeDelta.y + itemPrefab.GetComponent<RectTransform>().rect.height);
-
-		RedrawList ();
+		base.contentList.Add (newItem); 
+        base.ResetAllRows();
 		CalculateTotals ();
 		return newItem;
 	}
 
     public ItemRow AddItem (ItemRow row) {
-        ItemRow newItem = Instantiate(row, contentPanel.transform);
-        float newPrice = newItem.GetItemPrice();
+        ItemRow newRow = (ItemRow) base.AddRow(row);
 
-        itemList.Add(newItem);
-        RedrawList();
+        base.ResetAllRows();
         CalculateTotals();
-        return newItem;
+        return newRow;
     }
-
-	public void ResetAllRows ()
-	{
-        if (itemList != null)
-        {
-            foreach (ItemRow row in itemList)
-            {
-                row.ResetRow();
-            }
-        }
-    }
-
-	public void ResetOtherRows (ItemRow sourceRow)
-	{
-        if (itemList != null)
-        {
-            foreach (ItemRow row in itemList)
-            {
-                if (row != sourceRow)
-                {
-                    row.ResetRow();
-                }
-            }
-        }
-    }
-
-    public void RedrawList ()
-	{
-        //if (itemList != null)
-        //{
-        //    foreach (ItemRow row in itemList)
-        //    {
-        //        row.GetComponent<LayoutElement>().ignoreLayout = false;
-        //    }
-        //}
-
-        //Canvas.ForceUpdateCanvases ();
-
-        //if (itemList != null)
-        //{
-        //    foreach (ItemRow row in itemList)
-        //    {
-        //        row.GetComponent<LayoutElement>().ignoreLayout = true;
-        //    }
-        //}
-
-		ResetAllRows ();
-	}
 
 	public void CalculateTotals ()
 	{
@@ -158,9 +76,9 @@ public class ItemList : MonoBehaviour
         SetPriceSubtotal(0);
 
         //For each item in the list add to item total and subtotal
-        if (itemList != null)
+        if (base.contentList != null)
         {
-            foreach (ItemRow row in itemList)
+            foreach (ItemRow row in base.contentList)
             {
                 SetItemTotal(GetItemTotal() + row.GetQuantity());
                 SetPriceSubtotal(GetPriceSubtotal() + (row.GetQuantity() * row.GetItemPrice()));
@@ -169,16 +87,6 @@ public class ItemList : MonoBehaviour
         SetTaxTotal((GetPriceSubtotal() - GetDiscountPrice()) * TAX_AMOUNT);
         SetPriceTotal(GetPriceSubtotal() + GetTaxTotal() - GetDiscountPrice());
     }
-
-    public void SetIsLerping (bool value)
-	{
-		isLerping = value;
-	}
-
-	public bool GetIsLerping ()
-	{
-		return isLerping;
-	}
 
     public void UpdatePriceSubtotalText ()
 	{
@@ -243,10 +151,6 @@ public class ItemList : MonoBehaviour
 		itemsTotalText.text = itemTotal.ToString () + " Items";
 	}
 
-    public List<ItemRow> GetItemRows() {
-        return itemList;
-    }
-
     public void DiscountButtonOnClickListener() {
         this.gameObject.SetActive(false);
         priceAdjustPanel.OpenAdjustPanel(this);
@@ -259,7 +163,7 @@ public class ItemList : MonoBehaviour
     public void SetDiscountPrice(float value) {
         discount = value;
         UpdateDiscountPriceText();
-        CalculateTotals();
+       CalculateTotals();
     }
 
     public void UpdateDiscountPriceText() {
