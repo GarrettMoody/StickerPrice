@@ -6,6 +6,9 @@ using UnityEditor;
 
 public class ContentScroll : MonoBehaviour
 {
+    //It is assumed that each direct child component of the content panel contains a canvas component. This is used for sorting when
+    //the components overlap each other in the scroll menu. 
+    //The content panel can also not contain any Layout Group components or the scroll functionality will not work. 
 
     //Public Variables
     [Tooltip("The scroll speed at which snapping to the closest component begins.")]
@@ -51,6 +54,7 @@ public class ContentScroll : MonoBehaviour
         valueComponentCenters = new Vector2[valueComponent.Length];
         for (int i = 0; i < valueComponent.Length; i++)
         {
+            RectTransform rect = valueComponent[i].gameObject.GetComponent<RectTransform>();
             valueComponentCenters[i] = valueComponent[i].gameObject.GetComponent<RectTransform>().anchoredPosition;
         }
 
@@ -91,16 +95,24 @@ public class ContentScroll : MonoBehaviour
     }
 
     void UpdateSelectionIndicator() {
-        //Get the index of the content closest to the center and color the corresponding image in the selection indicator. 
-        int minIndex = GetMinDistantIndex();
-        int i = 0;
-        foreach(Transform child in selectionIndicator.transform) {
-            if (i == minIndex) {
-                child.gameObject.GetComponent<Image>().color = SELECTED_COLOR;
-            } else {
-                child.gameObject.GetComponent<Image>().color = NON_SELECTED_COLOR;
+        //The selection indicator is not required, so updating it may not be neccessary
+        if(selectionIndicator != null)
+        {
+            //Get the index of the content closest to the center and color the corresponding image in the selection indicator. 
+            int minIndex = GetMinDistantIndex();
+            int i = 0;
+            foreach (Transform child in selectionIndicator.transform)
+            {
+                if (i == minIndex)
+                {
+                    child.gameObject.GetComponent<Image>().color = SELECTED_COLOR;
+                }
+                else
+                {
+                    child.gameObject.GetComponent<Image>().color = NON_SELECTED_COLOR;
+                }
+                i++;
             }
-            i++;
         }
     }
 
