@@ -8,7 +8,6 @@ public class StickerDetailMenu : MonoBehaviour
 {
 
     //Public Variables
-    public ScrollRect scrollRect;
     public GameObject detailsPanel;
     public DialogPopup dialog;
     public Text numberPerSheet;

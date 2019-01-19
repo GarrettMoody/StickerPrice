@@ -72,34 +72,34 @@ public class ScanPanel : MonoBehaviour
     {
         scanReady = false;
         bool addItem = true; //do we still need to add the item to the list?
-        //foreach (ItemRow row in itemList.GetItemRows())
-        //{
-        //    if (row.GetScanString() == result.Text)
-        //    { //Does item already exist in list
-        //        row.SetQuantity(row.GetQuantity() + 1); //item already exists, add quantity
-        //        addItem = false;
-        //    }
-        //}
+        foreach (ItemRow row in itemList.GetRows())
+        {
+            if (row.GetScanString() == result.Text)
+            { //Does item already exist in list
+                row.SetQuantity(row.GetQuantity() + 1); //item already exists, add quantity
+                addItem = false;
+            }
+        }
 
-        //if (addItem)
-        //{ //Check if we still need to add the item to the list or if we already added quantity to an existing item
-        //    String[] resultString = new string[4];
-        //    resultString = result.Text.Split('|');
+        if (addItem)
+        { //Check if we still need to add the item to the list or if we already added quantity to an existing item
+            String[] resultString = new string[4];
+            resultString = result.Text.Split('|');
 
-        //    float itemPrice = float.Parse(resultString[1], NumberStyles.Currency);
+            float itemPrice = float.Parse(resultString[1], NumberStyles.Currency);
 
-        //    ItemRow newItem = itemList.AddItem();
-        //    newItem.SetScanString(result.Text);
-        //    newItem.SetItemDescription(resultString[2]);
-        //    newItem.SetProductOwner(resultString[3]);
-        //    newItem.SetItemPrice(itemPrice);
-        //    newItem.SetItemOriginalPrice(itemPrice);
-        //}
+            ItemRow newItem = itemList.AddItem();
+            newItem.SetScanString(result.Text);
+            newItem.SetItemDescription(resultString[2]);
+            newItem.SetProductOwner(resultString[3]);
+            newItem.SetItemPrice(itemPrice);
+            newItem.SetItemOriginalPrice(itemPrice);
+        }
     }
 
     public void AddItemButtonOnClickListner()
     {
-        //itemList.AddItem();
+        itemList.AddItem();
     }
 
     public void ToggleCameraButtonOnClickListener()
@@ -121,10 +121,10 @@ public class ScanPanel : MonoBehaviour
         checkoutPanel.gameObject.SetActive(true);
 
         checkoutPanel.itemList.RemoveAllRows();
-        //foreach (ItemRow row in itemList.GetItemRows()) {
-        //    ItemRow newRow = checkoutPanel.itemList.AddItem(row);
-        //    newRow.UpdatePriceText();
-        //}
+        foreach (ItemRow row in itemList.GetRows()) {
+            ItemRow newRow = checkoutPanel.itemList.AddItem(row);
+            newRow.UpdatePriceText();
+        }
 
         checkoutPanel.itemList.SetItemTotal(this.itemList.GetItemTotal());
         checkoutPanel.itemList.SetPriceSubtotal(this.itemList.GetPriceSubtotal());

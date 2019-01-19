@@ -73,12 +73,16 @@ public abstract class ContentList : MonoBehaviour
         }
     }
 
-    public virtual ContentRow AddRow(ContentRow row)
+    public virtual void AddRow(ContentRow row)
     {
-        ContentRow newRow = Instantiate(row, contentPanel.transform);
-        newRow.transform.SetAsLastSibling();
-        contentList.Add(newRow);
-        return newRow;
+        row.transform.SetParent(contentPanel.transform);
+        row.transform.SetAsLastSibling();
+        contentList.Add(row);
+    }
+
+    public virtual List<ContentRow> GetRows()
+    {
+        return contentList;
     }
 
     //public ContentRow AddRow()

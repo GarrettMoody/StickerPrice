@@ -52,19 +52,19 @@ public class ItemList : ContentList
 
 	public ItemRow AddItem ()
 	{
-        ItemRow newItem = Instantiate(itemPrefab);
-		newItem.transform.SetParent (contentPanel.transform);
+        ItemRow newItem = Instantiate(itemPrefab, contentPanel.transform);
 		newItem.transform.SetAsLastSibling ();
-		base.contentList.Add (newItem); 
-        base.ResetAllRows();
+		contentList.Add (newItem); 
+        ResetAllRows();
 		CalculateTotals ();
 		return newItem;
 	}
 
     public ItemRow AddItem (ItemRow row) {
-        ItemRow newRow = (ItemRow) base.AddRow(row);
-
-        base.ResetAllRows();
+        ItemRow newRow = Instantiate(row, contentPanel.transform);
+        newRow.transform.SetAsLastSibling();
+        contentList.Add(newRow);
+        ResetAllRows();
         CalculateTotals();
         return newRow;
     }
@@ -182,4 +182,5 @@ public class ItemList : ContentList
     public void OpenPriceAdjustPanel(ItemList list) {
         priceAdjustPanel.OpenAdjustPanel(list);
     }
+
 }

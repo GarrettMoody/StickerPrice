@@ -9,12 +9,5 @@ public class MainMenu : MonoBehaviour {
     public GameObject stickerFormatMenu;
     public GameObject scanPanel;
     public GameObject moreMenu;
-
-
-	// Use this for initialization
-	void Start () {
-
-	}
-	
 	
 }

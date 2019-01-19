@@ -51,7 +51,7 @@ public class ContentScroll : MonoBehaviour
         valueComponentCenters = new Vector2[valueComponent.Length];
         for (int i = 0; i < valueComponent.Length; i++)
         {
-            valueComponentCenters[i] = valueComponent[i].gameObject.GetComponent<RectTransform>().localPosition;
+            valueComponentCenters[i] = valueComponent[i].gameObject.GetComponent<RectTransform>().anchoredPosition;
         }
 
         scrollOffset = valueComponentCenters[0];
