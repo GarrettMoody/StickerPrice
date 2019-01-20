@@ -23,6 +23,7 @@ public class StickerFormatMenu : MonoBehaviour {
     }
 
     public void OnTemplateClicked(Template template) {
+        this.gameObject.SetActive(false);
         stickerDetailMenu.OpenMenu(template.templateData);
     }
 }

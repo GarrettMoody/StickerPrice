@@ -1,7 +1,11 @@
 ﻿<Properties StartupConfiguration="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/ContentScroll.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/ScanPanel.cs">
     <Files>
-      <File FileName="Assets/Sticker Price/Scripts/ContentScroll.cs" Line="54" Column="94" />
+      <File FileName="Assets/Sticker Price/Scripts/ContentScroll.cs" Line="12" Column="5" />
+      <File FileName="Assets/Sticker Price/Scripts/Template.cs" Line="44" Column="35" />
+      <File FileName="Assets/Sticker Price/Scripts/StickerFormatMenu.cs" Line="26" Column="42" />
+      <File FileName="Assets/Sticker Price/Scripts/StickerDetailMenu.cs" Line="122" Column="5" />
+      <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="73" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
@@ -10,7 +14,6 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Assets/Sticker Price/Scripts/ItemRow.cs" relfile="Assets/Sticker Price/Scripts/ItemRow.cs" line="137" column="1" />
-      <Breakpoint file="/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Assets/Sticker Price/Scripts/ContentScroll.cs" relfile="Assets/Sticker Price/Scripts/ContentScroll.cs" line="55" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations>

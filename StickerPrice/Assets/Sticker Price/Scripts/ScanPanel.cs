@@ -62,6 +62,19 @@ public class ScanPanel : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        camTexture.Pause();
+    }
+
+    private void OnEnable()
+    {
+        if(camTexture != null)
+        {
+            camTexture.Play();
+        }
+    }
+
     public void ScanButtonOnClickListener()
     {
         scanReady = true;
