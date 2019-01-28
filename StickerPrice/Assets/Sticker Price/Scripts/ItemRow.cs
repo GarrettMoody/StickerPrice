@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System;
 
+[Serializable]
 public class ItemRow : ContentRow
 {
-
 	//Public Variables
     [Header("Item Row Properties")]
 	public Text itemDescriptionText;

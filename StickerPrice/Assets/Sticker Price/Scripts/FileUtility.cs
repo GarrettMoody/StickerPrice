@@ -36,9 +36,9 @@ public class FileUtility {
         writer.Close();
     }
 
-    public void writeJson(string filePath, object json)
+    public void writeJson(string filePath, string json)
     {
-        File.WriteAllText(filePath, json.ToString());
+        File.WriteAllText(filePath, json);
     }
 
     public void clearFile (string filePath)

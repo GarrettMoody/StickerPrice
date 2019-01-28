@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public abstract class ContentList : MonoBehaviour
 {
     [Header("ContentList Variables")]
-    public ScrollRect scrollRect;
-    public RectTransform viewport;
-    public RectTransform contentPanel;
-    protected List<ContentRow> contentList;
+    [SerializeField] protected ScrollRect scrollRect;
+    [SerializeField] private RectTransform viewport;
+    [SerializeField] protected RectTransform contentPanel;
+    [SerializeField, HideInInspector] protected List<ContentRow> contentList;
 
     public virtual void Start()
     {
@@ -85,12 +86,13 @@ public abstract class ContentList : MonoBehaviour
         return contentList;
     }
 
-    //public ContentRow AddRow()
-    //{
-    //    ContentRow newRow = Instantiate(contentRowPrefab, contentPanel.transform);
-    //    newRow.transform.SetAsLastSibling();
-    //    contentList.Add(newRow);
-    //    return newRow;
-    //}
+    public ScrollRect GetScrollRect()
+    {
+        return scrollRect;
+    }
 
+    public RectTransform GetContentPanel()
+    {
+        return contentPanel;
+    }
 }

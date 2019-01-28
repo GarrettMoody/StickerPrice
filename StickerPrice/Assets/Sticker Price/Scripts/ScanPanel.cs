@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using ZXing;
 using ZXing.QrCode;
 using System.Globalization;
@@ -14,7 +15,8 @@ public class ScanPanel : MonoBehaviour
     public Text currentDateTime;
     public Button ToggleCameraButton;
     public CheckoutPanel checkoutPanel;
-
+    public Transaction transaction;
+    public TextMeshProUGUI transactionNumber;
     public ItemList itemList;
     //public Rect screenRect;
     private WebCamTexture camTexture;
@@ -23,6 +25,7 @@ public class ScanPanel : MonoBehaviour
     [Tooltip("The amount of time the scanner will read after clicking the scan button.")]
     public const float SCAN_TIMER = .25f;
     public ErrorMessage scanError;
+
 
     // Use this for initialization
     void Start()
@@ -36,7 +39,7 @@ public class ScanPanel : MonoBehaviour
 
     void Update()
     {
-        currentDateTime.text = System.DateTime.Now.ToString("F") + ' ' + System.DateTime.Now.ToString("tt");
+        currentDateTime.text = System.DateTime.Now.ToString("dd MMM yyyy hh:mm tt");
 
         if (scanReady)
         {
@@ -73,6 +76,13 @@ public class ScanPanel : MonoBehaviour
         {
             camTexture.Play();
         }
+        
+        TransactionData transactionData = new TransactionData();
+        if(transaction == null)
+        {
+            transaction = new Transaction();
+            SetTransactionNumber(transaction.GetTransactionID().ToString());
+        }
     }
 
     public void ScanButtonOnClickListener()
@@ -99,7 +109,7 @@ public class ScanPanel : MonoBehaviour
             String[] resultString = new string[4];
             resultString = result.Text.Split('|');
 
-            float itemPrice = float.Parse(resultString[1], NumberStyles.Currency);
+            float itemPrice = float.Parse(resultString[1], NumberStyles.Currency); //Get the value of the float, ignoring the currency format
 
             ItemRow newItem = itemList.AddItem();
             newItem.SetScanString(result.Text);
@@ -108,11 +118,9 @@ public class ScanPanel : MonoBehaviour
             newItem.SetItemPrice(itemPrice);
             newItem.SetItemOriginalPrice(itemPrice);
         }
-    }
 
-    public void AddItemButtonOnClickListner()
-    {
-        itemList.AddItem();
+        //update the transactions itemlist
+        transaction.SetItemListData(itemList.itemListData);
     }
 
     public void ToggleCameraButtonOnClickListener()
@@ -133,14 +141,29 @@ public class ScanPanel : MonoBehaviour
         this.gameObject.SetActive(false);
         checkoutPanel.gameObject.SetActive(true);
 
+        //Rebuild the list of rows in the checkout panel
         checkoutPanel.itemList.RemoveAllRows();
         foreach (ItemRow row in itemList.GetRows()) {
             ItemRow newRow = checkoutPanel.itemList.AddItem(row);
             newRow.UpdatePriceText();
         }
 
+        //Send all data to the checkout panel
         checkoutPanel.itemList.SetItemTotal(this.itemList.GetItemTotal());
         checkoutPanel.itemList.SetPriceSubtotal(this.itemList.GetPriceSubtotal());
         checkoutPanel.itemList.SetTaxTotal(this.itemList.GetTaxTotal());
+        checkoutPanel.SetTransactionNumber(GetTransactionNumber());
+        checkoutPanel.SetTransaction(transaction);
+
+    }
+
+    public string GetTransactionNumber()
+    {
+        return transactionNumber.text;
+    }
+
+    public void SetTransactionNumber(string number)
+    {
+        transactionNumber.text = number;
     }
 }

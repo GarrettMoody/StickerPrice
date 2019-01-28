@@ -92,16 +92,16 @@ public abstract class ContentRow : MonoBehaviour, IDragHandler, IBeginDragHandle
             //If dragging horizontal is greater than vertical distance
             if (horizontalDistance > verticalDistance)
             {
-                parentList.scrollRect.enabled = false;
+                parentList.GetScrollRect().enabled = false;
                 horizontalScrollRect.enabled = true;
                 verticalMode = false;
             }
             else
             {
-                parentList.scrollRect.enabled = true;
+                parentList.GetScrollRect().enabled = true;
                 horizontalScrollRect.enabled = false;
                 verticalMode = true;
-                parentList.scrollRect.OnBeginDrag(eventData);
+                parentList.GetScrollRect().OnBeginDrag(eventData);
             }
         }
     }
@@ -110,7 +110,7 @@ public abstract class ContentRow : MonoBehaviour, IDragHandler, IBeginDragHandle
     {
         if (verticalMode)
         { //Scrolling Vertically
-            parentList.scrollRect.OnDrag(eventData);
+            parentList.GetScrollRect().OnDrag(eventData);
         }
         else //scrolling horizontally
         {
@@ -157,7 +157,7 @@ public abstract class ContentRow : MonoBehaviour, IDragHandler, IBeginDragHandle
     {
         if (verticalMode)
         {
-            parentList.scrollRect.OnEndDrag(eventData);
+            parentList.GetScrollRect().OnEndDrag(eventData);
         }
         else
         {
