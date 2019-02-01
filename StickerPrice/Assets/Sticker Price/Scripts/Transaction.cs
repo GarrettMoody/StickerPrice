@@ -6,10 +6,10 @@ using System;
 [Serializable]
 public class Transaction 
 {
-    [SerializeField] public float transactionID;
-    [SerializeField] public ItemListData itemListData;
-    [SerializeField] public string paymentMethod;
-    [SerializeField] public string datetime;
+    public float transactionID;
+    public ItemListData itemListData;
+    public string paymentMethod;
+    public string datetime;
 
     private TransactionData transactionData;
 

@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 using System;
 
-[Serializable]
 public class ItemRow : ContentRow
 {
 	//Public Variables
@@ -20,18 +16,12 @@ public class ItemRow : ContentRow
     public InputField quantityInputField;
     public RectTransform horizontalContentPanel;
     public RawImage QRCode;
-
+    public ItemRowData itemRowData;
 	//Private Variables
-    [SerializeField, HideInInspector] private string itemDescription = "New Item";
-    [SerializeField, HideInInspector] private float itemOriginalPrice = 10;
-    [SerializeField, HideInInspector] private float itemPrice = 10;
-    [SerializeField, HideInInspector] private int quantity = 1;
-    [SerializeField, HideInInspector] private string productOwner;
-    [SerializeField, HideInInspector] private ItemList parentItemList;
+   
+    private ItemList parentItemList;
 	private readonly RectTransform itemRectTransform;
 	private readonly RectTransform contentRectTransform;
-
-    [SerializeField, HideInInspector] private string scanString;
 
     public override void Awake()
     {
@@ -41,11 +31,11 @@ public class ItemRow : ContentRow
     }
 
     public void OnPlusButtonClick() {
-        SetQuantity(quantity + 1);
+        SetQuantity(itemRowData.quantity + 1);
     }
 
     public void OnMinusButtonClick() {
-        SetQuantity(quantity - 1);
+        SetQuantity(itemRowData.quantity - 1);
     }
 
     public void DeleteButtonOnClickListener ()
@@ -61,46 +51,46 @@ public class ItemRow : ContentRow
 
 	public void SetItemDescription (string description)
 	{
-		itemDescription = description;
-		itemDescriptionText.text = itemDescription;
+        itemRowData.itemDescription = description;
+		itemDescriptionText.text = itemRowData.itemDescription;
 	}
 
 	public string GetItemDescription ()
 	{
-		return itemDescription;
+		return itemRowData.itemDescription;
 	}
 
 	public void SetItemPrice (float price)
 	{
-		itemPrice = price;
+        itemRowData.itemPrice = price;
         UpdatePriceText();
 		parentItemList.CalculateTotals ();
 	}
 
 	public float GetItemPrice ()
 	{
-		return itemPrice;
+		return itemRowData.itemPrice;
 	}
 
 	public void SetItemOriginalPrice (float price)
 	{
-		itemOriginalPrice = price;
+        itemRowData.itemOriginalPrice = price;
         UpdatePriceText();
 	}
 
 	public float GetItemOriginalPrice ()
 	{
-		return itemOriginalPrice;
+		return itemRowData.itemOriginalPrice;
 	}
 
     public int GetQuantity() {
-        return quantity;
+        return itemRowData.quantity;
     }
 
     public void SetQuantity(int value) {
         if (value >= 0 && value <= 99)
         {
-            quantity = value;
+            itemRowData.quantity = value;
             UpdateQuantity();
         }
     }
@@ -122,35 +112,35 @@ public class ItemRow : ContentRow
     }
 
     public void UpdateQuantity() {
-        quantityInputField.text = quantity.ToString();
+        quantityInputField.text = itemRowData.quantity.ToString();
         parentItemList.CalculateTotals();
     }
 
     public void OnQuantityInputFieldValueChanged() {
-        quantity = int.Parse(quantityInputField.text);
+        itemRowData.quantity = int.Parse(quantityInputField.text);
     }
 
     public string GetScanString () {
-        return scanString;
+        return itemRowData.scanString;
     }
 
     public void SetScanString(string value) {
-        scanString = value;
-        Texture2D qrCode = QRCodeGenerator.CreateQRCode(scanString);
+        itemRowData.scanString = value;
+        Texture2D qrCode = QRCodeGenerator.CreateQRCode(itemRowData.scanString);
         QRCode.texture = qrCode;
     }
 
     public string GetProductOwner() {
-        return productOwner;
+        return itemRowData.productOwner;
     }
 
     public void SetProductOwner(string value) {
-        productOwner = value;
+        itemRowData.productOwner = value;
         UpdateProductOwnerText();
     }
 
     public void UpdateProductOwnerText() {
-        productOwnerText.text = productOwner;
+        productOwnerText.text = itemRowData.productOwner;
     }
 
     public override void DefaultButtonOnClickListener()

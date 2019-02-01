@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using ZXing;
-using ZXing.QrCode;
 using System.Globalization;
 
 public class ScanPanel : MonoBehaviour
@@ -117,7 +114,7 @@ public class ScanPanel : MonoBehaviour
             newItem.SetProductOwner(resultString[3]);
             newItem.SetItemPrice(itemPrice);
             newItem.SetItemOriginalPrice(itemPrice);
-        }
+        } 
 
         //update the transactions itemlist
         transaction.SetItemListData(itemList.itemListData);
@@ -154,7 +151,6 @@ public class ScanPanel : MonoBehaviour
         checkoutPanel.itemList.SetTaxTotal(this.itemList.GetTaxTotal());
         checkoutPanel.SetTransactionNumber(GetTransactionNumber());
         checkoutPanel.SetTransaction(transaction);
-
     }
 
     public string GetTransactionNumber()

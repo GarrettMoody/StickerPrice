@@ -1,35 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
-[Serializable]
-public class ItemListData
-{
-    [HideInInspector] public float priceTotal = 0f;
-    [HideInInspector] public float priceSubtotal = 0f;
-    [HideInInspector] public float taxTotal = 0f;
-    [HideInInspector] public float discount = 0f;
-    [HideInInspector] public int itemTotal = 0;
-}
 
 public class ItemList : ContentList
 { 
-
     [Header("ItemList Variables")]
 
-    [SerializeField] private Text priceTotalText;
-    [SerializeField] private Text itemsTotalText;
-    [SerializeField] private Text priceSubtotalText;
-    [SerializeField] private GameObject discountPanel;
-    [SerializeField] private Text discountText;
-    [SerializeField] private Text taxText;
+    public Text priceTotalText;
+    public Text itemsTotalText;
+    public Text priceSubtotalText;
+    public GameObject discountPanel;
+    public Text discountText;
+    public Text taxText;
 
-    [SerializeField] private AdjustPanel priceAdjustPanel;
-    [SerializeField] private ItemRow itemPrefab;
+    public AdjustPanel priceAdjustPanel;
+    public ItemRow itemPrefab;
     public ItemListData itemListData;
     private const float TAX_AMOUNT = 0.05f;
 	
@@ -46,13 +31,16 @@ public class ItemList : ContentList
         CalculateTotals();
     }
 
-    override public void RemoveRow(ContentRow row)
+    public void RemoveRow(ItemRow row)
     {
-        base.RemoveRow(row);
+        itemListData.itemRowDataListContainer.itemRowDataList.Remove(row.itemRowData);
+        ContentRow contentRow = row;
+        base.RemoveRow(contentRow);
         CalculateTotals();
     }
 
     override public void RemoveAllRows () {
+        itemListData.itemRowDataListContainer.itemRowDataList.Clear();
         base.RemoveAllRows();
         CalculateTotals();
     }
@@ -61,7 +49,8 @@ public class ItemList : ContentList
 	{
         ItemRow newItem = Instantiate(itemPrefab, contentPanel.transform);
 		newItem.transform.SetAsLastSibling ();
-		contentList.Add (newItem); 
+		contentList.Add (newItem);
+        itemListData.itemRowDataListContainer.itemRowDataList.Add(newItem.itemRowData);
         ResetAllRows();
 		CalculateTotals ();
 		return newItem;
@@ -71,6 +60,7 @@ public class ItemList : ContentList
         ItemRow newRow = Instantiate(row, contentPanel.transform);
         newRow.transform.SetAsLastSibling();
         contentList.Add(newRow);
+        itemListData.itemRowDataListContainer.itemRowDataList.Add(row.itemRowData);
         ResetAllRows();
         CalculateTotals();
         return newRow;

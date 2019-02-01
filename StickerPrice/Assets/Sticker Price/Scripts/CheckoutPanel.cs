@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 
 public class CheckoutPanel : MonoBehaviour {
 
@@ -15,7 +13,7 @@ public class CheckoutPanel : MonoBehaviour {
     public Text transactionNumber;
     public Text currentDateTime;
 
-    [SerializeField, HideInInspector] private Transaction transaction;
+    public Transaction transaction;
 
     public void Update()
     {
