@@ -12,6 +12,7 @@ public class ItemList : ContentList
     public GameObject discountPanel;
     public Text discountText;
     public Text taxText;
+    public Button checkoutButton;
 
     public AdjustPanel priceAdjustPanel;
     public ItemRow itemPrefab;
@@ -23,12 +24,14 @@ public class ItemList : ContentList
 	{
         base.Start();
 		CalculateTotals ();
+        SetCheckoutButtonInteraction();
 	}
 
     public override void Awake()
     {
         base.Awake();
         CalculateTotals();
+        SetCheckoutButtonInteraction();
     }
 
     public void RemoveRow(ItemRow row)
@@ -37,12 +40,14 @@ public class ItemList : ContentList
         ContentRow contentRow = row;
         base.RemoveRow(contentRow);
         CalculateTotals();
+        SetCheckoutButtonInteraction();
     }
 
     override public void RemoveAllRows () {
         itemListData.itemRowDataListContainer.itemRowDataList.Clear();
         base.RemoveAllRows();
         CalculateTotals();
+        SetCheckoutButtonInteraction();
     }
 
 	public ItemRow AddItem ()
@@ -53,6 +58,7 @@ public class ItemList : ContentList
         itemListData.itemRowDataListContainer.itemRowDataList.Add(newItem.itemRowData);
         ResetAllRows();
 		CalculateTotals ();
+        SetCheckoutButtonInteraction();
 		return newItem;
 	}
 
@@ -63,6 +69,7 @@ public class ItemList : ContentList
         itemListData.itemRowDataListContainer.itemRowDataList.Add(row.itemRowData);
         ResetAllRows();
         CalculateTotals();
+        SetCheckoutButtonInteraction();
         return newRow;
     }
 
@@ -83,6 +90,21 @@ public class ItemList : ContentList
         }
         SetTaxTotal((GetPriceSubtotal() - GetDiscountPrice()) * TAX_AMOUNT);
         SetPriceTotal(GetPriceSubtotal() + GetTaxTotal() - GetDiscountPrice());
+    }
+
+    public void SetCheckoutButtonInteraction ()
+    {
+        if(checkoutButton != null) //Checkout Button is optional
+        {
+            if (contentList.Count == 0) //If no items are in the list, checkout button is disabled; nothing to checkout. 
+            {
+                checkoutButton.interactable = false;
+            }
+            else
+            {
+                checkoutButton.interactable = true;
+            }
+        }
     }
 
     public void UpdatePriceSubtotalText ()

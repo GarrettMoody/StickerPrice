@@ -1,41 +1,59 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems;
 
 public class CashRegisterPanel : MonoBehaviour
 {
-    private Text totalAmount;
-    private Text itemAmount;
-    private InputField cashReceived;
-    private InputField cashBack;
-    private ToggleGroup receiptSelection;
-    private Toggle noneToggle;
-    private Toggle bothToggle;
-    private Toggle printToggle;
-    private Toggle emailToggle;
-    private Button completeButton;
+    public TextMeshProUGUI totalAmount;
+    public TextMeshProUGUI itemAmount;
+    public InputField cashReceived;
+    public InputField cashBack;
+    public ToggleGroup receiptSelection;
+    public Toggle noneToggle;
+    public Toggle bothToggle;
+    public Toggle printToggle;
+    public Toggle emailToggle;
+    public Button completeButton;
+    public ScanPanel scanPanel;
 
+    private float cashReceivedValue;
+    private Transaction transaction;
 
+    //Constants
+    readonly Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
+    readonly Color32 RED = new Color32(0xE2, 0x23, 0x1A, 0xFF);
+    readonly Color32 WHITE = new Color32(255, 255, 255, 255);
+    readonly Color32 DARK_GREY = new Color32(0x52, 0x53, 0x49, 0xFF);
 
-
-
-    public Text GetTotalAmount()
+    public void OpenCashRegisterPanel(Transaction transaction)
     {
-        return totalAmount;
+        this.gameObject.SetActive(true);
+        this.transaction = transaction;
+        SetItemAmount(transaction.itemListData.itemTotal.ToString());
+        SetTotalAmount(transaction.itemListData.priceTotal.ToString());
+        SetCashReceivedValue(0);
+        SetCashBack();
     }
 
-    public void SetTotalAmount(Text value)
+    public string GetTotalAmount()
     {
-        totalAmount = value;
+        return totalAmount.text;
     }
 
-    public Text GetItemAmount()
+    public void SetTotalAmount(string value)
     {
-        return itemAmount;
+        totalAmount.text = string.Format("{0:C2}", float.Parse(value));
     }
 
-    public void SetItemAmount(Text value)
+    public string GetItemAmount()
     {
-        itemAmount = value;
+        return itemAmount.text;
+    }
+
+    public void SetItemAmount(string value)
+    {
+        itemAmount.text = value + " items";
     }
 
     public string GetCashReceived()
@@ -43,9 +61,9 @@ public class CashRegisterPanel : MonoBehaviour
         return cashReceived.text;
     }
 
-    public void SetCashReceived(InputField value)
+    public void SetCashReceived(string value)
     {
-        cashReceived = value;
+        cashReceived.text = string.Format("{0:C2}", float.Parse(value));
     }
 
     public string GetCashBack()
@@ -53,14 +71,71 @@ public class CashRegisterPanel : MonoBehaviour
         return cashBack.text;
     }
 
-    public void SetCashBack(InputField value)
+    public void SetCashBack()
     {
-        cashBack = value;
+        //Cash Back Value = Cash Received - Total Amount
+        float cashBackValue = float.Parse(GetCashReceived(), System.Globalization.NumberStyles.Currency) - float.Parse(GetTotalAmount(), System.Globalization.NumberStyles.Currency);
+        cashBack.text = string.Format("{0:C2}", cashBackValue);
     }
 
-    public ToggleGroup GetReceiptSelection()
+    public void SetCashReceivedValue(float value)
     {
-        return receiptSelection;
+        cashReceivedValue = value;
+        float cashRecieved = cashReceivedValue / 100;
+        SetCashReceived(cashRecieved.ToString());
+        SetCashBack();
     }
 
+    public float GetCashReceivedValue()
+    {
+        return cashReceivedValue;
+    }
+
+    public void OnNumberButtonDown()
+    {
+        Button button = (Button)EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+        button.GetComponent<Image>().color = THEME_GREEN;
+        button.GetComponentInChildren<Text>().color = WHITE;
+    }
+
+    public void OnNumberButtonUp()
+    {
+        Button button = (Button)EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+        button.GetComponent<Image>().color = WHITE;
+        button.GetComponentInChildren<Text>().color = THEME_GREEN;
+    }
+
+    public void OnNumberButtonPress(int number)
+    {
+        SetCashReceivedValue(float.Parse(GetCashReceivedValue().ToString() + number.ToString()));
+    }
+
+    public void OnDoubleZeroButtonPress()
+    {
+        SetCashReceivedValue(float.Parse(GetCashReceivedValue().ToString() + "00"));
+    }
+
+    public void OnClearButtonPress()
+    {
+        SetCashReceivedValue(0);
+    }
+
+    private void SaveTransaction()
+    {
+        TransactionData transactionData = new TransactionData();
+        transactionData.WriteTransaction(transaction);
+    }
+
+    public void OnCompleteButtonOnClickListener()
+    {
+        SaveTransaction();
+        this.gameObject.SetActive(false);
+        scanPanel.gameObject.SetActive(true);
+        scanPanel.StartNewTransaction();
+    }
+
+    public void SetTransaction(Transaction transaction)
+    {
+        this.transaction = transaction;
+    }
 }

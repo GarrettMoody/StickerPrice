@@ -12,13 +12,14 @@ public class ScanPanel : MonoBehaviour
     public Text currentDateTime;
     public Button ToggleCameraButton;
     public CheckoutPanel checkoutPanel;
-    public Transaction transaction;
     public TextMeshProUGUI transactionNumber;
     public ItemList itemList;
-    //public Rect screenRect;
+
     private WebCamTexture camTexture;
     private bool scanReady = false; //Is the camera accepting QR code input?
     private float scanTimer; //Time remaining for scanner to be turned on
+    private Transaction transaction;
+
     [Tooltip("The amount of time the scanner will read after clicking the scan button.")]
     public const float SCAN_TIMER = .25f;
     public ErrorMessage scanError;
@@ -30,7 +31,6 @@ public class ScanPanel : MonoBehaviour
         camTexture = new WebCamTexture(WebCamTexture.devices[0].name, 480, 640, 60);
         scanDisplay.texture = camTexture;
         scanDisplay.material.mainTexture = camTexture;
-
         camTexture.Play();
     }
 
@@ -69,16 +69,17 @@ public class ScanPanel : MonoBehaviour
 
     private void OnEnable()
     {
+        //If camera isn't playing, start camera
         if(camTexture != null)
         {
             camTexture.Play();
         }
-        
+
+        //Initialize the transaction if one is not already initialized.
         TransactionData transactionData = new TransactionData();
-        if(transaction == null)
+        if(transaction == null || transaction.transactionID == 0f)
         {
-            transaction = new Transaction();
-            SetTransactionNumber(transaction.GetTransactionID().ToString());
+            StartNewTransaction();
         }
     }
 
@@ -118,6 +119,9 @@ public class ScanPanel : MonoBehaviour
 
         //update the transactions itemlist
         transaction.SetItemListData(itemList.itemListData);
+
+        //Update checkout button
+
     }
 
     public void ToggleCameraButtonOnClickListener()
@@ -161,5 +165,13 @@ public class ScanPanel : MonoBehaviour
     public void SetTransactionNumber(string number)
     {
         transactionNumber.text = number;
+    }
+
+    public void StartNewTransaction()
+    {
+        TransactionData transactionData = new TransactionData();
+        transaction = new Transaction(transactionData.NextTransactionID());
+        SetTransactionNumber(transaction.transactionID.ToString());
+        itemList.RemoveAllRows();
     }
 }

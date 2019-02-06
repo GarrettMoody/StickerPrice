@@ -1,1 +1,60 @@
-{"transactionList":[{"transactionID":0.0,"itemListData":{"priceTotal":12.6,"priceSubtotal":12.0,"taxTotal":0.6,"discount":0.0,"itemTotal":1,"itemRowDataListContainer":{"itemRowDataList":[{"itemDescription":"White Tshirt","itemOriginalPrice":12.0,"itemPrice":12.0,"quantity":1,"productOwner":"Garrett Moody","scanString":"I Love Sticker Price|$12.00|White Tshirt|Garrett Moody"}]}},"paymentMethod":"Cash","datetime":"31 Jan 2019 09:15 PM"}]}
+{
+  "transactionList": [
+    {
+      "transactionID": 1.0,
+      "itemListData": {
+        "priceTotal": 12.6,
+        "priceSubtotal": 12.0,
+        "taxTotal": 0.6,
+        "discount": 0.0,
+        "itemTotal": 1,
+        "itemRowDataListContainer": {
+          "itemRowDataList": [
+            {
+              "itemDescription": "White Tshirt",
+              "itemOriginalPrice": 12.0,
+              "itemPrice": 12.0,
+              "quantity": 1,
+              "productOwner": "Garrett Moody",
+              "scanString": "I Love Sticker Price|$12.00|White Tshirt|Garrett Moody"
+            }
+          ]
+        }
+      },
+      "paymentMethod": "Cash",
+      "datetime": "05 Feb 2019 10:43 PM"
+    },
+    {
+      "transactionID": 2.0,
+      "itemListData": {
+        "priceTotal": 17.85,
+        "priceSubtotal": 17.0,
+        "taxTotal": 0.85,
+        "discount": 0.0,
+        "itemTotal": 2,
+        "itemRowDataListContainer": {
+          "itemRowDataList": [
+            {
+              "itemDescription": "White Tshirt",
+              "itemOriginalPrice": 12.0,
+              "itemPrice": 12.0,
+              "quantity": 1,
+              "productOwner": "Garrett Moody",
+              "scanString": "I Love Sticker Price|$12.00|White Tshirt|Garrett Moody"
+            },
+            {
+              "itemDescription": "Black Tshirt",
+              "itemOriginalPrice": 5.0,
+              "itemPrice": 5.0,
+              "quantity": 1,
+              "productOwner": "Garrett Moody",
+              "scanString": "I Love Sticker Price|$5.00|Black Tshirt|Garrett Moody"
+            }
+          ]
+        }
+      },
+      "paymentMethod": "Cash",
+      "datetime": "05 Feb 2019 10:43 PM"
+    }
+  ]
+}

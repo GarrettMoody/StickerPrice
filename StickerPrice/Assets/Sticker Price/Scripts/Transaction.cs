@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using System;
 
 [Serializable]
 public class Transaction 
@@ -11,26 +8,21 @@ public class Transaction
     public string paymentMethod;
     public string datetime;
 
-    private TransactionData transactionData;
-
     public const string CASH_PAYMENT_METHOD = "Cash";
     public const string CHECK_PAYMENT_METHOD = "Check";
     public const string CARD_PAYMENT_METHOD = "Card";
     
-    public Transaction()
+    public Transaction(float transactionID)
     {
-        transactionData = new TransactionData();
-        transactionID = transactionData.NextTransactionID();
+        this.transactionID = transactionID;
         itemListData = new ItemListData();
     }
 
-    public Transaction(ItemListData itemListData, string paymentMethod, string datetime)
+    public Transaction(float transactionID, ItemListData itemListData, string paymentMethod, string datetime)
     {
-        transactionData = new TransactionData();
-        this.transactionID = transactionData.NextTransactionID();
+        this.transactionID = transactionID;
         this.itemListData = itemListData;
         this.paymentMethod = paymentMethod;
-       
         this.datetime = datetime;
     }
 

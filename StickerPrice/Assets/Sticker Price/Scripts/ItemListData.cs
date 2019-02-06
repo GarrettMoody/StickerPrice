@@ -4,6 +4,7 @@ using System;
 [Serializable]
 public class ItemListData
 {
+    [Serializable]
     public class ItemRowDataListContainer
     {
         public List<ItemRowData> itemRowDataList = new List<ItemRowData>();

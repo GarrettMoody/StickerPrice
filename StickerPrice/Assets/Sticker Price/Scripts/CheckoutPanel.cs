@@ -9,11 +9,11 @@ public class CheckoutPanel : MonoBehaviour {
     public Toggle checkToggle;
     public Toggle creditToggle;
     public ToggleGroup paymentMethodToggleGroup;
-    public GameObject cashRegisterPanel;
+    public CashRegisterPanel cashRegisterPanel;
     public Text transactionNumber;
     public Text currentDateTime;
 
-    public Transaction transaction;
+    private Transaction transaction;
 
     public void Update()
     {
@@ -26,10 +26,10 @@ public class CheckoutPanel : MonoBehaviour {
 
         if (selectedToggle != null && selectedToggle == cashToggle)
         {
-            SaveTransaction(Transaction.CASH_PAYMENT_METHOD);
+            transaction.paymentMethod = Transaction.CASH_PAYMENT_METHOD;
+            transaction.datetime = currentDateTime.text;
             this.gameObject.SetActive(false);
-            cashRegisterPanel.gameObject.SetActive(true);
-
+            cashRegisterPanel.OpenCashRegisterPanel(transaction);
         }
         else
         {
@@ -50,15 +50,5 @@ public class CheckoutPanel : MonoBehaviour {
     public Transaction GetTransaction()
     {
         return this.transaction;
-    }
-
-    private void SaveTransaction(string paymentMethod)
-    {
-        transaction.SetDateTime(currentDateTime.text);
-        transaction.SetItemListData(itemList.itemListData);
-        transaction.SetPaymentMethod(paymentMethod);
-
-        TransactionData transactionData = new TransactionData();
-        transactionData.WriteTransaction(transaction);
     }
 }

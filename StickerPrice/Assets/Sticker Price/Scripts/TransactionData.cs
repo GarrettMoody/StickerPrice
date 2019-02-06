@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 [Serializable]
 public class TransactionData
 {
+    [Serializable]
     public class TransactionListContainer
     {
         public List<Transaction> transactionList = new List<Transaction>();
@@ -14,6 +15,7 @@ public class TransactionData
 
     private string filePath = "Assets/Sticker Price/Data Files/Transactions.json";
     private FileUtility fileUtility = new FileUtility();
+    [JsonProperty("transactionListContainer")]
     public TransactionListContainer transactionListContainer = new TransactionListContainer();
 
     public TransactionData()
@@ -35,12 +37,24 @@ public class TransactionData
         //Add the transaction to the list and serialize
         transactionListContainer.transactionList.Add(transaction);
         fileUtility.clearFile(filePath);
-        fileUtility.writeJson(filePath,  JsonConvert.SerializeObject(transactionListContainer));
+        fileUtility.writeJson(filePath, JsonConvert.SerializeObject(transactionListContainer, Formatting.Indented));
     }
 
     public void ReadTransactions()
     {
-        transactionListContainer.transactionList = JsonConvert.DeserializeObject<List<Transaction>>(fileUtility.readJson(filePath));
+        try {
+            transactionListContainer = JsonUtility.FromJson<TransactionListContainer>(fileUtility.readJson(filePath));
+        }
+        catch (JsonException jsonException)
+        {
+            Console.WriteLine(jsonException);
+        }
+
+        if (transactionListContainer == null)
+        {
+            transactionListContainer = new TransactionListContainer();
+        }
+
         if (transactionListContainer.transactionList == null)
         {
             transactionListContainer.transactionList = new List<Transaction>();
@@ -51,7 +65,6 @@ public class TransactionData
     {
         ReadTransactions();
         transactionListContainer.transactionList = transactionListContainer.transactionList.Distinct().ToList();
-
     }
 
     public List<Transaction> GetAllTransactions()
@@ -67,7 +80,7 @@ public class TransactionData
         if (transactionListContainer.transactionList != null)
         {
             foreach(Transaction td in transactionListContainer.transactionList)
-        {
+            {
                 if (td.GetTransactionID() > currentTransactionID)
                 {
                     currentTransactionID = td.GetTransactionID();

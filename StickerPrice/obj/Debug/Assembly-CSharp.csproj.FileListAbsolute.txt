@@ -12,7 +12,6 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Locator.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.PackageManagerUI.Editor.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.TextMeshPro.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.TextMeshPro.Editor.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.AccessibilityModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.AIModule.dll
@@ -98,7 +97,6 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.xml
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.TextMeshPro.Editor.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.PackageManagerUI.Editor.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.TextMeshPro.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.AIModule.dll.mdb
@@ -431,6 +429,8 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Analytics.Tracker.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Analytics.Editor.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Analytics.StandardEvents.dll.mdb
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.TextMeshPro.Editor.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.TextMeshPro.Editor.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.xml
