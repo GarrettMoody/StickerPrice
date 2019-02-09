@@ -11,6 +11,11 @@ public class Transaction
     public const string CASH_PAYMENT_METHOD = "Cash";
     public const string CHECK_PAYMENT_METHOD = "Check";
     public const string CARD_PAYMENT_METHOD = "Card";
+
+    public Transaction ()
+    {
+        itemListData = new ItemListData();
+    }
     
     public Transaction(float transactionID)
     {

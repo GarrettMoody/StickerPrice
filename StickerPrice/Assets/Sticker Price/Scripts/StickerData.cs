@@ -6,11 +6,16 @@ public class StickerData {
     private string filePath = "Assets/Sticker Price/Data Files/SavedStickers.json";
     private FileUtility fileUtility = new FileUtility();
     private List<Sticker> stickerList = new List<Sticker>();
-    private Sticker newSticker;
+    private Sticker newSticker = new Sticker();
 
     public StickerData (Sticker newSticker)
     {
         this.newSticker = newSticker;
+    }
+
+    public StickerData ()
+    {
+
     }
 
     public void writeStickers ()
