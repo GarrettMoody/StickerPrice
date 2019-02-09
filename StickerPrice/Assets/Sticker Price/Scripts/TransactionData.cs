@@ -74,9 +74,7 @@ public class TransactionData
     }
 
     public float NextTransactionID()
-    { //This function returns the next available Transaction ID by loading all the saved transaction and getting the next
-        //available transaction ID. 
-
+    {
         ReadTransactions();
         float currentTransactionID = 0;
         if (transactionListContainer.transactionList != null)

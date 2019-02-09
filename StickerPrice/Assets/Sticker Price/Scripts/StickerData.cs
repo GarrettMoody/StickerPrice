@@ -3,36 +3,36 @@ using Newtonsoft.Json;
 
 public class StickerData {
 
-    private readonly string filePath = "Assets/Sticker Price/Data Files/SavedStickers.json";
+    private string filePath = "Assets/Sticker Price/Data Files/SavedStickers.json";
     private FileUtility fileUtility = new FileUtility();
     private List<Sticker> stickerList = new List<Sticker>();
     private Sticker newSticker;
 
-    public StickerData ()
+    public StickerData (Sticker newSticker)
     {
-        ReadStickers();
+        this.newSticker = newSticker;
     }
 
-    public void WriteStickers()
+    public void writeStickers ()
     {
         fileUtility.clearFile(filePath);
         fileUtility.writeJson(filePath, JsonConvert.SerializeObject(stickerList));
     }
 
-    public void ReadStickers()
+    public void readStickers()
     {
         stickerList = JsonConvert.DeserializeObject<List<Sticker>>(fileUtility.readJson(filePath));
     }
 
-    public void RemoveDuplicate()
+    public void removeDuplicate ()
     {
-        ReadStickers();
+        readStickers();
         List<Sticker> newList = new List<Sticker>();
         if (stickerList != null && stickerList.Count > 0)
         {
             stickerList.ForEach(delegate (Sticker sticker)
             {
-                if (sticker.stickerName != newSticker.stickerName)
+                if (sticker.stickerDescription != newSticker.stickerDescription)
                 {
                     newList.Add(sticker);
                 }
@@ -41,21 +41,22 @@ public class StickerData {
         stickerList = newList;
     }
 
-    public void CreateSticker()
+    public void createSticker()
     {
-        RemoveDuplicate();
+         removeDuplicate();
          stickerList.Add(newSticker);
-        WriteStickers();        
+         writeStickers();        
     }
 
-    public void DeleteSticker()
+    public void deleteSticker()
     {
-        RemoveDuplicate();
-        WriteStickers();
+        removeDuplicate();
+        writeStickers();
     }
 
-    public List<Sticker> GetStickers()
+    public List<Sticker> getAllStickers()
     {
+        readStickers();
         return stickerList;
     }
 }
