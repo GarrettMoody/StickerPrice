@@ -9,7 +9,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     //Public Variables
     public GameObject detailsPanel;
-    public DialogPopup dialog;
+    public SaveToFavoritesPopup saveToFavoritesPopup;
     public Text numberPerSheet;
     public InputField description;
     public InputField quantity;
@@ -75,7 +75,7 @@ public class StickerDetailMenu : MonoBehaviour
             option.SetDescription(description.text);
 
         }
-        dialog.input.text = description.text;
+        saveToFavoritesPopup.saveName.text = description.text;
     }
 
     public void OnNumberOfStickersChanged()
@@ -124,10 +124,10 @@ public class StickerDetailMenu : MonoBehaviour
         this.templateData = templateData;
         this.gameObject.SetActive(true);
         UpdateNumberPerSheetText();
-        UpdateInputFields(new StickerData());
+        UpdateInputFields(new Sticker());
     }
 
-    public void OpenMenu(Sticker sticker)
+    public void OpenMenu(StickerViewContent sticker)
     {
         templateData = sticker.templateData;
         this.gameObject.SetActive(true);
@@ -135,13 +135,13 @@ public class StickerDetailMenu : MonoBehaviour
         UpdateInputFields(sticker.stickerData);
     }
 
-    public void UpdateInputFields(StickerData stickerData)
+    public void UpdateInputFields(Sticker stickerData)
     {
         description.text = stickerData.itemDescription;
         productOwner.text = stickerData.owner;
         price.text = stickerData.price;
         quantity.text = int.Parse(stickerData.quantity != null && stickerData.quantity !="" ? stickerData.quantity : "0").ToString();
-        dialog.input.text = stickerData.stickerDescription;
+        saveToFavoritesPopup.saveName.text = stickerData.stickerDescription;
     }
 
     public void OnQuantityAddButtonClick()
@@ -192,8 +192,8 @@ public class StickerDetailMenu : MonoBehaviour
 
     public void OnConfirmButtonClick()
     {      
-        StickerData stickerData = new StickerData(dialog.input.text, description.text, price.text, DateTime.Now.ToString("dd MMMM yyyy h:mm tt"), productOwner.text
-         , quantity.text, templateData.templateId);
+        StickerData stickerData = new StickerData(new Sticker(saveToFavoritesPopup.saveName.text, description.text, price.text, DateTime.Now.ToString("dd MMMM yyyy h:mm tt"), productOwner.text
+         , quantity.text, templateData.templateId));
         stickerData.createSticker();
         
     }

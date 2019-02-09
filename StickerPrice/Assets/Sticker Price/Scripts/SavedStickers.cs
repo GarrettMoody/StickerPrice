@@ -8,17 +8,17 @@ public class SavedStickers : MonoBehaviour {
     public StickerDetailMenu stickerDetailMenu;
     public ScrollRect scrollView;
     public GameObject scrollContent;
-    public Sticker stickerPrefab;
+    public StickerViewContent stickerPrefab;
     public Text fileCount;
     private FileUtility fileUtility = new FileUtility();
 
     // Use this for initialization
     void Awake()
     {
-        List<StickerData> allStickers = new StickerData().getAllStickers();
-        allStickers.ForEach(delegate (StickerData stickerData)
+        List<Sticker> allStickers = new StickerData(new Sticker()).getAllStickers();
+        allStickers.ForEach(delegate (Sticker stickerData)
         {
-            Sticker sticker = (Sticker)Instantiate(stickerPrefab);
+            StickerViewContent sticker = (StickerViewContent)Instantiate(stickerPrefab);
             sticker.initializeVariables(new TemplateData(stickerData.templateId).getTemplate(), stickerData);
             sticker.transform.SetParent(scrollContent.transform, false);
             EventTrigger.Entry entry = new EventTrigger.Entry();
@@ -30,7 +30,7 @@ public class SavedStickers : MonoBehaviour {
         fileCount.text = "Number Of Files: " + allStickers.Count;
     }
 
-    public void OnStickerClicked(Sticker sticker)
+    public void OnStickerClicked(StickerViewContent sticker)
     {
         this.gameObject.SetActive(false);
         stickerDetailMenu.OpenMenu(sticker);
