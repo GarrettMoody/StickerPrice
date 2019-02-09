@@ -10,7 +10,7 @@ public class StickerViewContent : MonoBehaviour {
     public Text price;
     public Text dateSaved;
     public Color32 colorCode;
-    public Template templateData;
+    public TemplateData templateData;
     public Sticker stickerData;
 
     public void Start()
@@ -48,7 +48,7 @@ public class StickerViewContent : MonoBehaviour {
         this.colorCode = colorCode;
     }
 
-    public void setTemplate (Template templateData)
+    public void setTemplateData (TemplateData templateData)
     {
         this.templateData = templateData;
     }
@@ -58,10 +58,10 @@ public class StickerViewContent : MonoBehaviour {
         this.stickerData = stickerData;
     }
 
-    public void initializeVariables(Template templateData,Sticker stickerData)
+    public void initializeVariables(TemplateData templateData,Sticker stickerData)
     {
         setStickerData(stickerData);
-        setTemplate(templateData);
+        setTemplateData(templateData);
         setStickerDescription();
         setItemDescription();
         setPrice();

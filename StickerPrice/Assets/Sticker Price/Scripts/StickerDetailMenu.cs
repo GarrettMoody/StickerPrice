@@ -21,7 +21,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     //Private Variables
     private QROption[] qrOptions;
-    private Template templateData;
+    private TemplateData templateData;
     private int pageCount = 1;
     private int currentPage = 1;
     private int numberInSheet = 0;
@@ -75,7 +75,7 @@ public class StickerDetailMenu : MonoBehaviour
             option.SetDescription(description.text);
 
         }
-      //  saveToFavoritesPopup.saveName.text = description.text;
+        saveToFavoritesPopup.saveName.text = description.text;
     }
 
     public void OnNumberOfStickersChanged()
@@ -119,7 +119,7 @@ public class StickerDetailMenu : MonoBehaviour
         }
     }
 
-    public void OpenMenu(Template templateData)
+    public void OpenMenu(TemplateData templateData)
     {
         this.templateData = templateData;
         this.gameObject.SetActive(true);
@@ -140,13 +140,8 @@ public class StickerDetailMenu : MonoBehaviour
         description.text = stickerData.itemDescription;
         productOwner.text = stickerData.owner;
         price.text = stickerData.price;
-<<<<<<< HEAD
         quantity.text = int.Parse(!string.IsNullOrEmpty(stickerData.quantity) ? stickerData.quantity : "0").ToString();
         saveToFavoritesPopup.saveName.text = stickerData.stickerName;
-=======
-        quantity.text = int.Parse(stickerData.quantity != null && stickerData.quantity !="" ? stickerData.quantity : "0").ToString();
-      //  saveToFavoritesPopup.saveName.text = stickerData.stickerDescription;
->>>>>>> ebaa965d38425a1eeadcbbc6ba6672e7f79a3ac5
     }
 
     public void OnQuantityAddButtonClick()
