@@ -8,7 +8,4 @@ public class DialogPopup : MonoBehaviour {
     public InputField input;
     public Button confirmBtn;
     public Button cancelBtn;
-    public GameObject invoker;
-
- 
 }
