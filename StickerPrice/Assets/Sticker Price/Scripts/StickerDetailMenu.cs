@@ -140,13 +140,13 @@ public class StickerDetailMenu : MonoBehaviour
         description.text = stickerData.itemDescription;
         productOwner.text = stickerData.owner;
         price.text = stickerData.price;
-        quantity.text = int.Parse(stickerData.quantity != null && stickerData.quantity !="" ? stickerData.quantity : "0").ToString();
-        saveToFavoritesPopup.saveName.text = stickerData.stickerDescription;
+        quantity.text = int.Parse(!string.IsNullOrEmpty(stickerData.quantity) ? stickerData.quantity : "0").ToString();
+        saveToFavoritesPopup.saveName.text = stickerData.stickerName;
     }
 
     public void OnQuantityAddButtonClick()
     {
-        int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
+        int qty = int.Parse(!string.IsNullOrEmpty(quantity.text) ? quantity.text : "0");
         if (qty < 999999)
         {
             quantity.text = (qty + 1).ToString();
@@ -159,7 +159,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     public void OnQuantityMinusButtonClick()
     {
-        int qty = int.Parse(quantity.text.ToString() != null && quantity.text.ToString() != "" ? quantity.text.ToString() : "0");
+        int qty = int.Parse(!string.IsNullOrEmpty(quantity.text.ToString()) ? quantity.text.ToString() : "0");
         if (qty > 0)
         {
             quantity.text = (qty - 1).ToString();
@@ -190,20 +190,12 @@ public class StickerDetailMenu : MonoBehaviour
         UpdateNumberPerSheetText();
     }
 
-    public void OnConfirmButtonClick()
-    {      
-        StickerData stickerData = new StickerData(new Sticker(saveToFavoritesPopup.saveName.text, description.text, price.text, DateTime.Now.ToString("dd MMMM yyyy h:mm tt"), productOwner.text
-         , quantity.text, templateData.templateId));
-        stickerData.createSticker();
-        
-    }
-
     public void OnAddToPageButtonClick()
     {
         if (pageCount > currentPage)
         {
             currentPage = currentPage + 1;
-            int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
+            int qty = int.Parse(!string.IsNullOrEmpty(quantity.text) ? quantity.text : "0");
             int numPerSheet = int.Parse(templateData.numberPerSheet);
             if (qty > numPerSheet)
             {

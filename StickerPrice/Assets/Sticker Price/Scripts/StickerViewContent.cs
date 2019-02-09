@@ -20,7 +20,7 @@ public class StickerViewContent : MonoBehaviour {
 
     public void setStickerDescription()
     {
-        this.stickerDescription.text = stickerData.stickerDescription;
+        this.stickerDescription.text = stickerData.stickerName;
     }
 
     public void setItemDescription()
