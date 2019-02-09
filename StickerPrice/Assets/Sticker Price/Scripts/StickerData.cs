@@ -6,14 +6,23 @@ public class StickerData {
     private readonly string filePath = "Assets/Sticker Price/Data Files/SavedStickers.json";
     private FileUtility fileUtility = new FileUtility();
     private List<Sticker> stickerList = new List<Sticker>();
-    private Sticker newSticker;
+    private Sticker newSticker = new Sticker();
 
     public StickerData ()
     {
         ReadStickers();
     }
 
+<<<<<<< HEAD
     public void WriteStickers()
+=======
+    public StickerData ()
+    {
+
+    }
+
+    public void writeStickers ()
+>>>>>>> ebaa965d38425a1eeadcbbc6ba6672e7f79a3ac5
     {
         fileUtility.clearFile(filePath);
         fileUtility.writeJson(filePath, JsonConvert.SerializeObject(stickerList));

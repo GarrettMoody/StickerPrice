@@ -42,4 +42,8 @@ StickerPrice/.vs/StickerPrice/v15/Server/sqlite3/db.lock
 *.dll
 *.mdb
 **/*.dll
+<<<<<<< HEAD
 *.dll
+=======
+*.ide
+>>>>>>> ebaa965d38425a1eeadcbbc6ba6672e7f79a3ac5

@@ -15,11 +15,19 @@ public class SavedStickers : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
+<<<<<<< HEAD
         //List<Sticker> allStickers = new StickerData(new Sticker()).getAllStickers();
         //allStickers.ForEach(delegate (Sticker stickerData)
         {
             StickerViewContent sticker = (StickerViewContent)Instantiate(stickerPrefab);
             //sticker.initializeVariables(new TemplateData(stickerData.templateId).getTemplate(), stickerData);
+=======
+        List<Sticker> allStickers = new StickerData().getAllStickers();
+        allStickers.ForEach(delegate (Sticker stickerData)
+        {
+            StickerViewContent sticker = (StickerViewContent)Instantiate(stickerPrefab);
+            sticker.initializeVariables(new TemplateData(new Template(stickerData.templateId)).getTemplate(), stickerData);
+>>>>>>> ebaa965d38425a1eeadcbbc6ba6672e7f79a3ac5
             sticker.transform.SetParent(scrollContent.transform, false);
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;
