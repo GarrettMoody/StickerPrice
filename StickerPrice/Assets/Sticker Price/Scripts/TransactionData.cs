@@ -15,7 +15,6 @@ public class TransactionData
 
     private string filePath = "Assets/Sticker Price/Data Files/Transactions.json";
     private FileUtility fileUtility = new FileUtility();
-    private Transaction newTransaction = new Transaction();
     [JsonProperty("transactionListContainer")]
     public TransactionListContainer transactionListContainer = new TransactionListContainer();
 
@@ -26,19 +25,17 @@ public class TransactionData
 
     public TransactionData(Transaction newTransaction)
     {
-        this.newTransaction = newTransaction;
+
     }
 
-    public void WriteTransaction()
+    private void WriteTransactionsToFile()
     { 
-        ReadTransactions();
-        //Add the transaction to the list and serialize
-        transactionListContainer.transactionList.Add(newTransaction);
+        
         fileUtility.clearFile(filePath);
         fileUtility.writeJson(filePath, JsonConvert.SerializeObject(transactionListContainer, Formatting.Indented));
     }
 
-    public void ReadTransactions()
+    private void ReadTransactions()
     {
         try {
             transactionListContainer = JsonUtility.FromJson<TransactionListContainer>(fileUtility.readJson(filePath));
@@ -59,17 +56,25 @@ public class TransactionData
         }
     }
 
-    public void RemoveDuplicate()
+    private void RemoveDuplicate(Transaction transaction)
     {
         ReadTransactions();
         //Does the transaction ID already exist in the list
-        if (transactionListContainer.transactionList.Exists(x => x.GetTransactionID() == newTransaction.GetTransactionID()))
+        if (transactionListContainer.transactionList.Exists(x => x.GetTransactionID() == transaction.GetTransactionID()))
         {
             //Get the existing transacation and remove it from the list
-            Transaction removeTrans = transactionListContainer.transactionList.Single(x => x.GetTransactionID() == newTransaction.GetTransactionID());
+            Transaction removeTrans = transactionListContainer.transactionList.Single(x => x.GetTransactionID() == transaction.GetTransactionID());
             transactionListContainer.transactionList.Remove(removeTrans);
         }
 
+    }
+
+    public void AddTransaction(Transaction transaction)
+    {
+        //Add the transaction to the list and serialize
+        RemoveDuplicate(transaction);
+        transactionListContainer.transactionList.Add(transaction);
+        WriteTransactionsToFile();
     }
 
     public List<Transaction> GetAllTransactions()

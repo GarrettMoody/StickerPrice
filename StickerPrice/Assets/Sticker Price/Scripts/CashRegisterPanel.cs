@@ -122,8 +122,8 @@ public class CashRegisterPanel : MonoBehaviour
 
     private void SaveTransaction()
     {
-        TransactionData transactionData = new TransactionData(transaction);
-        transactionData.WriteTransaction();
+        TransactionData transactionData = new TransactionData();
+        transactionData.AddTransaction(transaction);
     }
 
     public void OnCompleteButtonOnClickListener()
