@@ -55,6 +55,30 @@
       },
       "paymentMethod": "Cash",
       "datetime": "05 Feb 2019 10:43 PM"
+    },
+    {
+      "transactionID": 3.0,
+      "itemListData": {
+        "priceTotal": 5.25,
+        "priceSubtotal": 5.0,
+        "taxTotal": 0.25,
+        "discount": 0.0,
+        "itemTotal": 1,
+        "itemRowDataListContainer": {
+          "itemRowDataList": [
+            {
+              "itemDescription": "Black Tshirt",
+              "itemOriginalPrice": 5.0,
+              "itemPrice": 5.0,
+              "quantity": 1,
+              "productOwner": "Garrett Moody",
+              "scanString": "I Love Sticker Price|$5.00|Black Tshirt|Garrett Moody"
+            }
+          ]
+        }
+      },
+      "paymentMethod": "Cash",
+      "datetime": "10 Feb 2019 12:00 PM"
     }
   ]
 }
