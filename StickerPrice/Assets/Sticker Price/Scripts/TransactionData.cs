@@ -30,7 +30,6 @@ public class TransactionData
 
     private void WriteTransactionsToFile()
     { 
-        
         fileUtility.clearFile(filePath);
         fileUtility.writeJson(filePath, JsonConvert.SerializeObject(transactionListContainer, Formatting.Indented));
     }
@@ -66,7 +65,6 @@ public class TransactionData
             Transaction removeTrans = transactionListContainer.transactionList.Single(x => x.GetTransactionID() == transaction.GetTransactionID());
             transactionListContainer.transactionList.Remove(removeTrans);
         }
-
     }
 
     public void AddTransaction(Transaction transaction)

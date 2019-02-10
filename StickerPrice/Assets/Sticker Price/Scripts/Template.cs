@@ -1,35 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class Template
+public class Template : MonoBehaviour
 {
-    public string templateId;
-    public string size;
-    public string qrCode;
-    public string numberPerSheet;
+    public Text title;
+    public Text size;
+    public Text numPerSheet;
+    public Image qrCode;
+    public TemplateData templateData;
 
-    public Template()
+    private StickerFormatMenu stickerFormatMenu;
+
+    public void Start()
     {
-        templateId = "";
-        size = "";
-        qrCode = "";
-        numberPerSheet = "";
+        stickerFormatMenu = this.GetComponentInParent<StickerFormatMenu>();
     }
 
-    public Template(string templateId)
+    public void SetTitle()
     {
-        this.templateId = templateId;
-        size = "";
-        qrCode = "";
-        numberPerSheet = "";
+        title.text = "Template - " + templateData.templateId;
     }
 
-    public Template(string templateId, string size, string qrCode, string numberPerSheet)
+    public void SetSize()
     {
-        this.templateId = templateId;
-        this.size = size;
-        this.qrCode = qrCode;
-        this.numberPerSheet = numberPerSheet;
+        this.size.text = templateData.size;
     }
+
+    public void SetNumPerSheet()
+    {
+        this.numPerSheet.text = templateData.numberPerSheet + " Per Sheet";
+    }
+
+    public void InitializeVariables(TemplateData templateData)
+    {
+        this.templateData = templateData;
+        SetTitle();
+        SetSize();
+        SetNumPerSheet();
+    }
+
+    public void OnTemplateClick()
+    {
+        stickerFormatMenu.OnTemplateClicked(this);
+    }
+
 }
