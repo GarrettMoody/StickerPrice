@@ -10,62 +10,57 @@ public class StickerViewContent : MonoBehaviour {
     public Text price;
     public Text dateSaved;
     public Color32 colorCode;
-    public TemplateData templateData;
+    public Template template;
     public Sticker stickerData;
 
-    public void Start()
+    public void SetStickerDescription()
     {
-
+        this.stickerDescription.text = stickerData.stickerName;
     }
 
-    public void setStickerDescription()
-    {
-        this.stickerDescription.text = stickerData.stickerDescription;
-    }
-
-    public void setItemDescription()
+    public void SetItemDescription()
     {
         this.itemDescription.text = stickerData.itemDescription;
     }
 
-    public void setNumAndSize()
+    public void SetNumAndSize()
     {
-        numAndSize.text = templateData.numberPerSheet + " - " + templateData.size;
+        numAndSize.text = template.numberPerSheet + " - " + template.size;
     }
 
-    public void setPrice()
+    public void SetPrice()
     {
         this.price.text =  stickerData.price;
     }
 
-    public void setDateSaved()
+    public void SetDateSaved()
     {
         this.dateSaved.text = stickerData.dateSaved;
     }
 
-    public void setColorCode(Color32 colorCode)
+    public void SetColorCode(Color32 colorCode)
     {
         this.colorCode = colorCode;
     }
 
-    public void setTemplateData (TemplateData templateData)
+    public void SetTemplateData(Template template)
     {
-        this.templateData = templateData;
+        this.template = template;
     }
 
-    public void setStickerData (Sticker stickerData)
+    public void SetStickerData(Sticker stickerData)
     {
         this.stickerData = stickerData;
     }
 
-    public void initializeVariables(TemplateData templateData,Sticker stickerData)
+    public void InitializeVariables(Template template,Sticker stickerData)
     {
-        setStickerData(stickerData);
-        setTemplateData(templateData);
-        setStickerDescription();
-        setItemDescription();
-        setPrice();
-        setDateSaved();
+        SetStickerData(stickerData);
+        SetTemplateData(template);
+        SetStickerDescription();
+        SetItemDescription();
+        SetPrice();
+        SetDateSaved();
     }
 
 }

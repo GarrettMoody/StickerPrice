@@ -4,100 +4,24 @@ using System.Linq;
 
 public class TemplateData
 {
-    public string templateId;
-    public string size;
-    public string qrCode;
-    public string numberPerSheet;
-
     private string filePath = "Assets/Sticker Price/Data Files/Templates.json";
     private FileUtility fileUtility = new FileUtility();
-    private List<TemplateData> templateList = new List<TemplateData>();
+    private List<Template> templateList = new List<Template>();
 
-    public TemplateData()
+    public TemplateData ()
     {
-        templateId = "";
-        size = "";
-        qrCode = "";
-        numberPerSheet = "";
+        ReadTemplates();
     }
 
-    public TemplateData(string templateId)
+    private void ReadTemplates()
     {
-        this.templateId = templateId;
-        size = "";
-        qrCode = "";
-        numberPerSheet = "";
+        templateList = JsonConvert.DeserializeObject<List<Template>>(fileUtility.ReadJson(filePath));
     }
 
-    public TemplateData(string templateId, string size, string qrCode, string numberPerSheet)
+    public List<Template> GetAllTemplates()
     {
-        this.templateId = templateId;
-        this.size = size;
-        this.qrCode = qrCode;
-        this.numberPerSheet = numberPerSheet;
-    }
-
-    public void writeTemplates()
-    {
-        fileUtility.clearFile(filePath);
-        fileUtility.writeJson(filePath, JsonConvert.SerializeObject(templateList));
-    }
-
-    public void readTemplates()
-    {
-        templateList = JsonConvert.DeserializeObject<List<TemplateData>>(fileUtility.readJson(filePath));
-    }
-
-    public void removeDuplicate()
-    {
-        readTemplates();
-        List<TemplateData> newList = new List<TemplateData>();
-        if (templateList != null && templateList.Count > 0)
-        {
-            templateList.ForEach(delegate (TemplateData template)
-            {
-                if (template.templateId != this.templateId)
-                {
-                    newList.Add(template);
-                }
-            });
-        }
-        templateList = newList;
-    }
-
-    public void createTemplate()
-    {
-        removeDuplicate();
-        templateList.Add(this);
-        writeTemplates();
-    }
-
-    public void deleteTemplate()
-    {
-        removeDuplicate();
-        writeTemplates();
-    }
-
-    public List<TemplateData> getAllTemplates()
-    {
-        readTemplates();
+        ReadTemplates();
         return templateList;
     }
 
-    public TemplateData getTemplate()
-    {
-        TemplateData templateData = new TemplateData();
-        readTemplates();
-        if (templateList != null && templateList.Count > 0)
-        {
-            templateList.ForEach(delegate (TemplateData template)
-            {
-                if (template.templateId == this.templateId)
-                {
-                    templateData = template;
-                }
-            });
-        }
-        return templateData;
-    }
 }

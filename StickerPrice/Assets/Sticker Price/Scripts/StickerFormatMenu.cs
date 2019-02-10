@@ -12,18 +12,18 @@ public class StickerFormatMenu : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
-        List<TemplateData> allTemplates = new TemplateData().getAllTemplates();
-        allTemplates.ForEach(delegate (TemplateData templateData)
+        List<Template> allTemplates = new TemplateData().GetAllTemplates();
+        allTemplates.ForEach(delegate (Template template)
         {
-            TemplateViewContent template = (TemplateViewContent)Instantiate(templatePrefab);
-            template.InitializeVariables(templateData);
-            template.transform.SetParent(scrollContent.transform, false);
+            TemplateViewContent templateViewContent = (TemplateViewContent)Instantiate(templatePrefab);
+            templateViewContent.InitializeVariables(template);
+            templateViewContent.transform.SetParent(scrollContent.transform, false);
         });
         scrollView.verticalNormalizedPosition = 1;
     }
 
-    public void OnTemplateClicked(TemplateData templateData) {
+    public void OnTemplateClicked(Template template) {
         this.gameObject.SetActive(false);
-        stickerDetailMenu.OpenMenu(templateData);
+        stickerDetailMenu.OpenMenu(template);
     }
 }

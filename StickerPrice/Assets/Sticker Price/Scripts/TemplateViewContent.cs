@@ -9,7 +9,7 @@ public class TemplateViewContent : MonoBehaviour
     public Text size;
     public Text numPerSheet;
     public Image qrCode;
-    public TemplateData templateData;
+    public Template template;
 
     private StickerFormatMenu stickerFormatMenu;
 
@@ -20,22 +20,22 @@ public class TemplateViewContent : MonoBehaviour
 
     public void SetTitle()
     {
-        title.text = "Template - " + templateData.templateId;
+        title.text = "Template - " + template.templateId;
     }
 
     public void SetSize()
     {
-        this.size.text = templateData.size;
+        this.size.text = template.size;
     }
 
     public void SetNumPerSheet()
     {
-        this.numPerSheet.text = templateData.numberPerSheet + " Per Sheet";
+        this.numPerSheet.text = template.numberPerSheet + " Per Sheet";
     }
 
-    public void InitializeVariables(TemplateData templateData)
+    public void InitializeVariables(Template template)
     {
-        this.templateData = templateData;
+        this.template = template;
         SetTitle();
         SetSize();
         SetNumPerSheet();
@@ -43,6 +43,6 @@ public class TemplateViewContent : MonoBehaviour
 
     public void OnTemplateClick()
     {
-        stickerFormatMenu.OnTemplateClicked(templateData);
+        stickerFormatMenu.OnTemplateClicked(template);
     }
 }

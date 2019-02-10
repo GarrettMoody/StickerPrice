@@ -23,27 +23,16 @@ public class TransactionData
         ReadTransactions();
     }
 
-    public TransactionData(Transaction newTransaction)
-    {
-
-    }
-
     private void WriteTransactionsToFile()
     { 
-        fileUtility.clearFile(filePath);
-        fileUtility.writeJson(filePath, JsonConvert.SerializeObject(transactionListContainer, Formatting.Indented));
+        fileUtility.ClearFile(filePath);
+        fileUtility.WriteJson(filePath, JsonConvert.SerializeObject(transactionListContainer, Formatting.Indented));
     }
 
     private void ReadTransactions()
     {
-        try {
-            transactionListContainer = JsonUtility.FromJson<TransactionListContainer>(fileUtility.readJson(filePath));
-        }
-        catch (JsonException jsonException)
-        {
-            Console.WriteLine(jsonException);
-        }
-
+        transactionListContainer = JsonUtility.FromJson<TransactionListContainer>(fileUtility.ReadJson(filePath));
+        
         if (transactionListContainer == null)
         {
             transactionListContainer = new TransactionListContainer();

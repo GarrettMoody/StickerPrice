@@ -1,62 +1,56 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Linq;
 
 public class StickerData {
 
     private string filePath = "Assets/Sticker Price/Data Files/SavedStickers.json";
     private FileUtility fileUtility = new FileUtility();
     private List<Sticker> stickerList = new List<Sticker>();
-    private Sticker newSticker;
 
-    public StickerData (Sticker newSticker)
+    public StickerData ()
     {
-        this.newSticker = newSticker;
+        ReadStickers();
     }
 
-    public void writeStickers ()
+    private void WriteStickers()
     {
-        fileUtility.clearFile(filePath);
-        fileUtility.writeJson(filePath, JsonConvert.SerializeObject(stickerList));
+        fileUtility.ClearFile(filePath);
+        fileUtility.WriteJson(filePath, JsonConvert.SerializeObject(stickerList));
     }
 
-    public void readStickers()
+    private void ReadStickers()
     {
-        stickerList = JsonConvert.DeserializeObject<List<Sticker>>(fileUtility.readJson(filePath));
+        stickerList = JsonConvert.DeserializeObject<List<Sticker>>(fileUtility.ReadJson(filePath));
     }
 
-    public void removeDuplicate ()
+    private void RemoveDuplicate(Sticker sticker)
     {
-        readStickers();
-        List<Sticker> newList = new List<Sticker>();
-        if (stickerList != null && stickerList.Count > 0)
+        ReadStickers();
+        if (stickerList.Exists(x => x.stickerName == sticker.stickerName))
         {
-            stickerList.ForEach(delegate (Sticker sticker)
-            {
-                if (sticker.stickerDescription != newSticker.stickerDescription)
-                {
-                    newList.Add(sticker);
-                }
-            });
+            //Get the existing transacation and remove it from the list
+            Sticker removeSticker = stickerList.Single(x => x.stickerName == sticker.stickerName);
+            stickerList.Remove(removeSticker);
         }
-        stickerList = newList;
     }
 
-    public void createSticker()
+    public void AddSticker(Sticker sticker)
     {
-         removeDuplicate();
-         stickerList.Add(newSticker);
-         writeStickers();        
+        RemoveDuplicate(sticker);
+        stickerList.Add(sticker);
+        WriteStickers();        
     }
 
-    public void deleteSticker()
+    public void DeleteSticker(Sticker sticker)
     {
-        removeDuplicate();
-        writeStickers();
+        RemoveDuplicate(sticker);
+        WriteStickers();
     }
 
-    public List<Sticker> getAllStickers()
+    public List<Sticker> GetAllStickers()
     {
-        readStickers();
+        ReadStickers();
         return stickerList;
     }
 }

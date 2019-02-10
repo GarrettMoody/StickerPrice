@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 public class FileUtility {
 
-	public List<string> readFromFile (string filePath)
+	public List<string> ReadFromFile(string filePath)
     {
         List<string> values = new List<string>();
         StreamReader reader = new StreamReader(filePath);
@@ -19,7 +19,7 @@ public class FileUtility {
         return values;
     }
 
-    public string readJson(string filePath)
+    public string ReadJson(string filePath)
     {
         StreamReader reader = new StreamReader(filePath);
         string json = reader.ReadToEnd();
@@ -27,21 +27,19 @@ public class FileUtility {
         return json;
     }
 
-    public void writeToFile (string filePath, List<string> values)
+    public void WriteToFile(string filePath, List<string> values)
     {
         StreamWriter writer = new StreamWriter(filePath, true);
-        values.ForEach(delegate(string value) {
-            writer.WriteLine(value);
-        });
+        values.ForEach(writer.WriteLine);
         writer.Close();
     }
 
-    public void writeJson(string filePath, string json)
+    public void WriteJson(string filePath, string json)
     {
         File.WriteAllText(filePath, json);
     }
 
-    public void clearFile (string filePath)
+    public void ClearFile(string filePath)
     {
         FileStream fileStream = File.Open(filePath, FileMode.Open);
 

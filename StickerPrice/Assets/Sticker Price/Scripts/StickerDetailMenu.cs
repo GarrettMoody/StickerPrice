@@ -21,7 +21,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     //Private Variables
     private QROption[] qrOptions;
-    private TemplateData templateData;
+    private Template template;
     private int pageCount = 1;
     private int currentPage = 1;
     private int numberInSheet = 0;
@@ -119,9 +119,9 @@ public class StickerDetailMenu : MonoBehaviour
         }
     }
 
-    public void OpenMenu(TemplateData templateData)
+    public void OpenMenu(Template template)
     {
-        this.templateData = templateData;
+        this.template = template;
         this.gameObject.SetActive(true);
         UpdateNumberPerSheetText();
         UpdateInputFields(new Sticker());
@@ -129,7 +129,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     public void OpenMenu(StickerViewContent sticker)
     {
-        templateData = sticker.templateData;
+        template = sticker.template;
         this.gameObject.SetActive(true);
         UpdateNumberPerSheetText();
         UpdateInputFields(sticker.stickerData);
@@ -140,13 +140,13 @@ public class StickerDetailMenu : MonoBehaviour
         description.text = stickerData.itemDescription;
         productOwner.text = stickerData.owner;
         price.text = stickerData.price;
-        quantity.text = int.Parse(stickerData.quantity != null && stickerData.quantity !="" ? stickerData.quantity : "0").ToString();
-        saveToFavoritesPopup.saveName.text = stickerData.stickerDescription;
+        quantity.text = int.Parse(!string.IsNullOrEmpty(stickerData.quantity) ? stickerData.quantity : "0").ToString();
+        saveToFavoritesPopup.saveName.text = stickerData.stickerName;
     }
 
     public void OnQuantityAddButtonClick()
     {
-        int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
+        int qty = int.Parse(!string.IsNullOrEmpty(quantity.text) ? quantity.text : "0");
         if (qty < 999999)
         {
             quantity.text = (qty + 1).ToString();
@@ -159,7 +159,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     public void OnQuantityMinusButtonClick()
     {
-        int qty = int.Parse(quantity.text.ToString() != null && quantity.text.ToString() != "" ? quantity.text.ToString() : "0");
+        int qty = int.Parse(!string.IsNullOrEmpty(quantity.text.ToString()) ? quantity.text.ToString() : "0");
         if (qty > 0)
         {
             quantity.text = (qty - 1).ToString();
@@ -172,8 +172,8 @@ public class StickerDetailMenu : MonoBehaviour
 
     public void OnQuantityChanged()
     {
-        int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
-        int numPerSheet = int.Parse(templateData.numberPerSheet);
+        int qty = int.Parse(!string.IsNullOrEmpty(quantity.text) ? quantity.text : "0");
+        int numPerSheet = int.Parse(template.numberPerSheet);
         qtyAdded = 0;
         qtyLeft = 0;
         if (qty > numPerSheet)
@@ -192,9 +192,9 @@ public class StickerDetailMenu : MonoBehaviour
 
     public void OnConfirmButtonClick()
     {      
-        StickerData stickerData = new StickerData(new Sticker(saveToFavoritesPopup.saveName.text, description.text, price.text, DateTime.Now.ToString("dd MMMM yyyy h:mm tt"), productOwner.text
-         , quantity.text, templateData.templateId));
-        stickerData.createSticker();
+        //StickerData stickerData = new StickerData(new Sticker(saveToFavoritesPopup.saveName.text, description.text, price.text, DateTime.Now.ToString("dd MMMM yyyy h:mm tt"), productOwner.text
+        // , quantity.text, templateData.templateId));
+        //stickerData.CreateSticker();
         
     }
 
@@ -203,8 +203,8 @@ public class StickerDetailMenu : MonoBehaviour
         if (pageCount > currentPage)
         {
             currentPage = currentPage + 1;
-            int qty = int.Parse(quantity.text != null && quantity.text != "" ? quantity.text : "0");
-            int numPerSheet = int.Parse(templateData.numberPerSheet);
+            int qty = int.Parse(!string.IsNullOrEmpty(quantity.text) ? quantity.text : "0");
+            int numPerSheet = int.Parse(template.numberPerSheet);
             if (qty > numPerSheet)
             {
                 qtyAdded = qtyAdded + numPerSheet;
@@ -221,7 +221,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     public void UpdateNumberPerSheetText()
     {
-        string qtyInSheet = numberInSheet != 0 ? numberInSheet.ToString() : templateData.numberPerSheet;
+        string qtyInSheet = numberInSheet != 0 ? numberInSheet.ToString() : template.numberPerSheet;
         numberPerSheet.text = qtyInSheet + " Blank Stickers - Pages " + currentPage + "/" + pageCount;
     }
 

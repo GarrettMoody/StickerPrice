@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sticker
 {
-    public string stickerDescription;
+    public string stickerName;
     public string itemDescription;
     public string price;
     public string dateSaved;
@@ -14,7 +14,7 @@ public class Sticker
 
     public Sticker()
     {
-        stickerDescription = "";
+        stickerName = "";
         itemDescription = "";
         price = "";
         dateSaved = "";
@@ -25,7 +25,7 @@ public class Sticker
 
     public Sticker(string stickerDescription, string itemDescription, string price, string dateSaved, string owner, string quantity, string templateId)
     {
-        this.stickerDescription = stickerDescription;
+        this.stickerName = stickerDescription;
         this.itemDescription = itemDescription;
         this.price = price;
         this.dateSaved = dateSaved;

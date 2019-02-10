@@ -15,19 +15,19 @@ public class SavedStickers : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
-        List<Sticker> allStickers = new StickerData(new Sticker()).getAllStickers();
-        allStickers.ForEach(delegate (Sticker stickerData)
-        {
-            StickerViewContent sticker = (StickerViewContent)Instantiate(stickerPrefab);
-            sticker.initializeVariables(new TemplateData(stickerData.templateId).getTemplate(), stickerData);
-            sticker.transform.SetParent(scrollContent.transform, false);
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = EventTriggerType.PointerClick;
-            entry.callback.AddListener((eventData) => { OnStickerClicked(sticker); });
-            sticker.transform.GetComponent<EventTrigger>().triggers.Add(entry);
-        });
-        scrollView.verticalNormalizedPosition = 1;
-        fileCount.text = "Number Of Files: " + allStickers.Count;
+        //List<Sticker> allStickers = new StickerData(new Sticker()).GetAllStickers();
+        //allStickers.ForEach(delegate (Sticker stickerData)
+        //{
+        //    StickerViewContent sticker = (StickerViewContent)Instantiate(stickerPrefab);
+        //    sticker.InitializeVariables(new TemplateData(stickerData.templateId).GetTemplate(), stickerData);
+        //    sticker.transform.SetParent(scrollContent.transform, false);
+        //    EventTrigger.Entry entry = new EventTrigger.Entry();
+        //    entry.eventID = EventTriggerType.PointerClick;
+        //    entry.callback.AddListener((eventData) => { OnStickerClicked(sticker); });
+        //    sticker.transform.GetComponent<EventTrigger>().triggers.Add(entry);
+        //});
+        //scrollView.verticalNormalizedPosition = 1;
+        //fileCount.text = "Number Of Files: " + allStickers.Count;
     }
 
     public void OnStickerClicked(StickerViewContent sticker)
