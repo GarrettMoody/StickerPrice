@@ -14,24 +14,31 @@ public class SaveToFavoritesPopup : MonoBehaviour
     public Button cancelButton;
     public GameObject popupPanel;
     public TextMeshProUGUI nameExistsError;
+    public StickerDetailMenu stickerDetailMenu;
 
-    private StickerData stickerData;
+    private Sticker sticker;
+    private StickerData stickerData = new StickerData();
 
-    public void OpenSaveToFavoritesPopup()
+    public void OpenSaveToFavoritesPopup(Sticker sticker)
     {
+        this.sticker = sticker;
+        stickerData = new StickerData();
         popupPanel.SetActive(true);
         this.gameObject.SetActive(true);
+        OnNameChangeActionListener();
     }
 
     public void CancelButtonOnClickListener()
     {
-        this.gameObject.SetActive(false);
-        popupPanel.SetActive(false);
+        CloseSaveToFavoritesPopup();
     }
 
     public void SaveButtonOnClickListener()
     {
-        
+        sticker.stickerName = saveName.text;
+        stickerData.AddSticker(sticker);
+        CloseSaveToFavoritesPopup();
+        stickerDetailMenu.stickerSavedPopup.DisplayPopup(3);
     }
 
     public void OnNameChangeActionListener()
@@ -41,10 +48,18 @@ public class SaveToFavoritesPopup : MonoBehaviour
         {
             //Sticker Name already exists; display error.
             nameExistsError.gameObject.SetActive(true);
+            saveButton.interactable = false;
         }
         else if (nameExistsError.IsActive())
         {
             nameExistsError.gameObject.SetActive(false);
+            saveButton.interactable = true;
         }
+    }
+
+    private void CloseSaveToFavoritesPopup()
+    {
+        this.gameObject.SetActive(false);
+        popupPanel.SetActive(false);
     }
 }

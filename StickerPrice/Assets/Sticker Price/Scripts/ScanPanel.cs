@@ -22,7 +22,7 @@ public class ScanPanel : MonoBehaviour
 
     [Tooltip("The amount of time the scanner will read after clicking the scan button.")]
     public const float SCAN_TIMER = .25f;
-    public ErrorMessage scanError;
+    public PopupMessage scanError;
 
 
     // Use this for initialization
@@ -57,7 +57,7 @@ public class ScanPanel : MonoBehaviour
             if (scanTimer <= 0f)
             {
                 scanReady = false;
-                scanError.DisplayError(4);
+                scanError.DisplayPopup(4);
             }
         }
     }

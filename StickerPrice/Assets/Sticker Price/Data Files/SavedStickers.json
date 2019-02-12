@@ -1,1 +1,137 @@
-[{"stickerDescription":"Neemas item","itemDescription":"Neemas item","price":"24","dateSaved":"27 December 2018 7:04 AM","owner":"Neema","quantity":"24","templateId":"6450"},{"stickerDescription":"My Test 2","itemDescription":"My Test","price":"45","dateSaved":"27 December 2018 9:40 PM","owner":"Neema","quantity":"44","templateId":"6450"},{"stickerDescription":"Neemas Test","itemDescription":"Neemas Test","price":"30","dateSaved":"27 December 2018 9:42 PM","owner":"Neema","quantity":"56","templateId":"6450"},{"stickerDescription":"Neema is Testing","itemDescription":"Neema is Testing","price":"55","dateSaved":"02 January 2019 7:29 PM","owner":"Neema","quantity":"45","templateId":"6450"},{"stickerDescription":"Neemas Test2","itemDescription":"Neemas Test2","price":"20","dateSaved":"02 January 2019 9:43 PM","owner":"Neems","quantity":"35","templateId":"22805"},{"stickerDescription":"Final Test","itemDescription":"Final Test","price":"100","dateSaved":"02 January 2019 9:52 PM","owner":"Neema","quantity":"3","templateId":"22805"}]
+[
+  {
+    "stickerName": "Jessica's IPhone",
+    "itemDescription": "Jessica's IPhone",
+    "price": "$50.00",
+    "dateSaved": "02/11/2019 20:55:40",
+    "owner": "Jessica",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "Jessica's IPhone X",
+    "itemDescription": "Jessica's IPhone",
+    "price": "$25.00",
+    "dateSaved": "02/11/2019 20:56:19",
+    "owner": "Jessica",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "Garrett's App",
+    "itemDescription": "Garrett's App",
+    "price": "$500.00",
+    "dateSaved": "02/11/2019 21:03:43",
+    "owner": "Garrett",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "Garrett's Second App",
+    "itemDescription": "Garrett's App",
+    "price": "$500.00",
+    "dateSaved": "02/11/2019 21:03:58",
+    "owner": "Garrett",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "New Product",
+    "itemDescription": "New Product",
+    "price": "$5.00",
+    "dateSaved": "02/11/2019 21:58:24",
+    "owner": "Garrett",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "New Product 2",
+    "itemDescription": "New Product",
+    "price": "$5.00",
+    "dateSaved": "02/11/2019 22:03:50",
+    "owner": "Garrett",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "A",
+    "itemDescription": "",
+    "price": "",
+    "dateSaved": "02/11/2019 22:05:39",
+    "owner": "",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "B",
+    "itemDescription": "",
+    "price": "",
+    "dateSaved": "02/11/2019 22:06:12",
+    "owner": "",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "C",
+    "itemDescription": "",
+    "price": "",
+    "dateSaved": "02/11/2019 22:06:52",
+    "owner": "",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "D",
+    "itemDescription": "",
+    "price": "",
+    "dateSaved": "02/11/2019 22:09:00",
+    "owner": "",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "E",
+    "itemDescription": "",
+    "price": "",
+    "dateSaved": "02/11/2019 22:09:14",
+    "owner": "",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "F",
+    "itemDescription": "",
+    "price": "",
+    "dateSaved": "02/11/2019 22:10:46",
+    "owner": "",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "G",
+    "itemDescription": "",
+    "price": "",
+    "dateSaved": "02/11/2019 22:13:54",
+    "owner": "",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "H",
+    "itemDescription": "",
+    "price": "",
+    "dateSaved": "02/11/2019 22:27:32",
+    "owner": "",
+    "quantity": "",
+    "templateId": "22805"
+  },
+  {
+    "stickerName": "I",
+    "itemDescription": "",
+    "price": "",
+    "dateSaved": "02/11/2019 22:30:25",
+    "owner": "",
+    "quantity": "",
+    "templateId": "22805"
+  }
+]

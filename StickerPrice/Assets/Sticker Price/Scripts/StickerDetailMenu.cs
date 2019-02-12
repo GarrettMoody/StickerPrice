@@ -18,6 +18,7 @@ public class StickerDetailMenu : MonoBehaviour
     public ToggleGroup colorCode;
     public string stickerDescription;
     public GameObject qrPreviewContent;
+    public PopupMessage stickerSavedPopup;
 
     //Private Variables
     private QROption[] qrOptions;
@@ -225,4 +226,9 @@ public class StickerDetailMenu : MonoBehaviour
         numberPerSheet.text = qtyInSheet + " Blank Stickers - Pages " + currentPage + "/" + pageCount;
     }
 
+    public void SaveToFavoritesOnClickListener()
+    {
+        Sticker sticker = new Sticker("", description.text, price.text, DateTime.Now.ToString(), productOwner.text, "", template.templateId);
+        saveToFavoritesPopup.OpenSaveToFavoritesPopup(sticker);
+    }
 }

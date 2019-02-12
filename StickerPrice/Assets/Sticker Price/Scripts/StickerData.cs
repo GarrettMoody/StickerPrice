@@ -16,12 +16,16 @@ public class StickerData {
     private void WriteStickers()
     {
         fileUtility.ClearFile(filePath);
-        fileUtility.WriteJson(filePath, JsonConvert.SerializeObject(stickerList));
+        fileUtility.WriteJson(filePath, JsonConvert.SerializeObject(stickerList, Formatting.Indented));
     }
 
     private void ReadStickers()
     {
         stickerList = JsonConvert.DeserializeObject<List<Sticker>>(fileUtility.ReadJson(filePath));
+        if (stickerList == null)
+        {
+            stickerList = new List<Sticker>();
+        }
     }
 
     private void RemoveDuplicate(Sticker sticker)

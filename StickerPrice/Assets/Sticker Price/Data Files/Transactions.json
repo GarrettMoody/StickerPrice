@@ -127,6 +127,30 @@
       },
       "paymentMethod": "Cash",
       "datetime": "10 Feb 2019 03:38 PM"
+    },
+    {
+      "transactionID": 6.0,
+      "itemListData": {
+        "priceTotal": 12.6,
+        "priceSubtotal": 12.0,
+        "taxTotal": 0.6,
+        "discount": 0.0,
+        "itemTotal": 2,
+        "itemRowDataListContainer": {
+          "itemRowDataList": [
+            {
+              "itemDescription": "White Tshirt",
+              "itemOriginalPrice": 12.0,
+              "itemPrice": 6.0,
+              "quantity": 2,
+              "productOwner": "Garrett Moody",
+              "scanString": "I Love Sticker Price|$12.00|White Tshirt|Garrett Moody"
+            }
+          ]
+        }
+      },
+      "paymentMethod": "Cash",
+      "datetime": "10 Feb 2019 05:38 PM"
     }
   ]
 }
