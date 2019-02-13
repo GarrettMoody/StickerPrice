@@ -15,7 +15,7 @@ public abstract class ContentRow : MonoBehaviour, IDragHandler, IBeginDragHandle
     [Tooltip("The % offset to lerp to full button.")]
     public float DEFAULT_OFFSET = .650f;
 
-    public ContentList parentList;
+    private ContentList parentList;
     private RectTransform contentRectTransform;
     private RectTransform rowRectTransform;
 

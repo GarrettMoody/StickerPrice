@@ -1,21 +1,20 @@
 ﻿<Properties StartupConfiguration="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/ErrorMessage.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/FavoriteStickerRow.cs">
     <Files>
       <File FileName="Assets/Sticker Price/Scripts/Sticker.cs" Line="1" Column="1" />
       <File FileName="Assets/Sticker Price/Scripts/StickerData.cs" Line="19" Column="101" />
-      <File FileName="Assets/Sticker Price/Scripts/SaveToFavoritesPopup.cs" Line="39" Column="37" />
+      <File FileName="Assets/Sticker Price/Scripts/SaveToFavoritesPopup.cs" Line="36" Column="44" />
       <File FileName="Assets/Sticker Price/Data Files/SavedStickers.json" Line="1" Column="1" />
-      <File FileName="Assets/Sticker Price/Scripts/StickerDetailMenu.cs" Line="232" Column="1" />
-      <File FileName="Assets/Sticker Price/Scripts/ErrorMessage.cs" Line="6" Column="20" />
+      <File FileName="Assets/Sticker Price/Scripts/ContentList.cs" Line="11" Column="42" />
+      <File FileName="Assets/Sticker Price/Scripts/FavoriteStickerList.cs" Line="7" Column="4" />
+      <File FileName="Assets/Sticker Price/Scripts/FavoriteStickerRow.cs" Line="12" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Assets/Sticker Price/Scripts/StickerDetailMenu.cs" relfile="Assets/Sticker Price/Scripts/StickerDetailMenu.cs" line="230" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations>
     <MultiItemSolutionRunConfiguration Id="__IOS__" Name="__IOS__">

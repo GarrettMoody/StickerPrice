@@ -38,7 +38,7 @@ public class SaveToFavoritesPopup : MonoBehaviour
         sticker.stickerName = saveName.text;
         stickerData.AddSticker(sticker);
         CloseSaveToFavoritesPopup();
-        stickerDetailMenu.stickerSavedPopup.DisplayPopup(3);
+        stickerDetailMenu.stickerSavedPopup.DisplayPopup(2);
     }
 
     public void OnNameChangeActionListener()
