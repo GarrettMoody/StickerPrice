@@ -128,21 +128,20 @@ public class StickerDetailMenu : MonoBehaviour
         UpdateInputFields(new Sticker());
     }
 
-    public void OpenMenu(StickerViewContent sticker)
+    public void OpenMenu(Sticker sticker)
     {
         template = sticker.template;
         this.gameObject.SetActive(true);
         UpdateNumberPerSheetText();
-        UpdateInputFields(sticker.stickerData);
+        UpdateInputFields(sticker);
     }
-
-    public void UpdateInputFields(Sticker stickerData)
+    public void UpdateInputFields(Sticker sticker)
     {
-        description.text = stickerData.itemDescription;
-        productOwner.text = stickerData.owner;
-        price.text = stickerData.price;
-        quantity.text = int.Parse(!string.IsNullOrEmpty(stickerData.quantity) ? stickerData.quantity : "0").ToString();
-        saveToFavoritesPopup.saveName.text = stickerData.stickerName;
+        description.text = sticker.itemDescription;
+        productOwner.text = sticker.owner;
+        price.text = sticker.price;
+        quantity.text = int.Parse(!string.IsNullOrEmpty(sticker.quantity) ? sticker.quantity : "0").ToString();
+        saveToFavoritesPopup.saveName.text = sticker.stickerName;
     }
 
     public void OnQuantityAddButtonClick()
@@ -228,7 +227,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     public void SaveToFavoritesOnClickListener()
     {
-        Sticker sticker = new Sticker("", description.text, price.text, DateTime.Now.ToString(), productOwner.text, "", template.templateId);
+        Sticker sticker = new Sticker("", description.text, price.text, DateTime.Now.ToString(), productOwner.text, "", template);
         saveToFavoritesPopup.OpenSaveToFavoritesPopup(sticker);
     }
 }

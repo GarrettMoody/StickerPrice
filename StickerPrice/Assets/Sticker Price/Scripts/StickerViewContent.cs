@@ -11,16 +11,16 @@ public class StickerViewContent : MonoBehaviour {
     public Text dateSaved;
     public Color32 colorCode;
     public Template template;
-    public Sticker stickerData;
+    public Sticker sticker;
 
     public void SetStickerDescription()
     {
-        this.stickerDescription.text = stickerData.stickerName;
+        this.stickerDescription.text = sticker.stickerName;
     }
 
     public void SetItemDescription()
     {
-        this.itemDescription.text = stickerData.itemDescription;
+        this.itemDescription.text = sticker.itemDescription;
     }
 
     public void SetNumAndSize()
@@ -30,12 +30,12 @@ public class StickerViewContent : MonoBehaviour {
 
     public void SetPrice()
     {
-        this.price.text =  stickerData.price;
+        this.price.text =  sticker.price;
     }
 
     public void SetDateSaved()
     {
-        this.dateSaved.text = stickerData.dateSaved;
+        this.dateSaved.text = sticker.dateSaved;
     }
 
     public void SetColorCode(Color32 colorCode)
@@ -50,7 +50,7 @@ public class StickerViewContent : MonoBehaviour {
 
     public void SetStickerData(Sticker stickerData)
     {
-        this.stickerData = stickerData;
+        this.sticker = stickerData;
     }
 
     public void InitializeVariables(Template template,Sticker stickerData)

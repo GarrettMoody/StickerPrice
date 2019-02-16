@@ -6,7 +6,12 @@
     "dateSaved": "02/11/2019 20:55:40",
     "owner": "Jessica",
     "quantity": "",
-    "templateId": "22805"
+    "template": {
+      "templateId": "",
+      "size": "",
+      "qrCode": "",
+      "numberPerSheet": ""
+    }
   },
   {
     "stickerName": "Jessica's IPhone X",
@@ -15,88 +20,12 @@
     "dateSaved": "02/11/2019 20:56:19",
     "owner": "Jessica",
     "quantity": "",
-    "templateId": "22805"
-  },
-  {
-    "stickerName": "Garrett's App",
-    "itemDescription": "Garrett's App",
-    "price": "$500.00",
-    "dateSaved": "02/11/2019 21:03:43",
-    "owner": "Garrett",
-    "quantity": "",
-    "templateId": "22805"
-  },
-  {
-    "stickerName": "Garrett's Second App",
-    "itemDescription": "Garrett's App",
-    "price": "$500.00",
-    "dateSaved": "02/11/2019 21:03:58",
-    "owner": "Garrett",
-    "quantity": "",
-    "templateId": "22805"
-  },
-  {
-    "stickerName": "New Product",
-    "itemDescription": "New Product",
-    "price": "$5.00",
-    "dateSaved": "02/11/2019 21:58:24",
-    "owner": "Garrett",
-    "quantity": "",
-    "templateId": "22805"
-  },
-  {
-    "stickerName": "New Product 2",
-    "itemDescription": "New Product",
-    "price": "$5.00",
-    "dateSaved": "02/11/2019 22:03:50",
-    "owner": "Garrett",
-    "quantity": "",
-    "templateId": "22805"
-  },
-  {
-    "stickerName": "A",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/11/2019 22:05:39",
-    "owner": "",
-    "quantity": "",
-    "templateId": "22805"
-  },
-  {
-    "stickerName": "B",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/11/2019 22:06:12",
-    "owner": "",
-    "quantity": "",
-    "templateId": "22805"
-  },
-  {
-    "stickerName": "C",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/11/2019 22:06:52",
-    "owner": "",
-    "quantity": "",
-    "templateId": "22805"
-  },
-  {
-    "stickerName": "D",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/11/2019 22:09:00",
-    "owner": "",
-    "quantity": "",
-    "templateId": "22805"
-  },
-  {
-    "stickerName": "E",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/11/2019 22:09:14",
-    "owner": "",
-    "quantity": "",
-    "templateId": "22805"
+    "template": {
+      "templateId": "",
+      "size": "",
+      "qrCode": "",
+      "numberPerSheet": ""
+    }
   },
   {
     "stickerName": "F",
@@ -105,7 +34,12 @@
     "dateSaved": "02/11/2019 22:10:46",
     "owner": "",
     "quantity": "",
-    "templateId": "22805"
+    "template": {
+      "templateId": "",
+      "size": "",
+      "qrCode": "",
+      "numberPerSheet": ""
+    }
   },
   {
     "stickerName": "G",
@@ -114,7 +48,12 @@
     "dateSaved": "02/11/2019 22:13:54",
     "owner": "",
     "quantity": "",
-    "templateId": "22805"
+    "template": {
+      "templateId": "",
+      "size": "",
+      "qrCode": "",
+      "numberPerSheet": ""
+    }
   },
   {
     "stickerName": "H",
@@ -123,16 +62,12 @@
     "dateSaved": "02/11/2019 22:27:32",
     "owner": "",
     "quantity": "",
-    "templateId": "22805"
-  },
-  {
-    "stickerName": "I",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/11/2019 22:30:25",
-    "owner": "",
-    "quantity": "",
-    "templateId": "22805"
+    "template": {
+      "templateId": "",
+      "size": "",
+      "qrCode": "",
+      "numberPerSheet": ""
+    }
   },
   {
     "stickerName": "J",
@@ -141,7 +76,12 @@
     "dateSaved": "02/12/2019 12:32:40",
     "owner": "",
     "quantity": "",
-    "templateId": "22805"
+    "template": {
+      "templateId": "",
+      "size": "",
+      "qrCode": "",
+      "numberPerSheet": ""
+    }
   },
   {
     "stickerName": "K",
@@ -150,6 +90,25 @@
     "dateSaved": "02/12/2019 12:35:53",
     "owner": "",
     "quantity": "",
-    "templateId": "22805"
+    "template": {
+      "templateId": "",
+      "size": "",
+      "qrCode": "",
+      "numberPerSheet": ""
+    }
+  },
+  {
+    "stickerName": "Garrett's New Sticker",
+    "itemDescription": "Garrett's New Sticker",
+    "price": "$23.45",
+    "dateSaved": "02/16/2019 11:59:18",
+    "owner": "Garrett Moody",
+    "quantity": "",
+    "template": {
+      "templateId": "22805",
+      "size": "1.5 X 1.5",
+      "qrCode": "",
+      "numberPerSheet": "25"
+    }
   }
 ]

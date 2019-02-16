@@ -38,12 +38,12 @@ public class ItemRow : ContentRow
         SetQuantity(itemRowData.quantity - 1);
     }
 
-    public void DeleteButtonOnClickListener ()
+    public void OnDeleteButtonClick ()
     { 
         parentItemList.RemoveRow (this);
 	}
 
-    public void AdjustButtonOnClickListener()
+    public void OnAdjustButtonClick()
     {
         ResetRow();
         parentItemList.OpenPriceAdjustPanel(this);
@@ -143,8 +143,8 @@ public class ItemRow : ContentRow
         productOwnerText.text = itemRowData.productOwner;
     }
 
-    public override void DefaultButtonOnClickListener()
+    public override void OnDefaultButtonClick()
     {
-        DeleteButtonOnClickListener();
+        OnDeleteButtonClick();
     }
 }

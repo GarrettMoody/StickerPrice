@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '     Delete'
+  m_Text: '       Delete'
 --- !u!1 &1614099386084061401
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1835.1, y: -169.05}
+  m_AnchoredPosition: {x: 1922.1, y: -169.05}
   m_SizeDelta: {x: 1125, y: 338.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2919141242509153039
@@ -194,7 +194,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 562928784379698454}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3496186780043854791}
+        m_MethodName: DeleteButtonOnClickListener
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1654724520460317650
@@ -233,8 +244,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1197.6, y: -169.05}
-  m_SizeDelta: {x: 150, y: 338.1}
+  m_AnchoredPosition: {x: 1241.1, y: -169.05}
+  m_SizeDelta: {x: 237.1, y: 338.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6916027716038223454
 CanvasRenderer:
@@ -1183,8 +1194,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1199.3086, y: -169.05}
-  m_SizeDelta: {x: 2400, y: 338.1}
+  m_AnchoredPosition: {x: 1241.25, y: -169.05}
+  m_SizeDelta: {x: 2483.81, y: 338.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3496186779411952293
 CanvasRenderer:
@@ -1440,6 +1451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3496186780043854790}
   - component: {fileID: 3496186780043854785}
+  - component: {fileID: 2425461955337573086}
   - component: {fileID: 7347593722819199326}
   - component: {fileID: 3496186780043854791}
   m_Layer: 5
@@ -1465,10 +1477,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.85227126}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 562.5, y: -180}
+  m_SizeDelta: {x: 1125, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3496186780043854785
 CanvasRenderer:
@@ -1478,6 +1490,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3496186780043854789}
   m_CullTransparentMesh: 0
+--- !u!114 &2425461955337573086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3496186780043854789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: bff219e68f2e54887b2dceee3029fd9f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
 --- !u!114 &7347593722819199326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1523,7 +1564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalScrollRect: {fileID: 7347593722819199326}
-  BUTTON_OFFSET: 0.26
+  BUTTON_OFFSET: 0.36
   DEFAULT_OFFSET: 0.65
   stickerName: {fileID: 3496186778745679991}
   templateNumber: {fileID: 3496186779311713743}

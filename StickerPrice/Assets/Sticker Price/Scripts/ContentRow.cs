@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public abstract class ContentRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler, IPointerUpHandler // IPointerDownHandler
+public abstract class ContentRow : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler, IPointerUpHandler, IPointerDownHandler
 {
     [Header("ContentRow Properties")]
     [Tooltip("The horizontal scroll rect of the row.")]
@@ -15,7 +15,7 @@ public abstract class ContentRow : MonoBehaviour, IDragHandler, IBeginDragHandle
     [Tooltip("The % offset to lerp to full button.")]
     public float DEFAULT_OFFSET = .650f;
 
-    private ContentList parentList;
+    protected ContentList parentList;
     private RectTransform contentRectTransform;
     private RectTransform rowRectTransform;
 
@@ -185,9 +185,16 @@ public abstract class ContentRow : MonoBehaviour, IDragHandler, IBeginDragHandle
     {
         if (horizontalScrollRect.horizontalNormalizedPosition > DEFAULT_OFFSET)
         {
-            DefaultButtonOnClickListener();
+            OnDefaultButtonClick();
         }
     }
 
-    public abstract void DefaultButtonOnClickListener();
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        parentList.ResetOtherRows(this);
+    }
+
+    public abstract void OnDefaultButtonClick();
+
+   
 }

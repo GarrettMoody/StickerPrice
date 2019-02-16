@@ -43,11 +43,11 @@ public class QRGenerator : MonoBehaviour
 		return writer.Write (textForEncoding);  
 	}
     //notes notes notes
-    public void onButtonClicked() {
-        StartCoroutine(takeScreenshot());
+    public void OnButtonClicked() {
+        StartCoroutine(TakeScreenshot());
     }
 
-    public IEnumerator takeScreenshot() {
+    public IEnumerator TakeScreenshot() {
         yield return new WaitForEndOfFrame();
 
         int width = System.Convert.ToInt32(template.rectTransform.rect.width);

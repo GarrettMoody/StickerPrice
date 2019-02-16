@@ -674,7 +674,6 @@ MonoBehaviour:
   horizontalScrollRect: {fileID: 114810787003530250}
   BUTTON_OFFSET: 0.34
   DEFAULT_OFFSET: 0.65
-  parentList: {fileID: 0}
   itemDescriptionText: {fileID: 114522792687415124}
   itemPriceText: {fileID: 114001735068323740}
   adjustedPriceText: {fileID: 114437878691546004}
@@ -684,13 +683,13 @@ MonoBehaviour:
   quantityInputField: {fileID: 114624431091891608}
   horizontalContentPanel: {fileID: 224266059085713002}
   QRCode: {fileID: 114951000040088312}
-  itemDescription: New Item
-  itemOriginalPrice: 10
-  itemPrice: 10
-  quantity: 1
-  productOwner: 
-  parentItemList: {fileID: 0}
-  scanString: 
+  itemRowData:
+    itemDescription: New Item
+    itemOriginalPrice: 10
+    itemPrice: 10
+    quantity: 1
+    productOwner: 
+    scanString: 
 --- !u!1 &1381021768487228
 GameObject:
   m_ObjectHideFlags: 0

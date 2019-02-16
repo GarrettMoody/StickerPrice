@@ -10,7 +10,7 @@ public class Sticker
     public string dateSaved;
     public string owner;
     public string quantity;
-    public string templateId;
+    public Template template;
 
     public Sticker()
     {
@@ -20,10 +20,10 @@ public class Sticker
         dateSaved = "";
         owner = "";
         quantity = "";
-        templateId = "";
+        template = new Template();
     }
 
-    public Sticker(string stickerDescription, string itemDescription, string price, string dateSaved, string owner, string quantity, string templateId)
+    public Sticker(string stickerDescription, string itemDescription, string price, string dateSaved, string owner, string quantity, Template template)
     {
         this.stickerName = stickerDescription;
         this.itemDescription = itemDescription;
@@ -31,6 +31,6 @@ public class Sticker
         this.dateSaved = dateSaved;
         this.owner = owner;
         this.quantity = quantity;
-        this.templateId = templateId;
+        this.template = template;
     }
 }
