@@ -14,90 +14,6 @@
     }
   },
   {
-    "stickerName": "Jessica's IPhone X",
-    "itemDescription": "Jessica's IPhone",
-    "price": "$25.00",
-    "dateSaved": "02/11/2019 20:56:19",
-    "owner": "Jessica",
-    "quantity": "",
-    "template": {
-      "templateId": "",
-      "size": "",
-      "qrCode": "",
-      "numberPerSheet": ""
-    }
-  },
-  {
-    "stickerName": "F",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/11/2019 22:10:46",
-    "owner": "",
-    "quantity": "",
-    "template": {
-      "templateId": "",
-      "size": "",
-      "qrCode": "",
-      "numberPerSheet": ""
-    }
-  },
-  {
-    "stickerName": "G",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/11/2019 22:13:54",
-    "owner": "",
-    "quantity": "",
-    "template": {
-      "templateId": "",
-      "size": "",
-      "qrCode": "",
-      "numberPerSheet": ""
-    }
-  },
-  {
-    "stickerName": "H",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/11/2019 22:27:32",
-    "owner": "",
-    "quantity": "",
-    "template": {
-      "templateId": "",
-      "size": "",
-      "qrCode": "",
-      "numberPerSheet": ""
-    }
-  },
-  {
-    "stickerName": "J",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/12/2019 12:32:40",
-    "owner": "",
-    "quantity": "",
-    "template": {
-      "templateId": "",
-      "size": "",
-      "qrCode": "",
-      "numberPerSheet": ""
-    }
-  },
-  {
-    "stickerName": "K",
-    "itemDescription": "",
-    "price": "",
-    "dateSaved": "02/12/2019 12:35:53",
-    "owner": "",
-    "quantity": "",
-    "template": {
-      "templateId": "",
-      "size": "",
-      "qrCode": "",
-      "numberPerSheet": ""
-    }
-  },
-  {
     "stickerName": "Garrett's New Sticker",
     "itemDescription": "Garrett's New Sticker",
     "price": "$23.45",
@@ -109,6 +25,20 @@
       "size": "1.5 X 1.5",
       "qrCode": "",
       "numberPerSheet": "25"
+    }
+  },
+  {
+    "stickerName": "Garretts 6640",
+    "itemDescription": "Garretts 6640",
+    "price": "$5.65",
+    "dateSaved": "02/16/2019 15:24:23",
+    "owner": "Garrett",
+    "quantity": "",
+    "template": {
+      "templateId": "6450",
+      "size": "1 X 1",
+      "qrCode": "",
+      "numberPerSheet": "63"
     }
   }
 ]

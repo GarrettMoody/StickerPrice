@@ -10,7 +10,6 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Xml.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Xml.Linq.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Locator.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.PackageManagerUI.Editor.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.TextMeshPro.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.AccessibilityModule.dll
