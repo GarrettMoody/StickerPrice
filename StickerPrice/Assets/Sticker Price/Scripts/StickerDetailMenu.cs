@@ -116,7 +116,7 @@ public class StickerDetailMenu : MonoBehaviour
         encoded.Apply();
         foreach (QROption option in qrOptions)
         {
-            option.GetComponentInChildren<RawImage>().texture = encoded;
+            option.qrCode.texture = encoded;
         }
     }
 
