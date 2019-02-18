@@ -126,7 +126,7 @@ public class ItemRow : ContentRow
 
     public void SetScanString(string value) {
         itemRowData.scanString = value;
-        Texture2D qrCode = StickerQRCode.CreateQRCode(itemRowData.scanString);
+        Texture2D qrCode = QRCodeGenerator.CreateQRCode(itemRowData.scanString);
         QRCode.texture = qrCode;
     }
 

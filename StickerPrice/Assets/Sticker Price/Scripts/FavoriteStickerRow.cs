@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class FavoriteStickerRow : ContentRow, IPointerClickHandler
 {
@@ -12,7 +11,6 @@ public class FavoriteStickerRow : ContentRow, IPointerClickHandler
     public TextMeshProUGUI templateNumber;
     public TextMeshProUGUI stickerSize;
     public TextMeshProUGUI dateTime;
-    public RawImage qrCode;
     public Sticker sticker;
 
     private FavoriteStickerList favoriteStickerList;
