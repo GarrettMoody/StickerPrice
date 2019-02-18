@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class FavoriteStickerRow : ContentRow, IPointerClickHandler
 {
@@ -11,6 +10,7 @@ public class FavoriteStickerRow : ContentRow, IPointerClickHandler
     public TextMeshProUGUI templateNumber;
     public TextMeshProUGUI stickerSize;
     public TextMeshProUGUI dateTime;
+    public RawImage qrCode;
     public Sticker sticker;
 
     private FavoriteStickerList favoriteStickerList;
@@ -28,6 +28,7 @@ public class FavoriteStickerRow : ContentRow, IPointerClickHandler
         templateNumber.text = sticker.template.templateId;
         stickerSize.text = sticker.template.size;
         dateTime.text = sticker.dateSaved;
+        qrCode.texture = StickerQRCode.CreateQRCode(this.sticker);
     }
 
     public override void OnDefaultButtonClick()
@@ -45,8 +46,16 @@ public class FavoriteStickerRow : ContentRow, IPointerClickHandler
 
     public new void OnPointerClick(PointerEventData eventData)
     {
-        base.OnPointerClick(eventData);
-        favoriteStickerList.savedFavoritesPanel.stickerDetailMenu.OpenMenu(sticker);
+        //Get the distance between when the mouse was press and when it was released
+        Vector2 mouseDistance = eventData.pressPosition - eventData.position;
+        Debug.Log(mouseDistance);
+
+        //If the distance was less than 25f (not very far) then it was a click, otherwise it was a drag and we ignore
+        if (Mathf.Abs(mouseDistance.x) < 25f && Mathf.Abs(mouseDistance.y) < 25f)
+        {
+            base.OnPointerClick(eventData);
+            favoriteStickerList.savedFavoritesPanel.OpenFavoriteSticker(sticker);
+        }
     }
 
 
