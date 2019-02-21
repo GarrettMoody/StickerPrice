@@ -48,15 +48,20 @@ public class FavoriteStickerRow : ContentRow, IPointerClickHandler
     {
         //Get the distance between when the mouse was press and when it was released
         Vector2 mouseDistance = eventData.pressPosition - eventData.position;
-        Debug.Log(mouseDistance);
 
         //If the distance was less than 25f (not very far) then it was a click, otherwise it was a drag and we ignore
         if (Mathf.Abs(mouseDistance.x) < 25f && Mathf.Abs(mouseDistance.y) < 25f)
         {
             base.OnPointerClick(eventData);
-            favoriteStickerList.savedFavoritesPanel.OpenFavoriteSticker(sticker);
+            if (horizontalScrollRect.horizontalNormalizedPosition < BUTTON_OFFSET)
+            {
+                favoriteStickerList.savedFavoritesPanel.OpenFavoriteSticker(sticker);
+            }
         }
     }
 
-
+    public void OnEditButtonClick()
+    {
+        favoriteStickerList.savedFavoritesPanel.OpenEditFavoriteSticker(this.sticker);
+    }
 }

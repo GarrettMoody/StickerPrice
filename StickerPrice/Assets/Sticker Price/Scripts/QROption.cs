@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class QROption : MonoBehaviour
 {
-
     public Text description;
     public Text productOwner;
     public Text price;

@@ -15,6 +15,7 @@ public class SavedFavoritesPanel : MonoBehaviour
     public FavoriteStickerList favoriteStickerList;
     public FavoriteStickerRow favoriteStickerRowPrefab;
     public StickerDetailMenu stickerDetailMenu;
+    public EditStickerPanel editStickerPanel;
 
     public void Awake()
     {
@@ -69,5 +70,11 @@ public class SavedFavoritesPanel : MonoBehaviour
     {
         this.gameObject.SetActive(false);
         stickerDetailMenu.OpenMenu(sticker);
+    }
+
+    public void OpenEditFavoriteSticker(Sticker sticker)
+    {
+        this.gameObject.SetActive(false);
+        editStickerPanel.OpenEditStickerPanel(sticker);
     }
 }
