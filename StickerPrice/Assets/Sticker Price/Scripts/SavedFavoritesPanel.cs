@@ -17,12 +17,12 @@ public class SavedFavoritesPanel : MonoBehaviour
     public StickerDetailMenu stickerDetailMenu;
     public EditStickerPanel editStickerPanel;
 
-    public void Awake()
+    private void Start()
     {
         LoadFavoriteStickerListFromFile();
     }
 
-    public void OpenSavedFavoritesPanel()
+    public void OpenSaveFavoritesPanel()
     {
         this.gameObject.SetActive(true);
         LoadFavoriteStickerListFromFile();

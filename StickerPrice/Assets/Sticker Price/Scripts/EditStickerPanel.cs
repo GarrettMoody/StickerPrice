@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class EditStickerPanel : MonoBehaviour
 {
@@ -27,26 +28,22 @@ public class EditStickerPanel : MonoBehaviour
         this.gameObject.SetActive(true);
         StickerData stickerData = new StickerData();
 
-        //Remove all QROptions in the list
-        foreach (Transform child in contentScroll.content.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        contentScroll.RemoveContentComponents();
 
         //Create a QROption for each sticker in the JSON file
         int i = 0;
         foreach (Sticker sticker in stickerData.GetAllStickers())
         {
             QROption newOption = Instantiate(qrOptionPrefab, contentScroll.content.transform);
-            newOption.SetPrice(sticker.price);
-            newOption.SetDescription(sticker.itemDescription);
-            newOption.SetProductionOwner(sticker.owner);
+            newOption.SetSticker(sticker);
             newOption.transform.localPosition = new Vector3(575 + (i * 150), newOption.transform.localPosition.y);
             i++;
         }
 
         RectTransform rectTransform = contentScroll.content.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(1500 + (i * 100), rectTransform.rect.height);
+        rectTransform.sizeDelta = new Vector2(1500 + (i * 100), 0);
+
+        contentScroll.InitializeVariables();
     }
 
     public void UpdateDetailsPanel()
@@ -62,12 +59,31 @@ public class EditStickerPanel : MonoBehaviour
         }
     }
 
+    public void OnSaveButtonClick()
+    {
+        Sticker[] stickers = new Sticker[contentScroll.GetContentComponents().Length];
+        for (int i = 0; i < contentScroll.GetContentComponents().Length; i++)
+        {
+            Sticker sticker = contentScroll.GetContentComponents()[i].GetComponent<QROption>().GetSticker();
+            if(sticker != null)
+            {
+                stickers[i] = sticker;
+            }
+        }
+
+        StickerData stickerData = new StickerData();
+        foreach (Sticker sticker in stickers)
+        {
+            stickerData.AddSticker(sticker);
+        }
+    }
+
     public void OnDescriptionChange()
     { 
         QROption option = contentScroll.GetSelectedComponent().GetComponent<QROption>();
         if(option != null)
         {
-            option.description.text = descriptionInputField.text;
+            option.SetDescription(descriptionInputField.text);
         }
     }
 
@@ -76,7 +92,7 @@ public class EditStickerPanel : MonoBehaviour
         QROption option = contentScroll.GetSelectedComponent().GetComponent<QROption>();
         if (option != null)
         {
-            option.productOwner.text = ownerInputField.text;
+            option.SetProductionOwner(ownerInputField.text);
         }
     }
 
@@ -85,7 +101,7 @@ public class EditStickerPanel : MonoBehaviour
         QROption option = contentScroll.GetSelectedComponent().GetComponent<QROption>();
         if (option != null)
         {
-            option.price.text = priceInputField.text;
+            option.SetPrice(priceInputField.text);
         }
     }
 }

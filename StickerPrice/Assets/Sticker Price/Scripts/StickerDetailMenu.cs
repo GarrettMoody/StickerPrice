@@ -39,33 +39,14 @@ public class StickerDetailMenu : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-
         qrOptions = qrPreviewContent.GetComponentsInChildren<QROption>();
 
-        Texture2D encoded = new Texture2D(256, 256);
-        Color32[] color32 = Encode("I Love Sticker Price", encoded.width, encoded.height);
-        encoded.SetPixels32(color32);
-        encoded.Apply();
+        Sticker sticker = new Sticker("", description.text, price.text, "", productOwner.text, "", template);
 
         foreach (QROption option in qrOptions)
         {
-            option.GetComponentInChildren<RawImage>().texture = encoded;
+            option.GetComponentInChildren<RawImage>().texture = StickerQRCode.CreateQRCode(sticker);
         }
-    }
-
-    // for generate qrcode
-    private static Color32[] Encode(string textForEncoding, int width, int height)
-    {
-        BarcodeWriter writer = new BarcodeWriter
-        {
-            Format = BarcodeFormat.QR_CODE,
-            Options = new QrCodeEncodingOptions
-            {
-                Height = height,
-                Width = width
-            }
-        };
-        return writer.Write(textForEncoding);
     }
 
     public void OnDescriptionChanged()
@@ -110,13 +91,10 @@ public class StickerDetailMenu : MonoBehaviour
 
     private void UpdateQRCode()
     {
-        Texture2D encoded = new Texture2D(256, 256);
-        Color32[] newCode = Encode("I Love Sticker Price|" + price.text + "|" + description.text + "|" + productOwner.text, 256, 256);
-        encoded.SetPixels32(newCode);
-        encoded.Apply();
+        Sticker sticker = new Sticker("", description.text, price.text, "", productOwner.text, "", template);
         foreach (QROption option in qrOptions)
         {
-            option.GetComponentInChildren<RawImage>().texture = encoded;
+            option.GetComponentInChildren<RawImage>().texture = StickerQRCode.CreateQRCode(sticker);
         }
     }
 
@@ -132,9 +110,22 @@ public class StickerDetailMenu : MonoBehaviour
     {
         template = sticker.template;
         this.gameObject.SetActive(true);
+        SetStickersOnOptions(sticker);
         UpdateNumberPerSheetText();
         UpdateInputFields(sticker);
     }
+
+    public void SetStickersOnOptions(Sticker sticker)
+    {
+        if(qrOptions != null)
+        {
+            foreach(QROption option in qrOptions)
+            {
+                option.SetSticker(sticker);
+            }
+        }
+    }
+
     public void UpdateInputFields(Sticker sticker)
     {
         description.text = sticker.itemDescription;
@@ -188,14 +179,6 @@ public class StickerDetailMenu : MonoBehaviour
             numberInSheet = qty;
         }
         UpdateNumberPerSheetText();
-    }
-
-    public void OnConfirmButtonClick()
-    {      
-        //StickerData stickerData = new StickerData(new Sticker(saveToFavoritesPopup.saveName.text, description.text, price.text, DateTime.Now.ToString("dd MMMM yyyy h:mm tt"), productOwner.text
-        // , quantity.text, templateData.templateId));
-        //stickerData.CreateSticker();
-        
     }
 
     public void OnAddToPageButtonClick()

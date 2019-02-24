@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
+using System;
 
 public class ContentScroll : MonoBehaviour
 {
@@ -48,30 +47,10 @@ public class ContentScroll : MonoBehaviour
     public delegate void OnValueChangeListener();
     public event OnValueChangeListener OnSelectionChange;
 
-    // Use this for initialization
-    void Start()
+    private void Start()
     {
-        horizontal = scrollRect.horizontal;
-        contentComponents = new GameObject[content.transform.childCount];
-        for (int i = 0; i < content.transform.childCount; i++)
-        {
-            contentComponents[i] = content.transform.GetChild(i).gameObject;
-        }
-        contentComponentCenters = new Vector2[contentComponents.Length];
-        for (int i = 0; i < contentComponents.Length; i++)
-        {
-            RectTransform rect = contentComponents[i].gameObject.GetComponent<RectTransform>();
-            contentComponentCenters[i] = contentComponents[i].gameObject.GetComponent<RectTransform>().anchoredPosition;
-        }
-
-        scrollOffset = contentComponentCenters[0];
-        LoadDistancesFromCenter();
-        ScaleComponents();
-        SortComponentLayer();
-        UpdateSelectionIndicator();
-        UpdateSelectionIndex();
+        InitializeVariables();
     }
-
 
     // Update is called once per frame
     void Update()
@@ -92,6 +71,32 @@ public class ContentScroll : MonoBehaviour
             ScaleComponents();
             SortComponentLayer();
         }
+    }
+
+    public void InitializeVariables()
+    {
+        horizontal = scrollRect.horizontal;
+        contentComponents = new GameObject[content.transform.childCount];
+        for (int i = 0; i < content.transform.childCount; i++)
+        {
+            contentComponents[i] = content.transform.GetChild(i).gameObject;
+        }
+        contentComponentCenters = new Vector2[contentComponents.Length];
+        for (int i = 0; i < contentComponents.Length; i++)
+        {
+            RectTransform rect = contentComponents[i].gameObject.GetComponent<RectTransform>();
+            contentComponentCenters[i] = contentComponents[i].gameObject.GetComponent<RectTransform>().anchoredPosition;
+        }
+
+        if (contentComponentCenters.Length > 0)
+        {
+            scrollOffset = contentComponentCenters[0];
+        }
+        LoadDistancesFromCenter();
+        ScaleComponents();
+        SortComponentLayer();
+        UpdateSelectionIndicator();
+        UpdateSelectionIndex();
     }
 
     private int GetMinDistantIndex() {
@@ -270,5 +275,35 @@ public class ContentScroll : MonoBehaviour
     public GameObject GetSelectedComponent()
     {
         return contentComponents[selectionIndex];
+    }
+
+    public GameObject[] GetContentComponents()
+    {
+        return contentComponents;
+    }
+
+    public void RemoveContentComponents()
+    {
+        if(contentComponents != null)
+        {
+            foreach (GameObject contentGO in contentComponents)
+            {
+                Destroy(contentGO);
+            }
+            contentComponents = new GameObject[0];
+        }
+
+        if(content != null)
+        {
+            foreach (Transform contentGO in content.transform)
+            {
+                Destroy(contentGO.gameObject);
+            }
+            content.transform.DetachChildren();
+        }
+
+        contentComponents = null;
+        contentComponentCenters = null;
+        distancesFromCenter.Clear();
     }
 }

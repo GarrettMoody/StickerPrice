@@ -41,7 +41,6 @@ public class FavoriteStickerRow : ContentRow, IPointerClickHandler
         parentList.RemoveRow(this);
         StickerData stickerData = new StickerData();
         stickerData.DeleteSticker(sticker);
-        
     }
 
     public new void OnPointerClick(PointerEventData eventData)
@@ -62,6 +61,7 @@ public class FavoriteStickerRow : ContentRow, IPointerClickHandler
 
     public void OnEditButtonClick()
     {
+        this.ResetRow();
         favoriteStickerList.savedFavoritesPanel.OpenEditFavoriteSticker(this.sticker);
     }
 }

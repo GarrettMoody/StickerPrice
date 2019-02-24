@@ -23,6 +23,7 @@ public abstract class ContentList : MonoBehaviour
     public virtual void RemoveRow(ContentRow row)
     {
         contentList.Remove(row);
+        row.transform.SetParent(null);
         Destroy(row.gameObject);
     }
 
