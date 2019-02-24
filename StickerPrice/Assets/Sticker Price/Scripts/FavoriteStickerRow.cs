@@ -28,7 +28,7 @@ public class FavoriteStickerRow : ContentRow, IPointerClickHandler
         templateNumber.text = sticker.template.templateId;
         stickerSize.text = sticker.template.size;
         dateTime.text = sticker.dateSaved;
-        qrCode.texture = StickerQRCode.CreateQRCode(this.sticker);
+        //qrCode.texture = StickerQRCode.CreateQRCode(this.sticker);
     }
 
     public override void OnDefaultButtonClick()
