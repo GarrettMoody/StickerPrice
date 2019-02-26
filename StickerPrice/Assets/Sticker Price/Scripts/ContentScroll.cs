@@ -277,6 +277,11 @@ public class ContentScroll : MonoBehaviour
         return contentComponents[selectionIndex];
     }
 
+    public int GetSelectedIndex()
+    {
+        return selectionIndex;
+    }
+
     public GameObject[] GetContentComponents()
     {
         return contentComponents;
@@ -305,5 +310,19 @@ public class ContentScroll : MonoBehaviour
         contentComponents = null;
         contentComponentCenters = null;
         distancesFromCenter.Clear();
+    }
+
+    public void ScrollToContent(int index)
+    {
+        //Get distance from center
+        float distance = distancesFromCenter[index];
+        //If the new selection is right of the current position, subtract the position
+        if(selectionIndex < index)
+        {
+            distance = -distance;
+        }
+        Vector2 position = new Vector2(content.transform.localPosition.x + distance, content.transform.localPosition.y);
+        content.transform.localPosition = position;
+        isMoving = true;
     }
 }

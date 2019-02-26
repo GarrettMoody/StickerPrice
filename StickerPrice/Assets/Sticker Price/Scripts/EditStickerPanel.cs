@@ -12,14 +12,20 @@ public class EditStickerPanel : MonoBehaviour
     public InputField imageInputField;
     public InputField priceInputField;
     public QROption qrOptionPrefab;
+    public Button saveButton;
+
+    private List<Sticker> stickersFromFile;
+    private bool isCurrentStickerDirty;
 
     void OnEnable()
     {
+        //Subscribe to the OnSelectionChange event
         contentScroll.OnSelectionChange += UpdateDetailsPanel;
     }
 
     void OnDisable()
     {
+        //Unsubscribe to the OnSelectionChange
         contentScroll.OnSelectionChange -= UpdateDetailsPanel;
     }
 
@@ -30,6 +36,7 @@ public class EditStickerPanel : MonoBehaviour
 
         contentScroll.RemoveContentComponents();
 
+        stickersFromFile = stickerData.GetAllStickers();
         //Create a QROption for each sticker in the JSON file
         int i = 0;
         foreach (Sticker sticker in stickerData.GetAllStickers())
@@ -40,10 +47,20 @@ public class EditStickerPanel : MonoBehaviour
             i++;
         }
 
+        //Set size of content box
         RectTransform rectTransform = contentScroll.content.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(1500 + (i * 100), 0);
 
+        //Initialize scroll variables
         contentScroll.InitializeVariables();
+
+        //Scroll to selected sticker
+        List<Sticker> stickers = stickerData.GetAllStickers();
+        int index = stickers.FindIndex(x => x.stickerName == loadSticker.stickerName);
+
+        contentScroll.ScrollToContent(index);
+        UpdateDetailsPanel();
+        OnDetailsChanged();
     }
 
     public void UpdateDetailsPanel()
@@ -61,16 +78,18 @@ public class EditStickerPanel : MonoBehaviour
 
     public void OnSaveButtonClick()
     {
+        //Get stickers from the contentScroll
         Sticker[] stickers = new Sticker[contentScroll.GetContentComponents().Length];
         for (int i = 0; i < contentScroll.GetContentComponents().Length; i++)
         {
             Sticker sticker = contentScroll.GetContentComponents()[i].GetComponent<QROption>().GetSticker();
-            if(sticker != null)
+            if (sticker != null)
             {
                 stickers[i] = sticker;
             }
         }
 
+        //Add stickers to JSON file
         StickerData stickerData = new StickerData();
         foreach (Sticker sticker in stickers)
         {
@@ -85,6 +104,7 @@ public class EditStickerPanel : MonoBehaviour
         {
             option.SetDescription(descriptionInputField.text);
         }
+        OnDetailsChanged();
     }
 
     public void OnProductOwnerChange()
@@ -94,6 +114,7 @@ public class EditStickerPanel : MonoBehaviour
         {
             option.SetProductionOwner(ownerInputField.text);
         }
+        OnDetailsChanged();
     }
 
     public void OnPriceChange()
@@ -103,5 +124,30 @@ public class EditStickerPanel : MonoBehaviour
         {
             option.SetPrice(priceInputField.text);
         }
+        OnDetailsChanged();
+    }
+
+    private void OnDetailsChanged()
+    {
+        isCurrentStickerDirty = false;
+        Sticker stickerFromFile = stickersFromFile[contentScroll.GetSelectedIndex()];
+        if(stickerFromFile.itemDescription != descriptionInputField.text)
+        {
+            isCurrentStickerDirty = true;
+        } 
+        else if(stickerFromFile.owner != ownerInputField.text)
+        {
+            isCurrentStickerDirty = true;
+        }
+        else if(stickerFromFile.price != priceInputField.text)
+        {
+            isCurrentStickerDirty = true;
+        }
+        else
+        {
+            isCurrentStickerDirty = false;
+        }
+
+        saveButton.interactable = isCurrentStickerDirty;
     }
 }

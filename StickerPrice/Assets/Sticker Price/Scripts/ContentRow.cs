@@ -70,9 +70,19 @@ public abstract class ContentRow : MonoBehaviour, IDragHandler, IBeginDragHandle
         }
     }
 
-    public void ResetRow()
+    public void ResetRow(bool immediate = false)
     {
-        lerpMode = LERP_TO_RESET;
+        //If the immediate flag is set to true do not lerp, snap row to reset position
+        if (immediate)
+        {
+            horizontalScrollRect.horizontalNormalizedPosition = 0f;
+            lerpMode = LERP_TO_RESET;
+        }
+        else
+        {
+            lerpMode = LERP_TO_RESET;
+        }
+
     }
 
     public void OnBeginDrag(PointerEventData eventData)

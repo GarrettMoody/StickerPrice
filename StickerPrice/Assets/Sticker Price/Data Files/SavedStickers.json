@@ -58,8 +58,8 @@
   {
     "stickerName": "A",
     "itemDescription": "A",
-    "price": "$4.50",
-    "dateSaved": "02/24/2019 14:07:09",
+    "price": "$4.00",
+    "dateSaved": "02/24/2019 18:25:33",
     "owner": "A",
     "quantity": "",
     "template": {
@@ -72,65 +72,9 @@
   {
     "stickerName": "B",
     "itemDescription": "B",
-    "price": "$5.00",
-    "dateSaved": "02/24/2019 14:15:49",
+    "price": "$4.00",
+    "dateSaved": "02/24/2019 18:26:32",
     "owner": "B",
-    "quantity": "",
-    "template": {
-      "templateId": "22805",
-      "size": "1.5 X 1.5",
-      "qrCode": "",
-      "numberPerSheet": "25"
-    }
-  },
-  {
-    "stickerName": "C",
-    "itemDescription": "Cool Products",
-    "price": "$30.00",
-    "dateSaved": "02/24/2019 14:17:27",
-    "owner": "Cool Guy",
-    "quantity": "",
-    "template": {
-      "templateId": "22805",
-      "size": "1.5 X 1.5",
-      "qrCode": "",
-      "numberPerSheet": "25"
-    }
-  },
-  {
-    "stickerName": "D",
-    "itemDescription": "D",
-    "price": "$4.00",
-    "dateSaved": "02/24/2019 14:23:17",
-    "owner": "D",
-    "quantity": "",
-    "template": {
-      "templateId": "22805",
-      "size": "1.5 X 1.5",
-      "qrCode": "",
-      "numberPerSheet": "25"
-    }
-  },
-  {
-    "stickerName": "E",
-    "itemDescription": "E",
-    "price": "$4.00",
-    "dateSaved": "02/24/2019 14:35:09",
-    "owner": "E",
-    "quantity": "",
-    "template": {
-      "templateId": "22805",
-      "size": "1.5 X 1.5",
-      "qrCode": "",
-      "numberPerSheet": "25"
-    }
-  },
-  {
-    "stickerName": "F",
-    "itemDescription": "F",
-    "price": "$3.50",
-    "dateSaved": "02/24/2019 15:08:13",
-    "owner": "F",
     "quantity": "",
     "template": {
       "templateId": "22805",

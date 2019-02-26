@@ -37759,6 +37759,7 @@ MonoBehaviour:
   priceInputField: {fileID: 1816156815}
   qrOptionPrefab: {fileID: 1319968352075801560, guid: ef6d3e2b90ff4438c94727281d4f2e71,
     type: 3}
+  saveButton: {fileID: 866844151}
 --- !u!114 &1614093971
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -49,6 +49,11 @@ public class StickerDetailMenu : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        stickerSavedPopup.ClosePopup(true);
+    }
+
     public void OnDescriptionChanged()
     {
         UpdateQRCode();

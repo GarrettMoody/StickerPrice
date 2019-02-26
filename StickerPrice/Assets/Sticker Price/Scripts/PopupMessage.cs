@@ -23,6 +23,18 @@ public class PopupMessage : MonoBehaviour {
         StartCoroutine(FadeOut());
     }
 
+    public void ClosePopup(bool immediately = false)
+    {
+        if(immediately)
+        {
+            canvasGroup.alpha = 0;
+        }
+        else
+        {
+            FadeOut();
+        }
+    }
+
     public void StopPopup() {
         if(runningCoroutine != null) {
             StopCoroutine(runningCoroutine);
