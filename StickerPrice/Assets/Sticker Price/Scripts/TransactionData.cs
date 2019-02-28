@@ -29,6 +29,22 @@ public class TransactionData
         fileUtility.WriteJson(filePath, JsonConvert.SerializeObject(transactionListContainer, Formatting.Indented));
     }
 
+    /* Return sorted transaction list by date */
+    public List<Transaction> GetTransactionsSortedByDate()
+    {
+        ReadTransactions();
+        List<Transaction> transactionList = transactionListContainer.transactionList;
+
+        transactionList = transactionList.OrderByDescending(transaction => DateTime.ParseExact(transaction.datetime, "dd MMM yyyy hh:mm tt", null)).ToList();
+
+        //For testing Temporarily
+        //String tempFilePath = "Assets/Sticker Price/Data Files/Temp.json";
+        //fileUtility.ClearFile(tempFilePath);
+        //fileUtility.WriteJson(tempFilePath, JsonConvert.SerializeObject(transactionListContainer, Formatting.Indented));
+
+        return transactionList;
+    }
+
     private void ReadTransactions()
     {
         transactionListContainer = JsonUtility.FromJson<TransactionListContainer>(fileUtility.ReadJson(filePath));

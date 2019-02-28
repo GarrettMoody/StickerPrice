@@ -26,8 +26,8 @@ public class TrackerSummary : MonoBehaviour
 
     private void LoadTransactionListFromFile()
     {
-        StickerData stickerData = new StickerData();
-        LoadFavoriteStickerList(stickerData.GetAllStickers());
+        TransactionData transactionData = new TransactionData();
+        transactionData.GetTransactionsSortedByDate();
     }
 
     private void LoadFavoriteStickerList(List<Sticker> stickerList)

@@ -685,9 +685,9 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.IvyParser.dll.mdb
 /Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.csproj.CopyComplete
 /Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.pdb
-/Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll
-/Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll.mdb
-/Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.xml
+/Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll
+/Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll.mdb
+/Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.xml
