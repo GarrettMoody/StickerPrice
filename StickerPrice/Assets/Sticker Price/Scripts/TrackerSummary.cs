@@ -26,17 +26,19 @@ public class TrackerSummary : MonoBehaviour
 
     private void LoadTransactionListFromFile()
     {
+        
         TransactionData transactionData = new TransactionData();
-        transactionData.GetTransactionsSortedByDate();
+        LoadTransactionList( transactionData.GetTransactionsSortedByDate());
     }
 
-    private void LoadFavoriteStickerList(List<Sticker> stickerList)
+    private void LoadTransactionList(List<Transaction> transactionList)
     {
-    //    foreach (Sticker sticker in stickerList)
-    //    {
-    //        FavoriteStickerRow row = favoriteStickerList.AddRow();
-    //        row.InitiateFavoriteStickerRow(sticker);
-    //    }
+        transactionByDateList.RemoveAllRows();
+        foreach (Transaction transaction in transactionList)
+        {
+            TransactionByDateRow row = transactionByDateList.AddRow();
+            row.InitiateTransactionByDateRow(transaction);
+        }
     }
 
     //public void OpenFavoriteSticker(Sticker sticker)
