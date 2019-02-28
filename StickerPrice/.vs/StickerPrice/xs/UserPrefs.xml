@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/EditStickerPanel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/TrackerSummary.cs">
     <Files>
       <File FileName="Assets/Sticker Price/Scripts/FavoriteStickerRow.cs" Line="31" Column="9" />
       <File FileName="Assets/Sticker Price/Scripts/SavedFavoritesPanel.cs" Line="78" Column="35" />
@@ -7,9 +7,8 @@
       <File FileName="Assets/Sticker Price/Scripts/EditStickerPanel.cs" Line="115" Column="30" />
       <File FileName="Assets/Sticker Price/Scripts/ContentScroll.cs" Line="282" Column="31" />
       <File FileName="Assets/Sticker Price/Scripts/ContentRow.cs" Line="79" Column="38" />
-      <File FileName="Assets/Sticker Price/Scripts/StickerData.cs" Line="5" Column="14" />
-      <File FileName="Assets/Sticker Price/Data Files/SavedStickers.json" Line="1" Column="1" />
-      <File FileName="Assets/Sticker Price/Scripts/QROption.cs" Line="29" Column="14" />
+      <File FileName="Assets/Sticker Price/Scripts/TransactionData.cs" Line="33" Column="57" />
+      <File FileName="Assets/Sticker Price/Scripts/TrackerSummary.cs" Line="20" Column="45" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
@@ -17,7 +16,7 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Assets/Sticker Price/Scripts/EditStickerPanel.cs" relfile="Assets/Sticker Price/Scripts/EditStickerPanel.cs" line="151" column="1" />
+      <Breakpoint file="/Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Assets/Sticker Price/Scripts/EditStickerPanel.cs" relfile="Assets/Sticker Price/Scripts/EditStickerPanel.cs" line="151" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations>

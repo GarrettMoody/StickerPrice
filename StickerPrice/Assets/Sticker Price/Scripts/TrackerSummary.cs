@@ -15,6 +15,8 @@ public class TrackerSummary : MonoBehaviour
 
     public void Awake()
     {
+        TransactionData transactionData = new TransactionData();
+        transactionData.GetTransactionsSortedByDate();
         //LoadFavoriteStickerListFromFile();
     }
 
