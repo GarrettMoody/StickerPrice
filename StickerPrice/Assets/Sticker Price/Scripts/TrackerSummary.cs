@@ -8,14 +8,14 @@ public class TrackerSummary : MonoBehaviour
     public ToggleGroup sortType;
     public Toggle dateToggle;
     public Toggle ownerToggle;
-    public FavoriteStickerList favoriteStickerList;
-    public FavoriteStickerRow favoriteStickerRowPrefab;
+    public TransactionByDateList transactionByDateList;
+    public TransactionByDateRow transactionByDateRowPrefab;
     public StickerDetailMenu stickerDetailMenu;
     public EditStickerPanel editStickerPanel;
 
     public void Awake()
     {
-        //LoadFavoriteStickerListFromFile();
+        LoadTransactionListFromFile();
     }
 
     //public void OpenSavedFavoritesPanel()
@@ -24,21 +24,20 @@ public class TrackerSummary : MonoBehaviour
     //    LoadFavoriteStickerListFromFile();
     //}
 
-    //private void LoadFavoriteStickerListFromFile()
-    //{
-    //    StickerData stickerData = new StickerData();
-    //    LoadFavoriteStickerList(stickerData.GetAllStickers());
-    //}
+    private void LoadTransactionListFromFile()
+    {
+        StickerData stickerData = new StickerData();
+        LoadFavoriteStickerList(stickerData.GetAllStickers());
+    }
 
-    //private void LoadFavoriteStickerList(List<Sticker> stickerList)
-    //{
-    //    favoriteStickerList.RemoveAllRows();
+    private void LoadFavoriteStickerList(List<Sticker> stickerList)
+    {
     //    foreach (Sticker sticker in stickerList)
     //    {
     //        FavoriteStickerRow row = favoriteStickerList.AddRow();
     //        row.InitiateFavoriteStickerRow(sticker);
     //    }
-    //}
+    }
 
     //public void OpenFavoriteSticker(Sticker sticker)
     //{
