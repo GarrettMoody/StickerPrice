@@ -8,14 +8,14 @@ public class TrackerSummary : MonoBehaviour
     public ToggleGroup sortType;
     public Toggle dateToggle;
     public Toggle ownerToggle;
-    public FavoriteStickerList favoriteStickerList;
-    public FavoriteStickerRow favoriteStickerRowPrefab;
+    public TransactionByDateList transactionByDateList;
+    public TransactionByDateRow transactionByDateRowPrefab;
     public StickerDetailMenu stickerDetailMenu;
     public EditStickerPanel editStickerPanel;
 
     public void Awake()
     {
-        //LoadFavoriteStickerListFromFile();
+        LoadTransactionListFromFile();
     }
 
     //public void OpenSavedFavoritesPanel()
@@ -24,21 +24,22 @@ public class TrackerSummary : MonoBehaviour
     //    LoadFavoriteStickerListFromFile();
     //}
 
-    //private void LoadFavoriteStickerListFromFile()
-    //{
-    //    StickerData stickerData = new StickerData();
-    //    LoadFavoriteStickerList(stickerData.GetAllStickers());
-    //}
+    private void LoadTransactionListFromFile()
+    {
+        
+        TransactionData transactionData = new TransactionData();
+        LoadTransactionList( transactionData.GetTransactionsSortedByDate());
+    }
 
-    //private void LoadFavoriteStickerList(List<Sticker> stickerList)
-    //{
-    //    favoriteStickerList.RemoveAllRows();
-    //    foreach (Sticker sticker in stickerList)
-    //    {
-    //        FavoriteStickerRow row = favoriteStickerList.AddRow();
-    //        row.InitiateFavoriteStickerRow(sticker);
-    //    }
-    //}
+    private void LoadTransactionList(List<Transaction> transactionList)
+    {
+        transactionByDateList.RemoveAllRows();
+        foreach (Transaction transaction in transactionList)
+        {
+            TransactionByDateRow row = transactionByDateList.AddRow();
+            row.InitiateTransactionByDateRow(transaction);
+        }
+    }
 
     //public void OpenFavoriteSticker(Sticker sticker)
     //{

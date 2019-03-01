@@ -414,8 +414,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 840}
+  m_AnchoredPosition: {x: -5.5, y: 327.3}
+  m_SizeDelta: {x: 1011, y: 185.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6427153691743475825
 CanvasRenderer:
@@ -531,6 +531,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cbd47d95daa499581342b4d4a01e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalScrollRect: {fileID: 0}
+  BUTTON_OFFSET: 0.34
+  DEFAULT_OFFSET: 0.65
   expandButton: {fileID: 76887629}
   transactionDate: {fileID: 882320954}
   titlePanel: {fileID: 4712875320056275288}
+  transaction:
+    transactionID: 0
+    itemListData:
+      priceTotal: 0
+      priceSubtotal: 0
+      taxTotal: 0
+      discount: 0
+      itemTotal: 0
+      itemRowDataListContainer:
+        itemRowDataList: []
+    paymentMethod: 
+    datetime: 
