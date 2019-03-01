@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 public class ItemList : ContentList
 { 
     [Header("ItemList Variables")]
 
     public Text priceTotalText;
-    public Text itemsTotalText;
+    public TextMeshProUGUI itemsTotalText;
     public Text priceSubtotalText;
     public GameObject discountPanel;
     public Text discountText;
@@ -167,7 +167,7 @@ public class ItemList : ContentList
 
     public void UpdateItemTotalText ()
 	{
-        itemsTotalText.text = itemListData.itemTotal.ToString () + " Items";
+        itemsTotalText.text = itemListData.itemTotal.ToString();
 	}
 
     public void DiscountButtonOnClickListener() {

@@ -13,6 +13,9 @@ public class EditStickerPanel : MonoBehaviour
     public InputField priceInputField;
     public QROption qrOptionPrefab;
     public Button saveButton;
+    public PopupMessage savedPopup;
+    public SaveFavoritesWarning saveFavoritesWarning;
+    public SavedFavoritesPanel savedFavoritesPanel;
 
     private List<Sticker> stickersFromFile;
     private bool isCurrentStickerDirty;
@@ -27,6 +30,7 @@ public class EditStickerPanel : MonoBehaviour
     {
         //Unsubscribe to the OnSelectionChange
         contentScroll.OnSelectionChange -= UpdateDetailsPanel;
+        savedPopup.ClosePopup(true);
     }
 
     public void OpenEditStickerPanel(Sticker loadSticker)
@@ -36,7 +40,7 @@ public class EditStickerPanel : MonoBehaviour
 
         contentScroll.RemoveContentComponents();
 
-        stickersFromFile = stickerData.GetAllStickers();
+        LoadStickersFromFile();
         //Create a QROption for each sticker in the JSON file
         int i = 0;
         foreach (Sticker sticker in stickerData.GetAllStickers())
@@ -61,6 +65,49 @@ public class EditStickerPanel : MonoBehaviour
         contentScroll.ScrollToContent(index);
         UpdateDetailsPanel();
         OnDetailsChanged();
+    }
+
+    public void CloseEditStickerPanel(bool forceClose = false) 
+    { //When forceClose parameter is set to true, the function does not check for pending changes, it just closes the window
+
+        //If any sticker has pending changes, display warning popup
+        bool isDirty = false;
+        if (!forceClose)
+        {
+            //For each sticker in the scroll
+            for (int i = 0; i < contentScroll.GetContentComponents().Length; i++)
+            {
+                //Find the corresponding sticker in the file
+                Sticker contentSticker = contentScroll.GetContentComponents()[i].GetComponent<QROption>().GetSticker();
+                //compare each field. if any have changes, 
+                if (contentSticker.itemDescription != stickersFromFile[i].itemDescription)
+                {
+                    isDirty = true;
+                    break;
+                }
+                else if (contentSticker.owner != stickersFromFile[i].owner)
+                {
+                    isDirty = true;
+                    break;
+                }
+                else if (contentSticker.price != stickersFromFile[i].price)
+                {
+                    isDirty = true;
+                    break;
+                }
+            }
+        }
+
+        //If there are pending changes show the warning popup else close the window
+        if (isDirty)
+        {
+            saveFavoritesWarning.OpenSaveFavoritesWarning();
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+            savedFavoritesPanel.gameObject.SetActive(true);
+        }
     }
 
     public void UpdateDetailsPanel()
@@ -95,6 +142,10 @@ public class EditStickerPanel : MonoBehaviour
         {
             stickerData.AddSticker(sticker);
         }
+
+        savedPopup.DisplayPopup(3);
+        LoadStickersFromFile();
+        OnDetailsChanged();
     }
 
     public void OnDescriptionChange()
@@ -149,5 +200,11 @@ public class EditStickerPanel : MonoBehaviour
         }
 
         saveButton.interactable = isCurrentStickerDirty;
+    }
+
+    private void LoadStickersFromFile()
+    {
+        StickerData stickerData = new StickerData();
+        stickersFromFile = stickerData.GetAllStickers();
     }
 }

@@ -60,7 +60,7 @@
     "itemDescription": "A",
     "price": "$4.00",
     "dateSaved": "02/24/2019 18:25:33",
-    "owner": "A",
+    "owner": "Alpha",
     "quantity": "",
     "template": {
       "templateId": "22805",
@@ -71,10 +71,10 @@
   },
   {
     "stickerName": "B",
-    "itemDescription": "B",
+    "itemDescription": "Beta",
     "price": "$4.00",
     "dateSaved": "02/24/2019 18:26:32",
-    "owner": "B",
+    "owner": "Beta",
     "quantity": "",
     "template": {
       "templateId": "22805",
