@@ -688,6 +688,3 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.xml
-/Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll
-/Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll.mdb
-/Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.xml

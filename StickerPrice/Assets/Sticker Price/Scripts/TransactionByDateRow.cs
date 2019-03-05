@@ -10,7 +10,7 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
     public Button expandButton;
     public Text transactionDate;
     public GameObject titlePanel;
-    public Transaction transaction;
+    public TransactionSummaryData transaction;
 
     private TransactionByDateList transactionByDateList;
 
@@ -20,10 +20,10 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
         transactionByDateList = GetComponentInParent<TransactionByDateList>();
     }
 
-    public void InitiateTransactionByDateRow(Transaction transaction)
+    public void InitiateTransactionByDateRow(TransactionSummaryData transaction)
     {
         this.transaction = transaction;
-        transactionDate.text = transaction.datetime;
+        transactionDate.text = transaction.primaryKey;
     }
 
     public override void OnDefaultButtonClick()

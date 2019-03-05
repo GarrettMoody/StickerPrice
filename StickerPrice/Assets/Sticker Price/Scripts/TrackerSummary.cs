@@ -28,13 +28,25 @@ public class TrackerSummary : MonoBehaviour
     {
         
         TransactionData transactionData = new TransactionData();
-        LoadTransactionList( transactionData.GetTransactionsSortedByDate());
+
+        Debug.Log("ownerToggle.enabled>>>"+ ownerToggle.isOn);
+        Debug.Log("dateToggle.enabled>>>" + dateToggle.isOn);
+
+        if (ownerToggle.isOn)
+        {
+            LoadTransactionList(transactionData.GetTransactionsSortedByOwner());
+        }
+        else
+        {
+            LoadTransactionList(transactionData.GetTransactionsSortedByDate());
+        }
+
     }
 
-    private void LoadTransactionList(List<Transaction> transactionList)
+    private void LoadTransactionList(List<TransactionSummaryData> transactionList)
     {
         transactionByDateList.RemoveAllRows();
-        foreach (Transaction transaction in transactionList)
+        foreach (TransactionSummaryData transaction in transactionList)
         {
             TransactionByDateRow row = transactionByDateList.AddRow();
             row.InitiateTransactionByDateRow(transaction);
