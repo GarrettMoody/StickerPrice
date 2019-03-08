@@ -19,15 +19,14 @@ public class StickerDetailMenu : MonoBehaviour
     public string stickerDescription;
     public GameObject qrPreviewContent;
     public PopupMessage stickerSavedPopup;
+    public EditPagePanel editPagePanel;
+    public Button addToPageButton;
+    public Button editPageButton;
 
     //Private Variables
     private QROption[] qrOptions;
     private Template template;
-    private int pageCount = 1;
-    private int currentPage = 1;
-    private int numberInSheet = 0;
-    private int qtyAdded = 0;
-    private int qtyLeft = 0;
+    private StickerPage stickerPage;
 
     //Constants
     readonly Color32 THEME_GREEN = new Color32(0x5C, 0xAB, 0x40, 0xFF);
@@ -39,9 +38,10 @@ public class StickerDetailMenu : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        UpdateNumberPerSheetText();
         qrOptions = qrPreviewContent.GetComponentsInChildren<QROption>();
 
-        Sticker sticker = new Sticker("", description.text, price.text, "", productOwner.text, "", template);
+        Sticker sticker = new Sticker("", description.text, price.text, "", productOwner.text, 0, template);
 
         foreach (QROption option in qrOptions)
         {
@@ -63,11 +63,6 @@ public class StickerDetailMenu : MonoBehaviour
 
         }
         saveToFavoritesPopup.saveName.text = description.text;
-    }
-
-    public void OnNumberOfStickersChanged()
-    {
-        UpdateQRCode();
     }
 
     public void OnProductOwnerChanged()
@@ -96,7 +91,7 @@ public class StickerDetailMenu : MonoBehaviour
 
     private void UpdateQRCode()
     {
-        Sticker sticker = new Sticker("", description.text, price.text, "", productOwner.text, "", template);
+        Sticker sticker = new Sticker("", description.text, price.text, "", productOwner.text, 0, template);
         foreach (QROption option in qrOptions)
         {
             option.GetComponentInChildren<RawImage>().texture = StickerQRCode.CreateQRCode(sticker);
@@ -106,18 +101,42 @@ public class StickerDetailMenu : MonoBehaviour
     public void OpenMenu(Template template)
     {
         this.template = template;
+        stickerPage = new StickerPage(template);
         this.gameObject.SetActive(true);
         UpdateNumberPerSheetText();
         UpdateInputFields(new Sticker());
+
+        if (stickerPage.stickers.Count > 0)
+        {
+            editPageButton.interactable = true;
+        }
+        else
+        {
+            editPageButton.interactable = false;
+        }
+
+        UpdateAddToPageButton();
     }
 
     public void OpenMenu(Sticker sticker)
     {
         template = sticker.template;
+        stickerPage = new StickerPage(template);
         this.gameObject.SetActive(true);
         SetStickersOnOptions(sticker);
         UpdateNumberPerSheetText();
         UpdateInputFields(sticker);
+
+        if (stickerPage.stickers.Count > 0)
+        {
+            editPageButton.interactable = true;
+        }
+        else
+        {
+            editPageButton.interactable = false;
+        }
+
+        UpdateAddToPageButton();
     }
 
     public void SetStickersOnOptions(Sticker sticker)
@@ -136,8 +155,13 @@ public class StickerDetailMenu : MonoBehaviour
         description.text = sticker.itemDescription;
         productOwner.text = sticker.owner;
         price.text = sticker.price;
-        quantity.text = int.Parse(!string.IsNullOrEmpty(sticker.quantity) ? sticker.quantity : "0").ToString();
+        quantity.text = sticker.quantity.ToString();
         saveToFavoritesPopup.saveName.text = sticker.stickerName;
+    }
+
+    public void OnQuantityChange()
+    {
+        UpdateAddToPageButton();
     }
 
     public void OnQuantityAddButtonClick()
@@ -151,11 +175,13 @@ public class StickerDetailMenu : MonoBehaviour
         {
             quantity.text = "999999";
         }
+
+        UpdateAddToPageButton();
     }
 
     public void OnQuantityMinusButtonClick()
     {
-        int qty = int.Parse(!string.IsNullOrEmpty(quantity.text.ToString()) ? quantity.text.ToString() : "0");
+        int qty = int.Parse(!string.IsNullOrEmpty(quantity.text) ? quantity.text : "0");
         if (qty > 0)
         {
             quantity.text = (qty - 1).ToString();
@@ -164,58 +190,62 @@ public class StickerDetailMenu : MonoBehaviour
         {
             quantity.text = "0";
         }
+
+        UpdateAddToPageButton();
     }
 
-    public void OnQuantityChanged()
+    private void UpdateAddToPageButton()
     {
         int qty = int.Parse(!string.IsNullOrEmpty(quantity.text) ? quantity.text : "0");
-        int numPerSheet = int.Parse(template.numberPerSheet);
-        qtyAdded = 0;
-        qtyLeft = 0;
-        if (qty > numPerSheet)
+        if (qty > 0)
         {
-            pageCount = (int)Math.Ceiling((double)qty / numPerSheet);
-            numberInSheet = numPerSheet;
+            addToPageButton.interactable = true;
         }
         else
         {
-            pageCount = 1;
-            currentPage = 1;
-            numberInSheet = qty;
+            addToPageButton.interactable = false;
         }
-        UpdateNumberPerSheetText();
     }
 
     public void OnAddToPageButtonClick()
     {
-        if (pageCount > currentPage)
-        {
-            currentPage = currentPage + 1;
-            int qty = int.Parse(!string.IsNullOrEmpty(quantity.text) ? quantity.text : "0");
-            int numPerSheet = int.Parse(template.numberPerSheet);
-            if (qty > numPerSheet)
-            {
-                qtyAdded = qtyAdded + numPerSheet;
-                qtyLeft = qty - qtyAdded;
-                numberInSheet = qtyLeft > numPerSheet ? numPerSheet : qtyLeft;
-            }
-            else
-            {
-                numberInSheet = qty;
-            }
-        }
+        Sticker sticker = new Sticker("", description.text, price.text, DateTime.Now.ToString(), productOwner.text, GetQuantity(), template);
+        stickerPage.AddSticker(sticker);
         UpdateNumberPerSheetText();
+        if (stickerPage.stickers.Count > 0)
+        {
+            editPageButton.interactable = true;
+        }
     }
 
     public void UpdateNumberPerSheetText()
     {
-        string qtyInSheet = numberInSheet != 0 ? numberInSheet.ToString() : template.numberPerSheet;
-        numberPerSheet.text = qtyInSheet + " Blank Stickers - Pages " + currentPage + "/" + pageCount;
+        //Figure out how many stickers are left on the page
+        if(stickerPage != null)
+        {
+            numberPerSheet.text = stickerPage.GetStickersLeftOnPage() + " Blank Stickers Remaining - Pages " + stickerPage.GetNumberOfPages();
+        }
     }
 
     public void SaveToFavoritesOnClickListener()
     {
-        Sticker sticker = new Sticker("", description.text, price.text, DateTime.Now.ToString(), productOwner.text, "", template);
+        Sticker sticker = new Sticker("", description.text, price.text, DateTime.Now.ToString(), productOwner.text, 0, template);
         saveToFavoritesPopup.OpenSaveToFavoritesPopup(sticker);
+    }
+
+    private int GetQuantity()
+    {
+        return int.Parse(!string.IsNullOrEmpty(quantity.text) ? quantity.text : "0");
+    }
+
+    public void OpenEditPagePanel()
+    {
+        this.gameObject.SetActive(false);
+        editPagePanel.OpenEditPagePanel(stickerPage);
+    }
+
+    public void SetStickerPage(StickerPage stickerPage)
+    {
+        this.stickerPage = stickerPage;
     }
 }

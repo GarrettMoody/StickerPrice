@@ -1,25 +1,11 @@
 [
   {
-    "stickerName": "Garrett's New Sticker",
-    "itemDescription": "Garrett's Awesome Stickers",
-    "price": "$400.00",
-    "dateSaved": "02/16/2019 11:59:18",
-    "owner": "Garrett Moody",
-    "quantity": "",
-    "template": {
-      "templateId": "22805",
-      "size": "1.5 X 1.5",
-      "qrCode": "",
-      "numberPerSheet": "25"
-    }
-  },
-  {
-    "stickerName": "Garrett's Newer Sticker",
-    "itemDescription": "Garrett's New Sticker",
-    "price": "$35.40",
-    "dateSaved": "02/24/2019 11:35:34",
+    "stickerName": "Sticker 2",
+    "itemDescription": "Sticker 2",
+    "price": "$5.00",
+    "dateSaved": "03/04/2019 20:08:01",
     "owner": "Garrett",
-    "quantity": "",
+    "quantity": 0,
     "template": {
       "templateId": "22805",
       "size": "1.5 X 1.5",
@@ -28,54 +14,12 @@
     }
   },
   {
-    "stickerName": "Garrett's Best Sticker",
-    "itemDescription": "Garrett's Best Sticker",
-    "price": "$42.50",
-    "dateSaved": "02/24/2019 11:37:21",
+    "stickerName": "Sticker 1",
+    "itemDescription": "Sticker 1",
+    "price": "$5.00",
+    "dateSaved": "03/04/2019 20:08:10",
     "owner": "Garrett",
-    "quantity": "",
-    "template": {
-      "templateId": "22805",
-      "size": "1.5 X 1.5",
-      "qrCode": "",
-      "numberPerSheet": "25"
-    }
-  },
-  {
-    "stickerName": "Garrett's Worst Sticker",
-    "itemDescription": "Garrett's Worst Sticker",
-    "price": "$0.35",
-    "dateSaved": "02/24/2019 13:19:29",
-    "owner": "Garrett",
-    "quantity": "",
-    "template": {
-      "templateId": "22805",
-      "size": "1.5 X 1.5",
-      "qrCode": "",
-      "numberPerSheet": "25"
-    }
-  },
-  {
-    "stickerName": "A",
-    "itemDescription": "A",
-    "price": "$4.00",
-    "dateSaved": "02/24/2019 18:25:33",
-    "owner": "Alpha",
-    "quantity": "",
-    "template": {
-      "templateId": "22805",
-      "size": "1.5 X 1.5",
-      "qrCode": "",
-      "numberPerSheet": "25"
-    }
-  },
-  {
-    "stickerName": "B",
-    "itemDescription": "Beta",
-    "price": "$4.00",
-    "dateSaved": "02/24/2019 18:26:32",
-    "owner": "Beta",
-    "quantity": "",
+    "quantity": 0,
     "template": {
       "templateId": "22805",
       "size": "1.5 X 1.5",
