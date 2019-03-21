@@ -101,7 +101,12 @@ public class StickerDetailMenu : MonoBehaviour
     public void OpenMenu(Template template)
     {
         this.template = template;
-        stickerPage = new StickerPage(template);
+        //If sticker page is already created, continue to use it
+        if(stickerPage == null)
+        {
+            stickerPage = new StickerPage(template);
+        }
+
         this.gameObject.SetActive(true);
         UpdateNumberPerSheetText();
         UpdateInputFields(new Sticker());
@@ -121,7 +126,11 @@ public class StickerDetailMenu : MonoBehaviour
     public void OpenMenu(Sticker sticker)
     {
         template = sticker.template;
-        stickerPage = new StickerPage(template);
+        //If sticker page is already created, continue to use it, do not clear it
+        if(stickerPage == null)
+        {
+            stickerPage = new StickerPage(template);
+        }
         this.gameObject.SetActive(true);
         SetStickersOnOptions(sticker);
         UpdateNumberPerSheetText();
