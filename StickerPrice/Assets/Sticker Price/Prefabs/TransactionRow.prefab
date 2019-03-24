@@ -343,7 +343,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 5
     m_MaxSize: 60
-    m_Alignment: 6
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -908,7 +908,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 562.5, y: 1.9}
+  m_AnchoredPosition: {x: 562.5, y: 1.9000244}
   m_SizeDelta: {x: 1125, y: 196.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8817820082683638411
@@ -1015,10 +1015,6 @@ MonoBehaviour:
   transactionDetailsHiddenButton: {fileID: 0}
   expandCollapseButton: {fileID: 8805283234765828878}
   mainTitle: {fileID: 3207868871495379553}
-  transactionDetailsString: {fileID: 0}
-  firstChar: {fileID: 0}
-  fullNameText: {fileID: 0}
-  revenueString: {fileID: 0}
   transaction:
     primaryKey: 
     totalPrice: 0
@@ -1968,7 +1964,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 5
     m_MaxSize: 60
-    m_Alignment: 6
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
