@@ -8,6 +8,8 @@ public class TransactionSummaryDetailsData
     public string primaryKey;
     List<Transaction> transactionList;
     public float totalPrice = 0f;
+    public string transactionTime;
+
 
     public TransactionSummaryDetailsData(String primaryKey)
     {
@@ -43,5 +45,15 @@ public class TransactionSummaryDetailsData
     public void SetTotalPrice(float totalPrice)
     {
         this.totalPrice = totalPrice;
+    }
+
+    public string GetTransactionTime()
+    {
+        return transactionTime;
+    }
+
+    public void SetTransactionTime(string transactionTime)
+    {
+        this.transactionTime = transactionTime;
     }
 }

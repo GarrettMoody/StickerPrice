@@ -10,8 +10,12 @@ public class TrackerSummary : MonoBehaviour
     public Toggle ownerToggle;
     public TransactionByDateList transactionByDateList;
     public TransactionByDateRow transactionByDateRowPrefab;
-    public StickerDetailMenu stickerDetailMenu;
-    public EditStickerPanel editStickerPanel;
+    List<TransactionSummaryData> transactionSummaryDataList;
+
+    public GameObject gridThatStoresTheItems;
+    public Text itemPrefab;
+    int i = 0;
+    bool flag = false;
 
     public void Awake()
     {
@@ -29,27 +33,26 @@ public class TrackerSummary : MonoBehaviour
         
         TransactionData transactionData = new TransactionData();
 
-        Debug.Log("ownerToggle.enabled>>>"+ ownerToggle.isOn);
-        Debug.Log("dateToggle.enabled>>>" + dateToggle.isOn);
-
         if (ownerToggle.isOn)
         {
-            LoadTransactionList(transactionData.GetTransactionsSortedByOwner());
+            transactionSummaryDataList = transactionData.GetTransactionsSortedByOwner();
+            LoadTransactionList(transactionSummaryDataList);
         }
         else
         {
-            LoadTransactionList(transactionData.GetTransactionsSortedByDate());
+            transactionSummaryDataList = transactionData.GetTransactionsSortedByDate();
+            LoadTransactionList(transactionSummaryDataList);
         }
-
     }
 
     private void LoadTransactionList(List<TransactionSummaryData> transactionList)
     {
         transactionByDateList.RemoveAllRows();
+
         foreach (TransactionSummaryData transaction in transactionList)
         {
             TransactionByDateRow row = transactionByDateList.AddRow();
-            row.InitiateTransactionByDateRow(transaction);
+            row.InitiateTransactionByDateRow(transaction, dateToggle.isOn);
         }
     }
 

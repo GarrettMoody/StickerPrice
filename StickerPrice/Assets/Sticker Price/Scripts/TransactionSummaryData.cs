@@ -6,12 +6,14 @@ using System.Collections.Generic;
 public class TransactionSummaryData 
 {
     public string primaryKey;
-    List<TransactionSummarySubDetailsData> transactionSummarySubDetailsList;
+    List<TransactionSummaryFirstSubData> transactionSummaryFirstSubData;
+    public float totalPrice = 0f;
+
 
     public TransactionSummaryData(String primaryKey)
     {
         this.primaryKey = primaryKey;
-        transactionSummarySubDetailsList = new List<TransactionSummarySubDetailsData>();
+        transactionSummaryFirstSubData = new List<TransactionSummaryFirstSubData>();
     }
 
     public string GetPrimaryKey()
@@ -24,13 +26,23 @@ public class TransactionSummaryData
         this.primaryKey = primaryKey;
     }
 
-    public List<TransactionSummarySubDetailsData> getTransactionSummarySubDetailsData()
+    public float GetTotalPrice()
     {
-        return transactionSummarySubDetailsList;
+        return totalPrice;
     }
 
-    public void SetTransactionSummarySubDetailsData(List<TransactionSummarySubDetailsData> transactionSummarySubDetailsList)
+    public void SetTotalPrice(float totalPrice)
     {
-        this.transactionSummarySubDetailsList = transactionSummarySubDetailsList;
+        this.totalPrice = totalPrice;
+    }
+
+    public List<TransactionSummaryFirstSubData> GetTransactionSummaryFirstSubDataList()
+    {
+        return transactionSummaryFirstSubData;
+    }
+
+    public void SetTransactionSummaryFirstSubDataList(List<TransactionSummaryFirstSubData> transactionSummaryFirstSubData)
+    {
+        this.transactionSummaryFirstSubData = transactionSummaryFirstSubData;
     }
 }

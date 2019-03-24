@@ -7,7 +7,7 @@ public class StickerFormatMenu : MonoBehaviour {
     public StickerDetailMenu stickerDetailMenu;
     public ScrollRect scrollView;
     public GameObject scrollContent;
-    public TemplateViewContent templatePrefab;
+    public QROption templatePrefab;
 
     // Use this for initialization
     void Awake()
@@ -15,8 +15,8 @@ public class StickerFormatMenu : MonoBehaviour {
         List<Template> allTemplates = new TemplateData().GetAllTemplates();
         allTemplates.ForEach(delegate (Template template)
         {
-            TemplateViewContent templateViewContent = (TemplateViewContent)Instantiate(templatePrefab);
-            templateViewContent.InitializeVariables(template);
+            QROption templateViewContent = (QROption)Instantiate(templatePrefab);
+            //templateViewContent.InitializeVariables(template);
             templateViewContent.transform.SetParent(scrollContent.transform, false);
         });
         scrollView.verticalNormalizedPosition = 1;

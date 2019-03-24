@@ -35,115 +35,167 @@ public class TransactionData
     {
         List<Transaction> transactionList = transactionListContainer.transactionList;
         List<TransactionSummaryData> transactionSummaryDataList = new List<TransactionSummaryData>();
+
         Dictionary<string, TransactionSummaryData> transactionSummaryDataDict = new Dictionary<string, TransactionSummaryData>();
+        Dictionary<string, TransactionSummaryFirstSubData> transactionSummaryFirstSubDataDict = new Dictionary<string, TransactionSummaryFirstSubData>();
+        Dictionary<string, TransactionSummarySecondSubData> transactionSummarySecondSubDataDict = new Dictionary<string, TransactionSummarySecondSubData>();
         Dictionary<string, TransactionSummarySubDetailsData> transactionSummarySubDetailsDataDict = new Dictionary<string, TransactionSummarySubDetailsData>();
+
         TransactionSummaryData transactionSummaryData;
+        TransactionSummaryFirstSubData transactionSummaryFirstSubData = null;
+        TransactionSummarySecondSubData transactionSummarySecondSubData = null;
+        TransactionSummarySubDetailsData transactionSummarySubDetailsData = null;
         TransactionSummaryDetailsData transactionSummaryDetailsData = null;
 
         foreach (Transaction transaction in transactionList)
         {
-
-            string date = transaction.datetime.Substring(0, 11); ;
-
+            string date = transaction.datetime.Substring(0, 11);
+            string year = date.Substring(7, 4);
+            string month = date.Substring(3, 3);
+            string day = date.Substring(0, 2);
+            string time = transaction.datetime.Substring(12, 8);
             transactionSummaryDetailsData = null;
 
-            if (transactionSummaryDataDict.ContainsKey(date))
+            transactionSummaryData = new TransactionSummaryData(year);
+
+            foreach (ItemRowData itemRowData in transaction.itemListData.itemRowDataListContainer.itemRowDataList)
             {
-                transactionSummaryData = transactionSummaryDataDict[date];
+                string owner = itemRowData.productOwner;
 
-                foreach (ItemRowData itemRowData in transaction.itemListData.itemRowDataListContainer.itemRowDataList)
+                if (transactionSummarySubDetailsDataDict.ContainsKey(year + month + day + owner))
                 {
-                    string owner = itemRowData.productOwner;
+                    transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
+                    Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
+                    transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
+                    transactionSummaryDetailsData.SetTotalPrice(transactionSummaryDetailsData.GetTotalPrice() + itemRowData.itemPrice * itemRowData.quantity);
+                    transactionSummaryDetailsData.SetTransactionTime(time);
 
-                    if (transactionSummarySubDetailsDataDict.ContainsKey(date + owner))
-                    {
-                        TransactionSummarySubDetailsData tempTransSubData = transactionSummarySubDetailsDataDict[date + owner];
+                    transactionSummarySubDetailsData = transactionSummarySubDetailsDataDict[year + month + day + owner];
+                    transactionSummarySecondSubData = transactionSummarySecondSubDataDict[year + month + day];
+                    transactionSummaryFirstSubData = transactionSummaryFirstSubDataDict[year + month];
+                    transactionSummaryData = transactionSummaryDataDict[year];
 
-                        if (transactionSummaryDetailsData == null)
-                        {
-                            transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
-                            Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
-                            tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                            transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
-                        }
-                        else
-                        {
-                            transactionSummaryDetailsData.getTransactionList().First().itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                        }
-                        tempTransSubData.SetTotalPrice(tempTransSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
-                        transactionSummaryData.getTransactionSummarySubDetailsData().Add(tempTransSubData);
+                    transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
 
-                        transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
-
-                        tempTransSubData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
-                    }
-                    else
-                    {
-                        TransactionSummarySubDetailsData tempTransSubData = new TransactionSummarySubDetailsData(owner);
-                        tempTransSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
-                        transactionSummaryData.getTransactionSummarySubDetailsData().Add(tempTransSubData);
-
-                        transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
-                        transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
-
-                        Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
-                        tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                        transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
-
-                        tempTransSubData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
-
-                        transactionSummarySubDetailsDataDict.Add(date + owner, tempTransSubData);
-                    }
+                    transactionSummarySubDetailsData.SetTotalPrice(transactionSummarySubDetailsData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                    transactionSummarySecondSubData.SetTotalPrice(transactionSummarySecondSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                    transactionSummaryFirstSubData.SetTotalPrice(transactionSummaryFirstSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                    transactionSummaryData.SetTotalPrice(transactionSummaryData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
                 }
-            }
-            else
-            {
-                transactionSummaryData = new TransactionSummaryData(date);
-
-                foreach (ItemRowData itemRowData in transaction.itemListData.itemRowDataListContainer.itemRowDataList)
+                else if (transactionSummarySecondSubDataDict.ContainsKey(year + month + day))
                 {
-                    string owner = itemRowData.productOwner;
+                    Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
-                    if (transactionSummarySubDetailsDataDict.ContainsKey(date + owner))
-                    {
-                        TransactionSummarySubDetailsData tempTransSubData = transactionSummarySubDetailsDataDict[date + owner];
+                    transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
+                    transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+                    transactionSummaryDetailsData.SetTransactionTime(time);
+                    transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
 
-                        if (transactionSummaryDetailsData == null)
-                        {
-                            transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
-                            Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
-                            tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                            transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
-                        }
-                        else
-                        {
-                            transactionSummaryDetailsData.getTransactionList().First().itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                        }
+                    transactionSummarySubDetailsData = new TransactionSummarySubDetailsData(owner);
+                    transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                    transactionSummarySubDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
 
-                        tempTransSubData.SetTotalPrice(tempTransSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
-                        transactionSummaryData.getTransactionSummarySubDetailsData().Add(tempTransSubData);
+                    transactionSummarySecondSubData = transactionSummarySecondSubDataDict[year + month + day];
+                    transactionSummaryFirstSubData = transactionSummaryFirstSubDataDict[year + month];
+                    transactionSummaryData = transactionSummaryDataDict[year];
 
-                        transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
-                       
-                        transactionSummaryDetailsData.getTransactionList().First().itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                        tempTransSubData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
-                    }
-                    else
-                    {
-                        TransactionSummarySubDetailsData tempTransSubData = new TransactionSummarySubDetailsData(owner);
-                        tempTransSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
-                        transactionSummaryData.getTransactionSummarySubDetailsData().Add(tempTransSubData);
+                    transactionSummarySecondSubData.GetTransactionSummarySubDetailsData().Add(transactionSummarySubDetailsData);
 
-                        transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
-                        Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
-                        tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                        transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
-                        transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
-                        tempTransSubData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                    transactionSummarySecondSubData.SetTotalPrice(transactionSummarySecondSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                    transactionSummaryFirstSubData.SetTotalPrice(transactionSummaryFirstSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                    transactionSummaryData.SetTotalPrice(transactionSummaryData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
 
-                        transactionSummarySubDetailsDataDict.Add(date + owner, tempTransSubData);
-                        transactionSummaryDataDict.Add(date, transactionSummaryData);
-                    }
+                    transactionSummarySubDetailsDataDict.Add(year + month + day + owner, transactionSummarySubDetailsData);
+                }
+                else if (transactionSummaryFirstSubDataDict.ContainsKey(year + month))
+                {
+                    Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
+
+                    transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
+                    transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+                    transactionSummaryDetailsData.SetTransactionTime(time);
+                    transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
+
+                    transactionSummarySubDetailsData = new TransactionSummarySubDetailsData(owner);
+                    transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                    transactionSummarySubDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummarySecondSubData = new TransactionSummarySecondSubData(day);
+                    transactionSummarySecondSubData.GetTransactionSummarySubDetailsData().Add(transactionSummarySubDetailsData);
+                    transactionSummarySecondSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummaryFirstSubData = transactionSummaryFirstSubDataDict[year + month];
+                    transactionSummaryData = transactionSummaryDataDict[year];
+
+                    transactionSummaryFirstSubData.GetTransactionSummarySecondSubDataList().Add(transactionSummarySecondSubData);
+                    transactionSummaryFirstSubData.SetTotalPrice(transactionSummaryFirstSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                    transactionSummaryData.SetTotalPrice(transactionSummaryData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+
+                    transactionSummarySubDetailsDataDict.Add(year + month + day + owner, transactionSummarySubDetailsData);
+                    transactionSummarySecondSubDataDict.Add(year + month + day, transactionSummarySecondSubData);
+                }
+                else if(transactionSummaryDataDict.ContainsKey(year))
+                {
+                    Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
+
+                    transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
+                    transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+                    transactionSummaryDetailsData.SetTransactionTime(time);
+                    transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
+
+                    transactionSummarySubDetailsData = new TransactionSummarySubDetailsData(owner);
+                    transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                    transactionSummarySubDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummarySecondSubData = new TransactionSummarySecondSubData(day);
+                    transactionSummarySecondSubData.GetTransactionSummarySubDetailsData().Add(transactionSummarySubDetailsData);
+                    transactionSummarySecondSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummaryFirstSubData = new TransactionSummaryFirstSubData(month);
+                    transactionSummaryFirstSubData.GetTransactionSummarySecondSubDataList().Add(transactionSummarySecondSubData);
+                    transactionSummaryFirstSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummaryData = transactionSummaryDataDict[year];
+                    transactionSummaryData.SetTotalPrice(transactionSummaryData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+
+                    transactionSummarySubDetailsDataDict.Add(year + month + day + owner, transactionSummarySubDetailsData);
+                    transactionSummarySecondSubDataDict.Add(year + month + day, transactionSummarySecondSubData);
+                    transactionSummaryFirstSubDataDict.Add(year + month, transactionSummaryFirstSubData);
+                }
+                else
+                {
+                    Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
+
+                    transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
+                    transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+                    transactionSummaryDetailsData.SetTransactionTime(time);
+                    transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
+
+                    transactionSummarySubDetailsData = new TransactionSummarySubDetailsData(owner);
+                    transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                    transactionSummarySubDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummarySecondSubData = new TransactionSummarySecondSubData(day);
+                    transactionSummarySecondSubData.GetTransactionSummarySubDetailsData().Add(transactionSummarySubDetailsData);
+                    transactionSummarySecondSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummaryFirstSubData = new TransactionSummaryFirstSubData(month);
+                    transactionSummaryFirstSubData.GetTransactionSummarySecondSubDataList().Add(transactionSummarySecondSubData);
+                    transactionSummaryFirstSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummaryData = new TransactionSummaryData(year);
+                    transactionSummaryData.GetTransactionSummaryFirstSubDataList().Add(transactionSummaryFirstSubData);
+                    transactionSummaryData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummarySubDetailsDataDict.Add(year + month + day + owner, transactionSummarySubDetailsData);
+                    transactionSummarySecondSubDataDict.Add(year + month + day, transactionSummarySecondSubData);
+                    transactionSummaryFirstSubDataDict.Add(year + month, transactionSummaryFirstSubData);
+                    transactionSummaryDataDict.Add(year, transactionSummaryData);
                 }
             }
         }
@@ -159,14 +211,22 @@ public class TransactionData
         List<Transaction> transactionList = transactionListContainer.transactionList;
         List<TransactionSummaryData> transactionSummaryDataList = new List<TransactionSummaryData>();
         Dictionary<string, TransactionSummaryData> transactionSummaryDataDict = new Dictionary<string, TransactionSummaryData>();
+        Dictionary<string, TransactionSummaryFirstSubData> transactionSummaryFirstSubDataDict = new Dictionary<string, TransactionSummaryFirstSubData>();
+        Dictionary<string, TransactionSummarySecondSubData> transactionSummarySecondSubDataDict = new Dictionary<string, TransactionSummarySecondSubData>();
         Dictionary<string, TransactionSummarySubDetailsData> transactionSummarySubDetailsDataDict = new Dictionary<string, TransactionSummarySubDetailsData>();
         TransactionSummaryData transactionSummaryData;
+        TransactionSummaryFirstSubData transactionSummaryFirstSubData = null;
+        TransactionSummarySecondSubData transactionSummarySecondSubData = null;
+        TransactionSummarySubDetailsData transactionSummarySubDetailsData = null;
         TransactionSummaryDetailsData transactionSummaryDetailsData = null;
 
         foreach (Transaction transaction in transactionList)
         {
-
-            string date = transaction.datetime.Substring(0, 11); ;
+            string date = transaction.datetime.Substring(0, 11);
+            string year = date.Substring(7, 4);
+            string month = date.Substring(3, 3);
+            string day = date.Substring(0, 2);
+            string time = transaction.datetime.Substring(12, 8);
 
             transactionSummaryDetailsData = null;
 
@@ -178,9 +238,9 @@ public class TransactionData
                 {
                     transactionSummaryData = transactionSummaryDataDict[owner];
 
-                    if (transactionSummarySubDetailsDataDict.ContainsKey(owner + date))
+                    if (transactionSummarySubDetailsDataDict.ContainsKey(owner + year + month + day))
                     {
-                        TransactionSummarySubDetailsData tempTransSubData = transactionSummarySubDetailsDataDict[owner + date];
+                        transactionSummarySubDetailsData = transactionSummarySubDetailsDataDict[owner + year + month + day];
 
                         if (transactionSummaryDetailsData == null)
                         {
@@ -188,80 +248,134 @@ public class TransactionData
                             Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
                             tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
                             transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
+
+                            transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
                         }
                         else
                         {
                             transactionSummaryDetailsData.getTransactionList().First().itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
                         }
-                        tempTransSubData.SetTotalPrice(tempTransSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
-                        transactionSummaryData.getTransactionSummarySubDetailsData().Add(tempTransSubData);
-
                         transactionSummaryDetailsData.SetTotalPrice(transactionSummaryDetailsData.GetTotalPrice() + itemRowData.itemPrice * itemRowData.quantity);
+                        transactionSummaryDetailsData.SetTransactionTime(time);
+                        transactionSummarySubDetailsData.SetTotalPrice(transactionSummarySubDetailsData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
 
-                        tempTransSubData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                        transactionSummarySecondSubData = transactionSummarySecondSubDataDict[owner + year + month];
+                        transactionSummaryFirstSubData = transactionSummaryFirstSubDataDict[owner + year];
+
+                        transactionSummarySecondSubData.SetTotalPrice(transactionSummarySecondSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                        transactionSummaryFirstSubData.SetTotalPrice(transactionSummaryFirstSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                        transactionSummaryData.SetTotalPrice(transactionSummaryData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
                     }
-                    else
+                    else if (transactionSummarySecondSubDataDict.ContainsKey(owner + year + month))
                     {
-                        TransactionSummarySubDetailsData tempTransSubData = new TransactionSummarySubDetailsData(date);
-                        tempTransSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
-                        transactionSummaryData.getTransactionSummarySubDetailsData().Add(tempTransSubData);
+                        Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                        tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
                         transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
                         transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
-
-                        Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
-                        tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
+                        transactionSummaryDetailsData.SetTransactionTime(time);
                         transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
 
-                        tempTransSubData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                        transactionSummarySubDetailsData = new TransactionSummarySubDetailsData(day);
+                        transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                        transactionSummarySubDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
 
-                        transactionSummarySubDetailsDataDict.Add(owner + date , tempTransSubData);
+                        transactionSummarySecondSubData = transactionSummarySecondSubDataDict[owner + year + month];
+                        transactionSummaryFirstSubData = transactionSummaryFirstSubDataDict[owner + year];
+
+                        transactionSummarySecondSubData.GetTransactionSummarySubDetailsData().Add(transactionSummarySubDetailsData);
+                        transactionSummarySecondSubData.SetTotalPrice(transactionSummarySecondSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                        transactionSummaryFirstSubData.SetTotalPrice(transactionSummaryFirstSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                        transactionSummaryData.SetTotalPrice(transactionSummaryData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+
+                        transactionSummarySubDetailsDataDict.Add(owner + year + month + day, transactionSummarySubDetailsData);
+                    }
+                    else if (transactionSummaryFirstSubDataDict.ContainsKey(owner + year))
+                    {
+                        Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                        tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
+
+                        transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
+                        transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+                        transactionSummaryDetailsData.SetTransactionTime(time);
+                        transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
+
+                        transactionSummarySubDetailsData = new TransactionSummarySubDetailsData(day);
+                        transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                        transactionSummarySubDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                        transactionSummarySecondSubData = new TransactionSummarySecondSubData(month);
+                        transactionSummarySecondSubData.GetTransactionSummarySubDetailsData().Add(transactionSummarySubDetailsData);
+                        transactionSummarySecondSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                        transactionSummaryFirstSubData = transactionSummaryFirstSubDataDict[owner + year];
+
+                        transactionSummaryFirstSubData.GetTransactionSummarySecondSubDataList().Add(transactionSummarySecondSubData);
+                        transactionSummaryFirstSubData.SetTotalPrice(transactionSummaryFirstSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+                        transactionSummaryData.SetTotalPrice(transactionSummaryData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+
+                        transactionSummarySubDetailsDataDict.Add(owner + year + month + day, transactionSummarySubDetailsData);
+                        transactionSummarySecondSubDataDict.Add(owner + year + month, transactionSummarySecondSubData);
+                    }
+                    else
+                    {
+                        Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                        tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
+
+                        transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
+                        transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+                        transactionSummaryDetailsData.SetTransactionTime(time);
+                        transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
+
+                        transactionSummarySubDetailsData = new TransactionSummarySubDetailsData(day);
+                        transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                        transactionSummarySubDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                        transactionSummarySecondSubData = new TransactionSummarySecondSubData(month);
+                        transactionSummarySecondSubData.GetTransactionSummarySubDetailsData().Add(transactionSummarySubDetailsData);
+                        transactionSummarySecondSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                        transactionSummaryFirstSubData = new TransactionSummaryFirstSubData(year);
+                        transactionSummaryFirstSubData.GetTransactionSummarySecondSubDataList().Add(transactionSummarySecondSubData);
+                        transactionSummaryFirstSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                        transactionSummaryData.SetTotalPrice(transactionSummaryData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
+
+                        transactionSummarySubDetailsDataDict.Add(owner + year + month + day, transactionSummarySubDetailsData);
+                        transactionSummarySecondSubDataDict.Add(owner + year + month, transactionSummarySecondSubData);
+                        transactionSummaryFirstSubDataDict.Add(owner + year, transactionSummaryFirstSubData);
                     }
                 }
                 else
                 {
+                    Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
+
+                    transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
+                    transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+                    transactionSummaryDetailsData.SetTransactionTime(time);
+                    transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
+
+                    transactionSummarySubDetailsData = new TransactionSummarySubDetailsData(day);
+                    transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                    transactionSummarySubDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummarySecondSubData = new TransactionSummarySecondSubData(month);
+                    transactionSummarySecondSubData.GetTransactionSummarySubDetailsData().Add(transactionSummarySubDetailsData);
+                    transactionSummarySecondSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
+                    transactionSummaryFirstSubData = new TransactionSummaryFirstSubData(year);
+                    transactionSummaryFirstSubData.GetTransactionSummarySecondSubDataList().Add(transactionSummarySecondSubData);
+                    transactionSummaryFirstSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
+
                     transactionSummaryData = new TransactionSummaryData(owner);
+                    transactionSummaryData.GetTransactionSummaryFirstSubDataList().Add(transactionSummaryFirstSubData);
+                    transactionSummaryData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
 
-                    if (transactionSummarySubDetailsDataDict.ContainsKey(owner + date))
-                    {
-                        TransactionSummarySubDetailsData tempTransSubData = transactionSummarySubDetailsDataDict[owner + date];
-
-                        if (transactionSummaryDetailsData == null)
-                        {
-                            transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
-                            Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
-                            tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                            transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
-                        }
-                        else
-                        {
-                            transactionSummaryDetailsData.getTransactionList().First().itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                        }
-
-                        tempTransSubData.SetTotalPrice(tempTransSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
-                        transactionSummaryData.getTransactionSummarySubDetailsData().Add(tempTransSubData);
-
-                        transactionSummaryDetailsData.SetTotalPrice(transactionSummaryDetailsData.GetTotalPrice() + itemRowData.itemPrice * itemRowData.quantity);
-
-                        transactionSummaryDetailsData.getTransactionList().First().itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                        tempTransSubData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
-                    }
-                    else
-                    {
-                        TransactionSummarySubDetailsData tempTransSubData = new TransactionSummarySubDetailsData(date);
-                        tempTransSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
-                        transactionSummaryData.getTransactionSummarySubDetailsData().Add(tempTransSubData);
-
-                        transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
-                        Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
-                        tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                        transactionSummaryDetailsData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
-                        transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
-                        tempTransSubData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
-
-                        transactionSummarySubDetailsDataDict.Add(owner + date, tempTransSubData);
-                        transactionSummaryDataDict.Add(owner, transactionSummaryData);
-                    }
+                    transactionSummarySubDetailsDataDict.Add(owner + year + month + day, transactionSummarySubDetailsData);
+                    transactionSummarySecondSubDataDict.Add(owner + year + month, transactionSummarySecondSubData);
+                    transactionSummaryFirstSubDataDict.Add(owner + year, transactionSummaryFirstSubData);
+                    transactionSummaryDataDict.Add(owner, transactionSummaryData);
                 }
             }
         }
