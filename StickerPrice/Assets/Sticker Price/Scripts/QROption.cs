@@ -43,8 +43,8 @@ public class QROption : MonoBehaviour
         }
     }
 
-    public void SetNumberOfStickers(string value) {
-        numberOfStickers.text = value;
+    public void SetNumberOfStickers(int value) {
+        numberOfStickers.text = value + " Stickers";
         if (sticker != null)
         {
             sticker.quantity = value;

@@ -9,7 +9,7 @@ public class Sticker
     public string price;
     public string dateSaved;
     public string owner;
-    public string quantity;
+    public int quantity;
     public Template template;
 
     public Sticker()
@@ -19,11 +19,23 @@ public class Sticker
         price = "";
         dateSaved = "";
         owner = "";
-        quantity = "";
+        quantity = 0;
         template = new Template();
     }
 
-    public Sticker(string stickerDescription, string itemDescription, string price, string dateSaved, string owner, string quantity, Template template)
+    //Copy Constructor
+    public Sticker(Sticker copySticker)
+    {
+        this.stickerName = copySticker.stickerName;
+        this.itemDescription = copySticker.itemDescription;
+        this.price = copySticker.price;
+        this.dateSaved = copySticker.dateSaved;
+        this.owner = copySticker.owner;
+        this.quantity = copySticker.quantity;
+        this.template = copySticker.template;
+    }
+
+    public Sticker(string stickerDescription, string itemDescription, string price, string dateSaved, string owner, int quantity, Template template)
     {
         this.stickerName = stickerDescription;
         this.itemDescription = itemDescription;

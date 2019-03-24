@@ -234,7 +234,6 @@ public class ContentScroll : MonoBehaviour
 
         Vector2 newPosition = new Vector2(newX, newY);
         content.transform.localPosition = newPosition;
-
     }
 
     public void OnValueChange()
@@ -289,6 +288,7 @@ public class ContentScroll : MonoBehaviour
 
     public void RemoveContentComponents()
     {
+        //This function deletes all of the game objects out of the content game object and resets all lists to be empty
         if(contentComponents != null)
         {
             foreach (GameObject contentGO in contentComponents)
