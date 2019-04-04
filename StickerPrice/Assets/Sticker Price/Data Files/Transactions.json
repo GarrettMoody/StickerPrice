@@ -175,6 +175,30 @@
       },
       "paymentMethod": "Cash",
       "datetime": "15 Feb 2019 11:17 PM"
+    },
+    {
+      "transactionID": 8.0,
+      "itemListData": {
+        "priceTotal": 1.05,
+        "priceSubtotal": 1.0,
+        "taxTotal": 0.05,
+        "discount": 0.0,
+        "itemTotal": 1,
+        "itemRowDataListContainer": {
+          "itemRowDataList": [
+            {
+              "itemDescription": "",
+              "itemOriginalPrice": 1.0,
+              "itemPrice": 1.0,
+              "quantity": 1,
+              "productOwner": "Shannon",
+              "scanString": "|$1.00||Shannon"
+            }
+          ]
+        }
+      },
+      "paymentMethod": "Cash",
+      "datetime": "03 Apr 2019 07:28 PM"
     }
   ]
 }

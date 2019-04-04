@@ -1,15 +1,10 @@
 ﻿<Properties StartupConfiguration="{82FC2D05-2874-572D-CF42-7A5D8385C9C0}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/StickerDetailMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Sticker Price/Scripts/ItemList.cs">
     <Files>
-      <File FileName="Assets/Sticker Price/Scripts/TransactionByDateRow.cs" Line="108" Column="57" />
-      <File FileName="Assets/Sticker Price/Scripts/TrackerSummary.cs" Line="57" Column="6" />
-      <File FileName="Assets/Sticker Price/Scripts/TransactionByDateList.cs" Line="12" Column="1" />
-      <File FileName="Assets/Sticker Price/Scripts/TransactionData.cs" Line="34" Column="63" />
-      <File FileName="Assets/Sticker Price/Scripts/TransactionSummaryData.cs" Line="6" Column="14" />
-      <File FileName="Assets/Sticker Price/Scripts/TransactionSummaryFirstSubData.cs" Line="43" Column="51" />
-      <File FileName="Assets/Sticker Price/Scripts/TransactionSummarySecondSubData.cs" Line="25" Column="38" />
-      <File FileName="Assets/Sticker Price/Scripts/TransactionSummarySubDetailsData.cs" Line="9" Column="34" />
-      <File FileName="Assets/Sticker Price/Scripts/StickerDetailMenu.cs" Line="226" Column="1" />
+      <File FileName="Assets/Sticker Price/Scripts/ScanPanel.cs" Line="146" Column="1" />
+      <File FileName="Assets/Sticker Price/Scripts/ItemList.cs" Line="148" Column="1" />
+      <File FileName="Assets/Sticker Price/Scripts/CheckoutPanel.cs" Line="25" Column="1" />
+      <File FileName="Assets/Sticker Price/Scripts/ContentList.cs" Line="36" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,7 +13,7 @@
             <Node name="Assets" expanded="True">
               <Node name="Sticker Price" expanded="True">
                 <Node name="Scripts" expanded="True">
-                  <Node name="StickerDetailMenu.cs" selected="True" />
+                  <Node name="ItemList.cs" selected="True" />
                 </Node>
               </Node>
             </Node>
@@ -33,6 +28,9 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Assets/Sticker Price/Scripts/EditStickerPanel.cs" relfile="Assets/Sticker Price/Scripts/EditStickerPanel.cs" line="151" column="1" />
+      <Breakpoint file="/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Assets/Sticker Price/Scripts/CheckoutPanel.cs" relfile="Assets/Sticker Price/Scripts/CheckoutPanel.cs" line="25" column="1" />
+      <Breakpoint file="/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Assets/Sticker Price/Scripts/ScanPanel.cs" relfile="Assets/Sticker Price/Scripts/ScanPanel.cs" line="142" column="1" />
+      <Breakpoint file="/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Assets/Sticker Price/Scripts/ScanPanel.cs" relfile="Assets/Sticker Price/Scripts/ScanPanel.cs" line="147" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations>
