@@ -18,6 +18,7 @@ public class SaveToFavoritesPopup : MonoBehaviour
 
     private Sticker sticker;
     private StickerData stickerData = new StickerData();
+    private StickerPage stickerPage;
 
     public void OpenSaveToFavoritesPopup(Sticker sticker)
     {

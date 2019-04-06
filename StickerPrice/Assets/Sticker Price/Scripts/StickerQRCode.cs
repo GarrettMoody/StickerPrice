@@ -7,7 +7,7 @@ public static class StickerQRCode
     public static Texture2D CreateQRCode(Sticker sticker)
     {
         Texture2D encoded = new Texture2D(256, 256);
-        Color32[] newCode = Encode("I Love Sticker Price|" + sticker.price + "|" + sticker.itemDescription + "|" + sticker.owner, 256, 256);
+        Color32[] newCode = Encode("|" + sticker.price + "|" + sticker.itemDescription + "|" + sticker.owner, 256, 256);
         encoded.SetPixels32(newCode);
         encoded.Apply();
         return encoded;
