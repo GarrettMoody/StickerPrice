@@ -21,7 +21,7 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
 
     public Text mainTitle;
 
-    public TransactionSummaryData transaction;
+    //public TransactionSummaryData transaction;
     private TransactionByDateList parentTransactionList;
     Dictionary<string, TransactionSummaryGameObjectList> transactionGameObjectDict;
 
@@ -34,14 +34,67 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
 
     public void InitiateTransactionByDateRow(TransactionSummaryData transaction,bool isOrderByDate)
     {
-        this.transaction = transaction;
-        mainTitle.text = transaction.primaryKey;
+        //mainTitle.text = transaction.primaryKey;
+        //this.isOrderByDate = isOrderByDate;
+        //firstSubPanel.SetActive(false);
+        //secondSubPanel.SetActive(false);
+        //thirdSubPanel.SetActive(false);
+        //transactionsPanel.SetActive(false);
+        //expandCollapseButton.GetComponentInChildren<Text>().text = ">";
+    }
+
+    public void InitiateTransactionRows(List<TransactionSummaryData> transactionList, bool isOrderByDate, Dictionary<string, TransactionSummaryGameObjectList> transactionGameObjectDict)
+    {
         this.isOrderByDate = isOrderByDate;
         firstSubPanel.SetActive(false);
         secondSubPanel.SetActive(false);
         thirdSubPanel.SetActive(false);
         transactionsPanel.SetActive(false);
-        expandCollapseButton.GetComponentInChildren<Text>().text = ">";
+        TransactionSummaryGameObjectList transactionGameObjects = null;
+
+        foreach (TransactionSummaryData tsData in transactionList)
+        {
+            GameObject tempTitlePanel = (GameObject)Instantiate(titlePanel, transform.position, transform.rotation);
+            Transform[] ts = tempTitlePanel.transform.GetComponentsInChildren<Transform>();
+            tempTitlePanel.name = "TitlePanel_" + tsData.GetPrimaryKey();
+            bool isExpanded = false;
+
+            if(transactionGameObjectDict.ContainsKey(tsData.GetPrimaryKey()))
+            {
+                transactionGameObjects = transactionGameObjectDict[tsData.GetPrimaryKey()];
+                isExpanded = transactionGameObjects.IsExpanded();
+                transactionGameObjectDict.Remove(tsData.GetPrimaryKey());
+            }
+
+            foreach (Transform t in ts)
+            {
+                Debug.Log("InitiateTransactionRows>>>ObjectName>>" + t.gameObject.name);
+
+                switch (t.gameObject.name)
+                {
+                    case "MainTitle":
+                        t.gameObject.GetComponent<Text>().text = tsData.GetPrimaryKey();
+                        break;
+                    case "ExpandCollapseButton":
+                        if (isExpanded)
+                        {
+                            t.gameObject.GetComponent<Button>().GetComponentInChildren<Text>().text = "v";
+                        }
+                        else
+                        {
+                            t.gameObject.GetComponent<Button>().GetComponentInChildren<Text>().text = ">";
+                        }
+                        break;
+                }
+            }
+            tempTitlePanel.transform.SetParent(mainPanel.transform, false);
+            tempTitlePanel.SetActive(true);
+            titlePanel.SetActive(false);
+
+            transactionGameObjects = new TransactionSummaryGameObjectList(tsData.GetPrimaryKey(), tempTitlePanel);
+            transactionGameObjects.SetExpandedFlag(isExpanded);
+            transactionGameObjectDict.Add(tsData.GetPrimaryKey(), transactionGameObjects);
+        }
     }
 
     public override void OnDefaultButtonClick()
@@ -52,25 +105,24 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
     public Dictionary<string, TransactionSummaryGameObjectList> ExpandCollapseBasePanel(bool shouldExpandPanel, TransactionSummaryData tsData, 
         Dictionary<string, TransactionSummaryGameObjectList> transactionGameObjectDict)
     {
+
+        TransactionSummaryGameObjectList transactionGameObjects = transactionGameObjectDict[tsData.GetPrimaryKey()];
+        transactionGameObjects.GetTransactionSummaryGameObjects().Clear();
+        GameObject parentGameObject = transactionGameObjects.GetParentGameObject();
+        GameObject expandCollapseButtonObject = parentGameObject.transform.GetComponentsInChildren<Button>()[1].gameObject;
+
         if (!shouldExpandPanel)
         {
-            expandCollapseButton.GetComponentInChildren<Text>().text = ">";
-            transactionGameObjectDict.Remove(tsData.GetPrimaryKey());
+            expandCollapseButtonObject.GetComponentInChildren<Text>().text = ">";
+            transactionGameObjects.SetExpandedFlag(false);
         }
         else
         {
-            expandCollapseButton.GetComponentInChildren<Text>().text = "v";
-
-            transactionGameObjectDict.Remove(tsData.GetPrimaryKey());
-            
-            TransactionSummaryGameObjectList transactionGameObjects = new TransactionSummaryGameObjectList(tsData.GetPrimaryKey(), titlePanel);
+            expandCollapseButtonObject.GetComponentInChildren<Text>().text = "v";
             transactionGameObjects.SetExpandedFlag(true);
-            transactionGameObjectDict.Add(tsData.GetPrimaryKey(), transactionGameObjects);
-            transactionGameObjects.SetParentGameObject(titlePanel);
-
-            foreach (TransactionSummaryFirstSubData tsFirstSubData in transaction.GetTransactionSummaryFirstSubDataList())
+            
+            foreach (TransactionSummaryFirstSubData tsFirstSubData in tsData.GetTransactionSummaryFirstSubDataList())
             {
-
                 GameObject tempFirstSubPanel = (GameObject)Instantiate(firstSubPanel, transform.position, transform.rotation);
                 Transform[] ts = tempFirstSubPanel.transform.GetComponentsInChildren<Transform>();
                 tempFirstSubPanel.name = "FirstSubPanel_" + tsData.GetPrimaryKey() + "_" + tsFirstSubData.GetPrimaryKey();
@@ -89,7 +141,7 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
                 }
 
                 tempFirstSubPanel.SetActive(true);
-                tempFirstSubPanel.transform.SetParent(titlePanel.transform, false);
+                tempFirstSubPanel.transform.SetParent(parentGameObject.transform, false);
                 transactionGameObjects.AddTransactionSummaryGameObject(tempFirstSubPanel);
             }
         }
@@ -105,12 +157,12 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
         }
         else 
         {
+            GameObject parentGameObject = transactionGameObjectDict[parentKey].GetParentGameObject();
             transactionGameObjectDict.Remove(parentKey + "_" + selectedTransSubData.GetPrimaryKey());
-            GameObject selectedSubPanel = titlePanel.transform.Find("FirstSubPanel_" + parentKey + "_" + selectedTransSubData.GetPrimaryKey()).gameObject;
+            GameObject selectedSubPanel = parentGameObject.transform.Find("FirstSubPanel_" + parentKey + "_" + selectedTransSubData.GetPrimaryKey()).gameObject;
             TransactionSummaryGameObjectList transactionGameObjects = new TransactionSummaryGameObjectList(parentKey + "_" + selectedTransSubData.GetPrimaryKey(), selectedSubPanel);
             transactionGameObjects.SetExpandedFlag(true);
             transactionGameObjectDict.Add(parentKey + "_" + selectedTransSubData.GetPrimaryKey(), transactionGameObjects);
-            transactionGameObjects.SetParentGameObject(selectedSubPanel);
 
             foreach (TransactionSummarySecondSubData tsSecondSubData in selectedTransSubData.GetTransactionSummarySecondSubDataList())
             {
@@ -123,7 +175,6 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
                     switch (t.gameObject.name)
                     {
                         case "SecondSubPanelMainText":
-                            Debug.Log("ExpandCollapseFirstPanel>>>>Setting SecondSubPanelMainText>>"+ tsSecondSubData.GetPrimaryKey() + " $" + tsSecondSubData.GetTotalPrice());
                             t.gameObject.GetComponent<Text>().text = tsSecondSubData.GetPrimaryKey() + "\n$" + tsSecondSubData.GetTotalPrice();
                             break;
                         case "SecondSubPanelSubText":
@@ -158,7 +209,6 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
             TransactionSummaryGameObjectList transactionGameObjects = new TransactionSummaryGameObjectList(parentKey + "_" + selectedTransSubData.GetPrimaryKey(), selectedSubPanel);
             transactionGameObjects.SetExpandedFlag(true);
             transactionGameObjectDict.Add(parentKey + "_" + selectedTransSubData.GetPrimaryKey(), transactionGameObjects);
-            transactionGameObjects.SetParentGameObject(selectedSubPanel);
 
             foreach (TransactionSummarySubDetailsData tsSubDetailsData in selectedTransSubData.GetTransactionSummarySubDetailsData())
             {
@@ -215,7 +265,6 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
             TransactionSummaryGameObjectList transactionGameObjects = new TransactionSummaryGameObjectList(parentKey + "_" + selectedTransSubData.GetPrimaryKey(), selectedSubPanel);
             transactionGameObjects.SetExpandedFlag(true);
             transactionGameObjectDict.Add(parentKey + "_" + selectedTransSubData.GetPrimaryKey(), transactionGameObjects);
-            transactionGameObjects.SetParentGameObject(selectedSubPanel);
 
             foreach (TransactionSummaryDetailsData tsDetailsData in selectedTransSubData.getTransactionSummaryDetailsData())
             {

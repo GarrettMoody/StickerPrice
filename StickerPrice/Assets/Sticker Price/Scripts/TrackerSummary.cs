@@ -50,136 +50,150 @@ public class TrackerSummary : MonoBehaviour
     {
         transactionByDateList.RemoveAllRows();
 
-        foreach (TransactionSummaryData tsData in transactionList)
+        if (transactionList != null && transactionList.Count > 0)
         {
             TransactionByDateRow row = transactionByDateList.AddRow();
-            row.InitiateTransactionByDateRow(tsData, dateToggle.isOn);
-            row.expandCollapseButton.onClick.AddListener(() => onClickRow(false, tsData.GetPrimaryKey()));
+            row.InitiateTransactionRows(transactionList, dateToggle.isOn, transactionGameObjectDict);
+
+            foreach (TransactionSummaryData tsData in transactionList)
+            {
+                GameObject tempCurrentRow = transactionGameObjectDict[tsData.GetPrimaryKey()].GetParentGameObject();
+                tempCurrentRow.transform.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => onClickRow(false, tsData.GetPrimaryKey()));
+            }
         }
     }
 
     public void onClickRow(bool isAlreadyExpanded, string selectedPanel)
     {
+
         transactionByDateList.RemoveAllRows();
 
-        foreach (TransactionSummaryData tsData in transactionSummaryDataList)
+        if (transactionSummaryDataList != null && transactionSummaryDataList.Count > 0)
         {
             TransactionByDateRow row = transactionByDateList.AddRow();
-            row.InitiateTransactionByDateRow(tsData, dateToggle.isOn);
-            string currentMainPanelkey = tsData.GetPrimaryKey();
-            TransactionSummaryGameObjectList transactionGameObjects = null;
-            bool tempBaseRowExpandedFlag = false;
+            row.InitiateTransactionRows(transactionSummaryDataList, dateToggle.isOn, transactionGameObjectDict);
 
-            if (selectedPanel.Equals(currentMainPanelkey))
+            foreach (TransactionSummaryData tsData in transactionSummaryDataList)
             {
-                tempBaseRowExpandedFlag = !isAlreadyExpanded;
-                transactionGameObjectDict = row.ExpandCollapseBasePanel(tempBaseRowExpandedFlag, tsData, transactionGameObjectDict);
-            }
-            else
-            {
-                if (transactionGameObjectDict.ContainsKey(currentMainPanelkey))
+                string currentMainPanelkey = tsData.GetPrimaryKey();
+                TransactionSummaryGameObjectList transactionGameObjects = null;
+                bool tempBaseRowExpandedFlag = false;
+
+                if (selectedPanel.Equals(currentMainPanelkey))
                 {
+                    tempBaseRowExpandedFlag = !isAlreadyExpanded;
+                    transactionGameObjectDict = row.ExpandCollapseBasePanel(tempBaseRowExpandedFlag, tsData, transactionGameObjectDict);
                     transactionGameObjects = transactionGameObjectDict[currentMainPanelkey];
-                    tempBaseRowExpandedFlag = transactionGameObjects.IsExpanded();
                 }
+                else
+                {
+                    if (transactionGameObjectDict.ContainsKey(currentMainPanelkey))
+                    {
+                        transactionGameObjects = transactionGameObjectDict[currentMainPanelkey];
+                        tempBaseRowExpandedFlag = transactionGameObjects.IsExpanded();
+                    }
+
+                    if (tempBaseRowExpandedFlag)
+                    {
+                        transactionGameObjectDict = row.ExpandCollapseBasePanel(tempBaseRowExpandedFlag, tsData, transactionGameObjectDict);
+                    }
+                }
+
+                GameObject tempCurrentRow = transactionGameObjects.GetParentGameObject();
+                tempCurrentRow.transform.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => onClickRow(tempBaseRowExpandedFlag, tsData.GetPrimaryKey()));
+
+                row.expandCollapseButton.onClick.AddListener(() => onClickRow(tempBaseRowExpandedFlag, currentMainPanelkey));
 
                 if (tempBaseRowExpandedFlag)
                 {
-                    transactionGameObjectDict = row.ExpandCollapseBasePanel(tempBaseRowExpandedFlag, tsData, transactionGameObjectDict);
-                }
-            }
-
-            row.expandCollapseButton.onClick.AddListener(() => onClickRow(tempBaseRowExpandedFlag, currentMainPanelkey));
-
-            if (tempBaseRowExpandedFlag)
-            {
-                foreach (TransactionSummaryFirstSubData tsFirstSubData in tsData.GetTransactionSummaryFirstSubDataList())
-                {
-                    string currentFirstSubPanelkey = currentMainPanelkey + "_" + tsFirstSubData.GetPrimaryKey();
-                    bool tempFirstRowExpandedFlag = false;
-
-                    if ((currentFirstSubPanelkey).Equals(selectedPanel))
+                    foreach (TransactionSummaryFirstSubData tsFirstSubData in tsData.GetTransactionSummaryFirstSubDataList())
                     {
-                        tempFirstRowExpandedFlag = !isAlreadyExpanded;
-                        transactionGameObjectDict = row.ExpandCollapseFirstPanel(tempFirstRowExpandedFlag, tsFirstSubData, currentMainPanelkey, transactionGameObjectDict);
-                    }
-                    else
-                    {
-                        if (transactionGameObjectDict.ContainsKey(currentFirstSubPanelkey))
+                        string currentFirstSubPanelkey = currentMainPanelkey + "_" + tsFirstSubData.GetPrimaryKey();
+                        bool tempFirstRowExpandedFlag = false;
+
+                        if ((currentFirstSubPanelkey).Equals(selectedPanel))
                         {
-                            transactionGameObjects = transactionGameObjectDict[currentFirstSubPanelkey];
-                            tempFirstRowExpandedFlag = transactionGameObjects.IsExpanded();
-
-                            if (tempFirstRowExpandedFlag)
-                            {
-                                transactionGameObjectDict = row.ExpandCollapseFirstPanel(tempFirstRowExpandedFlag, tsFirstSubData, currentMainPanelkey, transactionGameObjectDict);
-                            }
+                            tempFirstRowExpandedFlag = !isAlreadyExpanded;
+                            transactionGameObjectDict = row.ExpandCollapseFirstPanel(tempFirstRowExpandedFlag, tsFirstSubData, currentMainPanelkey, transactionGameObjectDict);
                         }
-                    }
-
-                    transactionGameObjects = transactionGameObjectDict[currentMainPanelkey];
-                    GameObject currentFirstPanel = transactionGameObjects.GetParentGameObject().transform.Find("FirstSubPanel_" + currentFirstSubPanelkey).gameObject;
-                    currentFirstPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => onClickRow(tempFirstRowExpandedFlag, currentFirstSubPanelkey));
-
-                    if (tempFirstRowExpandedFlag)
-                    {
-                        foreach (TransactionSummarySecondSubData tsSecondSubData in tsFirstSubData.GetTransactionSummarySecondSubDataList())
+                        else
                         {
-                            string currentSecondSubPanelkey = currentFirstSubPanelkey + "_" + tsSecondSubData.GetPrimaryKey();
-                            bool curSecondPanelExpandedFlag = false;
+                            if (transactionGameObjectDict.ContainsKey(currentFirstSubPanelkey))
+                            {
+                                transactionGameObjects = transactionGameObjectDict[currentFirstSubPanelkey];
+                                tempFirstRowExpandedFlag = transactionGameObjects.IsExpanded();
 
-                            if ((currentSecondSubPanelkey).Equals(selectedPanel))
-                            {
-                                curSecondPanelExpandedFlag = !isAlreadyExpanded;
-                                transactionGameObjectDict = row.ExpandCollapseSecondPanel(curSecondPanelExpandedFlag, tsSecondSubData, currentFirstSubPanelkey, transactionGameObjectDict);
-                            }
-                            else
-                            {
-                                if (transactionGameObjectDict.ContainsKey(currentSecondSubPanelkey))
+                                if (tempFirstRowExpandedFlag)
                                 {
-                                    transactionGameObjects = transactionGameObjectDict[currentSecondSubPanelkey];
-                                    curSecondPanelExpandedFlag = transactionGameObjects.IsExpanded();
-
-                                    if (curSecondPanelExpandedFlag)
-                                    {
-                                        transactionGameObjectDict = row.ExpandCollapseSecondPanel(curSecondPanelExpandedFlag, tsSecondSubData, currentFirstSubPanelkey, transactionGameObjectDict);
-                                    }
+                                    transactionGameObjectDict = row.ExpandCollapseFirstPanel(tempFirstRowExpandedFlag, tsFirstSubData, currentMainPanelkey, transactionGameObjectDict);
                                 }
                             }
+                        }
 
-                            transactionGameObjects = transactionGameObjectDict[currentFirstSubPanelkey];
-                            GameObject currentSecondPanel = transactionGameObjects.GetParentGameObject().transform.Find("SecondSubPanel_" + currentSecondSubPanelkey).gameObject;
-                            currentSecondPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => onClickRow(curSecondPanelExpandedFlag, currentSecondSubPanelkey));
+                        transactionGameObjects = transactionGameObjectDict[currentMainPanelkey];
+                        GameObject currentFirstPanel = transactionGameObjects.GetParentGameObject().transform.Find("FirstSubPanel_" + currentFirstSubPanelkey).gameObject;
+                        currentFirstPanel.GetComponentsInChildren<Button>()[0].onClick.AddListener(() => onClickRow(tempFirstRowExpandedFlag, currentFirstSubPanelkey));
 
-                            if (curSecondPanelExpandedFlag)
+                        if (tempFirstRowExpandedFlag)
+                        {
+                            foreach (TransactionSummarySecondSubData tsSecondSubData in tsFirstSubData.GetTransactionSummarySecondSubDataList())
                             {
-                                foreach (TransactionSummarySubDetailsData tsSubDetailsData in tsSecondSubData.GetTransactionSummarySubDetailsData())
+                                string currentSecondSubPanelkey = currentFirstSubPanelkey + "_" + tsSecondSubData.GetPrimaryKey();
+                                bool curSecondPanelExpandedFlag = false;
+
+                                if ((currentSecondSubPanelkey).Equals(selectedPanel))
                                 {
-                                    string currentFinalSubPanelkey = currentSecondSubPanelkey + "_" + tsSubDetailsData.GetPrimaryKey();
-                                    bool curFinalPanelExpandedFlag = false;
+                                    curSecondPanelExpandedFlag = !isAlreadyExpanded;
+                                    transactionGameObjectDict = row.ExpandCollapseSecondPanel(curSecondPanelExpandedFlag, tsSecondSubData, currentFirstSubPanelkey, transactionGameObjectDict);
+                                }
+                                else
+                                {
+                                    if (transactionGameObjectDict.ContainsKey(currentSecondSubPanelkey))
+                                    {
+                                        transactionGameObjects = transactionGameObjectDict[currentSecondSubPanelkey];
+                                        curSecondPanelExpandedFlag = transactionGameObjects.IsExpanded();
 
-                                    if ((currentFinalSubPanelkey).Equals(selectedPanel))
-                                    {
-                                        curFinalPanelExpandedFlag = !isAlreadyExpanded;
-                                        transactionGameObjectDict = row.ExpandCollapseThirdPanel(curFinalPanelExpandedFlag, tsSubDetailsData, currentSecondSubPanelkey, transactionGameObjectDict);
-                                    }
-                                    else
-                                    {
-                                        if (transactionGameObjectDict.ContainsKey(currentFinalSubPanelkey))
+                                        if (curSecondPanelExpandedFlag)
                                         {
-                                            transactionGameObjects = transactionGameObjectDict[currentFinalSubPanelkey];
-                                            curFinalPanelExpandedFlag = transactionGameObjects.IsExpanded();
-
-                                            if (curFinalPanelExpandedFlag)
-                                            {
-                                                transactionGameObjectDict = row.ExpandCollapseThirdPanel(curFinalPanelExpandedFlag, tsSubDetailsData, currentSecondSubPanelkey, transactionGameObjectDict);
-                                            }
+                                            transactionGameObjectDict = row.ExpandCollapseSecondPanel(curSecondPanelExpandedFlag, tsSecondSubData, currentFirstSubPanelkey, transactionGameObjectDict);
                                         }
                                     }
+                                }
 
-                                    transactionGameObjects = transactionGameObjectDict[currentSecondSubPanelkey];
-                                    GameObject currentThirdPanel = transactionGameObjects.GetParentGameObject().transform.Find("ThirdSubPanel_" + currentFinalSubPanelkey).gameObject;
-                                    currentThirdPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => onClickRow(curFinalPanelExpandedFlag, currentFinalSubPanelkey));
+                                transactionGameObjects = transactionGameObjectDict[currentFirstSubPanelkey];
+                                GameObject currentSecondPanel = transactionGameObjects.GetParentGameObject().transform.Find("SecondSubPanel_" + currentSecondSubPanelkey).gameObject;
+                                currentSecondPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => onClickRow(curSecondPanelExpandedFlag, currentSecondSubPanelkey));
+
+                                if (curSecondPanelExpandedFlag)
+                                {
+                                    foreach (TransactionSummarySubDetailsData tsSubDetailsData in tsSecondSubData.GetTransactionSummarySubDetailsData())
+                                    {
+                                        string currentFinalSubPanelkey = currentSecondSubPanelkey + "_" + tsSubDetailsData.GetPrimaryKey();
+                                        bool curFinalPanelExpandedFlag = false;
+
+                                        if ((currentFinalSubPanelkey).Equals(selectedPanel))
+                                        {
+                                            curFinalPanelExpandedFlag = !isAlreadyExpanded;
+                                            transactionGameObjectDict = row.ExpandCollapseThirdPanel(curFinalPanelExpandedFlag, tsSubDetailsData, currentSecondSubPanelkey, transactionGameObjectDict);
+                                        }
+                                        else
+                                        {
+                                            if (transactionGameObjectDict.ContainsKey(currentFinalSubPanelkey))
+                                            {
+                                                transactionGameObjects = transactionGameObjectDict[currentFinalSubPanelkey];
+                                                curFinalPanelExpandedFlag = transactionGameObjects.IsExpanded();
+
+                                                if (curFinalPanelExpandedFlag)
+                                                {
+                                                    transactionGameObjectDict = row.ExpandCollapseThirdPanel(curFinalPanelExpandedFlag, tsSubDetailsData, currentSecondSubPanelkey, transactionGameObjectDict);
+                                                }
+                                            }
+                                        }
+
+                                        transactionGameObjects = transactionGameObjectDict[currentSecondSubPanelkey];
+                                        GameObject currentThirdPanel = transactionGameObjects.GetParentGameObject().transform.Find("ThirdSubPanel_" + currentFinalSubPanelkey).gameObject;
+                                        currentThirdPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => onClickRow(curFinalPanelExpandedFlag, currentFinalSubPanelkey));
+                                    }
                                 }
                             }
                         }
