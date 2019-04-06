@@ -6,14 +6,16 @@ using UnityEngine;
 [Serializable]
 public class TransactionSummaryGameObjectList
 {
-    public string primaryKey;
-    public bool visible = false;
-    List<GameObject> transactionSummaryGameObjectList;
-
-    public TransactionSummaryGameObjectList(String primaryKey)
+    private string primaryKey;
+    private bool isExpanded = false;
+    private List<GameObject> transactionSummaryGameObjectList;
+    private GameObject parentGameObject;
+    
+    public TransactionSummaryGameObjectList(String primaryKey, GameObject parentGameObject)
     {
         this.primaryKey = primaryKey;
         transactionSummaryGameObjectList = new List<GameObject>();
+        this.parentGameObject = parentGameObject;
     }
 
     public string GetPrimaryKey()
@@ -31,8 +33,27 @@ public class TransactionSummaryGameObjectList
         return transactionSummaryGameObjectList;
     }
 
-    public void SetTransactionSummaryGameObjects(List<GameObject> transactionSummaryGameObjectList)
+    public void AddTransactionSummaryGameObject(GameObject newGameObject)
     {
-        this.transactionSummaryGameObjectList = transactionSummaryGameObjectList;
+        transactionSummaryGameObjectList.Add(newGameObject);
+    }
+
+    public bool IsExpanded()
+    {
+        return isExpanded;
+    }
+
+    public void SetExpandedFlag(bool isExpanded)
+    {
+        this.isExpanded = isExpanded;
+    }
+    public GameObject GetParentGameObject()
+    {
+        return parentGameObject;
+    }
+
+    public void SetParentGameObject(GameObject parentGameObject)
+    {
+        this.parentGameObject = parentGameObject;
     }
 }

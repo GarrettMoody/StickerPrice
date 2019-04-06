@@ -160,6 +160,7 @@ public class TransactionData
                     transactionSummaryFirstSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
 
                     transactionSummaryData = transactionSummaryDataDict[year];
+                    transactionSummaryData.GetTransactionSummaryFirstSubDataList().Add(transactionSummaryFirstSubData);
                     transactionSummaryData.SetTotalPrice(transactionSummaryData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
 
                     transactionSummarySubDetailsDataDict.Add(year + month + day + owner, transactionSummarySubDetailsData);
@@ -200,7 +201,7 @@ public class TransactionData
             }
         }
 
-        transactionSummaryDataList = transactionSummaryDataDict.Values.ToList().OrderByDescending(transactionSummaryData2 => DateTime.ParseExact(transactionSummaryData2.primaryKey, "dd MMM yyyy", null)).ToList();
+        transactionSummaryDataList = transactionSummaryDataDict.Values.ToList().OrderByDescending(transactionSummaryData2 => DateTime.ParseExact(transactionSummaryData2.primaryKey, "yyyy", null)).ToList();
 
         return transactionSummaryDataList;
     }
@@ -319,6 +320,11 @@ public class TransactionData
                     }
                     else
                     {
+                        Debug.Log("GetTransactionsSortedByOwner>>>>GetTransactionID>>" + transaction.GetTransactionID());
+                        Debug.Log("GetTransactionsSortedByOwner>>>>day>>" + day);
+                        Debug.Log("GetTransactionsSortedByOwner>>>>month>>" + month);
+                        Debug.Log("GetTransactionsSortedByOwner>>>>year>>" + year);
+
                         Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
                         tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
@@ -339,6 +345,7 @@ public class TransactionData
                         transactionSummaryFirstSubData.GetTransactionSummarySecondSubDataList().Add(transactionSummarySecondSubData);
                         transactionSummaryFirstSubData.SetTotalPrice(itemRowData.itemPrice * itemRowData.quantity);
 
+                        transactionSummaryData.GetTransactionSummaryFirstSubDataList().Add(transactionSummaryFirstSubData);
                         transactionSummaryData.SetTotalPrice(transactionSummaryData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
 
                         transactionSummarySubDetailsDataDict.Add(owner + year + month + day, transactionSummarySubDetailsData);
