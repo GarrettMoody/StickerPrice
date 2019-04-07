@@ -53,7 +53,7 @@ public class CashRegisterPanel : MonoBehaviour
 
     public void SetItemAmount(string value)
     {
-        itemAmount.text = value + " items";
+        itemAmount.text = value;
     }
 
     public string GetCashReceived()

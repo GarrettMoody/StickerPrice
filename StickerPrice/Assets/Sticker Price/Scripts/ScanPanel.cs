@@ -14,6 +14,8 @@ public class ScanPanel : MonoBehaviour
     public CheckoutPanel checkoutPanel;
     public TextMeshProUGUI transactionNumber;
     public ItemList itemList;
+    public GameObject popupPanel;
+    public AddItemPopup addItemPopup;
 
     private WebCamTexture camTexture;
     private bool scanReady = false; //Is the camera accepting QR code input?
@@ -102,8 +104,9 @@ public class ScanPanel : MonoBehaviour
             }
         }
 
+        //Check if we still need to add the item to the list or if we already added quantity to an existing item
         if (addItem)
-        { //Check if we still need to add the item to the list or if we already added quantity to an existing item
+        { 
             String[] resultString = new string[4];
             resultString = result.Text.Split('|');
 
@@ -155,6 +158,24 @@ public class ScanPanel : MonoBehaviour
         checkoutPanel.itemList.SetTaxTotal(this.itemList.GetTaxTotal());
         checkoutPanel.SetTransactionNumber(GetTransactionNumber());
         checkoutPanel.SetTransaction(transaction);
+    }
+
+    public void AddItemOnClickListener()
+    {
+        popupPanel.gameObject.SetActive(true);
+        addItemPopup.gameObject.SetActive(true); 
+    }
+
+    public void AddItem(Sticker sticker)
+    {
+        ItemRow newItem = itemList.AddItem();
+        //newItem.SetScanString(sticker.);
+        newItem.SetItemDescription(sticker.itemDescription);
+        newItem.SetProductOwner(sticker.owner);
+        newItem.SetItemPrice(float.Parse(sticker.price));
+        newItem.SetItemOriginalPrice(float.Parse(sticker.price));
+
+        transaction.SetItemListData(itemList.itemListData);
     }
 
     public string GetTransactionNumber()

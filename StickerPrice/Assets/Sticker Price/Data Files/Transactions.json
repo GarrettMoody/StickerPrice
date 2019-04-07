@@ -199,6 +199,30 @@
       },
       "paymentMethod": "Cash",
       "datetime": "03 Apr 2019 07:28 PM"
+    },
+    {
+      "transactionID": 9.0,
+      "itemListData": {
+        "priceTotal": 5.25,
+        "priceSubtotal": 5.0,
+        "taxTotal": 0.25,
+        "discount": 0.0,
+        "itemTotal": 1,
+        "itemRowDataListContainer": {
+          "itemRowDataList": [
+            {
+              "itemDescription": "",
+              "itemOriginalPrice": 5.0,
+              "itemPrice": 5.0,
+              "quantity": 1,
+              "productOwner": "Garrett",
+              "scanString": ""
+            }
+          ]
+        }
+      },
+      "paymentMethod": "Cash",
+      "datetime": "07 Apr 2019 11:09 AM"
     }
   ]
 }
