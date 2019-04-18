@@ -349,12 +349,14 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.AudioModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.BaselibModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ClothModule.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.CloudWebServicesModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ClusterInputModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ClusterRendererModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.CoreModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.CrashReportingModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.DirectorModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.FacebookModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.FileSystemHttpModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.GameCenterModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.GoogleAudioSpatializer.dll
@@ -454,6 +456,7 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.BaselibModule.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ClothModule.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ClothModule.xml
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.CloudWebServicesModule.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ClusterInputModule.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ClusterInputModule.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ClusterRendererModule.dll.mdb
@@ -464,6 +467,7 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.CrashReportingModule.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.DirectorModule.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.DirectorModule.xml
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.FacebookModule.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.FileSystemHttpModule.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.FileSystemHttpModule.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.GameCenterModule.dll.mdb
@@ -484,6 +488,7 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.LocalizationModule.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ParticleSystemModule.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ParticleSystemModule.xml
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ParticlesLegacyModule.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.PerformanceReportingModule.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.PerformanceReportingModule.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.PhysicsModule.dll.mdb
@@ -592,11 +597,11 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.WebGL.Extensions.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.WindowsStandalone.Extensions.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.OSXStandalone.Extensions.dll.mdb
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Newtonsoft.Json.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Analytics.Tracker.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Analytics.Editor.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Analytics.StandardEvents.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.Purchasing.dll.mdb
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Newtonsoft.Json.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.iOS.Extensions.Common.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
