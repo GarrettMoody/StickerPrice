@@ -21,6 +21,7 @@ public class ScanPanel : MonoBehaviour
     private bool scanReady = false; //Is the camera accepting QR code input?
     private float scanTimer; //Time remaining for scanner to be turned on
     private Transaction transaction;
+    private Quaternion baseRotation; //Rotation of the camera
 
     [Tooltip("The amount of time the scanner will read after clicking the scan button.")]
     public const float SCAN_TIMER = .25f;
@@ -33,12 +34,16 @@ public class ScanPanel : MonoBehaviour
         camTexture = new WebCamTexture(WebCamTexture.devices[0].name, 480, 640, 60);
         scanDisplay.texture = camTexture;
         scanDisplay.material.mainTexture = camTexture;
+        baseRotation = transform.rotation;
         camTexture.Play();
     }
 
     void Update()
     {
         currentDateTime.text = System.DateTime.Now.ToString("dd MMM yyyy hh:mm tt");
+
+        //Edit camera raw data to rotate correctly
+        transform.rotation = baseRotation * Quaternion.AngleAxis(camTexture.videoRotationAngle, Vector3.up);
 
         if (scanReady)
         {
