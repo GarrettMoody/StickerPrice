@@ -17,8 +17,9 @@ public class ItemRow : ContentRow
     public RectTransform horizontalContentPanel;
     public RawImage QRCode;
     public ItemRowData itemRowData;
-	//Private Variables
-   
+    public GameObject ellipsis;
+
+    //Private Variables
     private ItemList parentItemList;
 	private readonly RectTransform itemRectTransform;
 	private readonly RectTransform contentRectTransform;

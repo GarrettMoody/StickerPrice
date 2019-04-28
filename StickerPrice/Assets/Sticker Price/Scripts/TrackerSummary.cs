@@ -13,7 +13,7 @@ public class TrackerSummary : MonoBehaviour
     Dictionary<string, TransactionSummaryGameObjectList> transactionGameObjectDict;
 
     public GameObject contentPanel;
-
+    public TransactionDetailsPanel transactionDetailsPanel;
     public TransactionByDateRow transactionByDateRowPrefab;
 
 
@@ -192,7 +192,7 @@ public class TrackerSummary : MonoBehaviour
 
                                         transactionGameObjects = transactionGameObjectDict[currentSecondSubPanelkey];
                                         GameObject currentThirdPanel = transactionGameObjects.GetParentGameObject().transform.Find("ThirdSubPanel_" + currentFinalSubPanelkey).gameObject;
-                                        currentThirdPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => onClickRow(curFinalPanelExpandedFlag, currentFinalSubPanelkey));
+                                        currentThirdPanel.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => openTransactionDetailsView(currentFinalSubPanelkey, tsSubDetailsData));
                                     }
                                 }
                             }
@@ -201,5 +201,17 @@ public class TrackerSummary : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void openTransactionDetailsView(string selectedPanel, TransactionSummarySubDetailsData selectedMainPanelSubDetailsData)
+    {
+        Debug.Log("openTransactionDetailsView.selectedMainPanel>>>" + selectedPanel);
+
+        this.gameObject.SetActive(false);
+        transactionDetailsPanel.selectedMainPanelKey = selectedPanel;
+        transactionDetailsPanel.selectedMainPanelSubDetailsData = selectedMainPanelSubDetailsData;
+        transactionDetailsPanel.isOwnerSelected = ownerToggle.isOn;
+        transactionDetailsPanel.LoadTransactionListFromFile();
+        transactionDetailsPanel.gameObject.SetActive(true);
     }
 }

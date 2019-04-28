@@ -223,6 +223,54 @@
       },
       "paymentMethod": "Cash",
       "datetime": "07 Apr 2019 11:09 AM"
+    },
+    {
+      "transactionID": 10.0,
+      "itemListData": {
+        "priceTotal": 5.25,
+        "priceSubtotal": 5.0,
+        "taxTotal": 0.25,
+        "discount": 0.0,
+        "itemTotal": 1,
+        "itemRowDataListContainer": {
+          "itemRowDataList": [
+            {
+              "itemDescription": "Sticker 1",
+              "itemOriginalPrice": 5.0,
+              "itemPrice": 5.0,
+              "quantity": 1,
+              "productOwner": "Garrett",
+              "scanString": "|$5.00|Sticker 1|Garrett"
+            }
+          ]
+        }
+      },
+      "paymentMethod": "Cash",
+      "datetime": "28 Apr 2019 02:14 AM"
+    },
+    {
+      "transactionID": 11.0,
+      "itemListData": {
+        "priceTotal": 5.25,
+        "priceSubtotal": 5.0,
+        "taxTotal": 0.25,
+        "discount": 0.0,
+        "itemTotal": 1,
+        "itemRowDataListContainer": {
+          "itemRowDataList": [
+            {
+              "itemDescription": "Sticker 1",
+              "itemOriginalPrice": 5.0,
+              "itemPrice": 5.0,
+              "quantity": 1,
+              "productOwner": "Garrett",
+              "scanString": "|$5.00|Sticker 1|Garrett"
+            }
+          ]
+        }
+      },
+      "paymentMethod": "Cash",
+      "datetime": "28 Apr 2019 02:17 AM"
     }
   ]
 }

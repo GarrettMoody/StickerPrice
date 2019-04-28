@@ -690,6 +690,7 @@ MonoBehaviour:
     quantity: 1
     productOwner: 
     scanString: 
+  ellipsis: {fileID: 1093402416385732}
 --- !u!1 &1381021768487228
 GameObject:
   m_ObjectHideFlags: 0

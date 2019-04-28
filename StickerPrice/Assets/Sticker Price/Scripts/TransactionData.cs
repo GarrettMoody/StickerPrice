@@ -64,20 +64,32 @@ public class TransactionData
 
                 if (transactionSummarySubDetailsDataDict.ContainsKey(year + month + day + owner))
                 {
-                    transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
-                    Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
-                    tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
-                    transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
+
+                    transactionSummarySubDetailsData = transactionSummarySubDetailsDataDict[year + month + day + owner];
+
+                    if (transactionSummaryDetailsData == null)
+                    {
+                        transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
+                        Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                        tempTransaction.SetDateTime(transaction.datetime);
+                        tempTransaction.SetPaymentMethod(transaction.paymentMethod);
+                        tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
+                        transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
+                        
+                        transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
+                    }
+                    else
+                    {
+                        transactionSummaryDetailsData.getTransactionList().First().itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
+                    }
+
                     transactionSummaryDetailsData.SetTotalPrice(transactionSummaryDetailsData.GetTotalPrice() + itemRowData.itemPrice * itemRowData.quantity);
                     transactionSummaryDetailsData.SetTransactionTime(time);
 
-                    transactionSummarySubDetailsData = transactionSummarySubDetailsDataDict[year + month + day + owner];
                     transactionSummarySecondSubData = transactionSummarySecondSubDataDict[year + month + day];
                     transactionSummaryFirstSubData = transactionSummaryFirstSubDataDict[year + month];
                     transactionSummaryData = transactionSummaryDataDict[year];
-
-                    transactionSummarySubDetailsData.getTransactionSummaryDetailsData().Add(transactionSummaryDetailsData);
-
+                    
                     transactionSummarySubDetailsData.SetTotalPrice(transactionSummarySubDetailsData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
                     transactionSummarySecondSubData.SetTotalPrice(transactionSummarySecondSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
                     transactionSummaryFirstSubData.SetTotalPrice(transactionSummaryFirstSubData.GetTotalPrice() + (itemRowData.itemPrice * itemRowData.quantity));
@@ -86,6 +98,8 @@ public class TransactionData
                 else if (transactionSummarySecondSubDataDict.ContainsKey(year + month + day))
                 {
                     Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.SetDateTime(transaction.datetime);
+                    tempTransaction.SetPaymentMethod(transaction.paymentMethod);
                     tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
                     transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
@@ -112,6 +126,8 @@ public class TransactionData
                 else if (transactionSummaryFirstSubDataDict.ContainsKey(year + month))
                 {
                     Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.SetDateTime(transaction.datetime);
+                    tempTransaction.SetPaymentMethod(transaction.paymentMethod);
                     tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
                     transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
@@ -140,6 +156,8 @@ public class TransactionData
                 else if(transactionSummaryDataDict.ContainsKey(year))
                 {
                     Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.SetDateTime(transaction.datetime);
+                    tempTransaction.SetPaymentMethod(transaction.paymentMethod);
                     tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
                     transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
@@ -170,6 +188,8 @@ public class TransactionData
                 else
                 {
                     Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.SetDateTime(transaction.datetime);
+                    tempTransaction.SetPaymentMethod(transaction.paymentMethod);
                     tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
                     transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
@@ -247,6 +267,8 @@ public class TransactionData
                         {
                             transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
                             Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                            tempTransaction.SetDateTime(transaction.datetime);
+                            tempTransaction.SetPaymentMethod(transaction.paymentMethod);
                             tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
                             transactionSummaryDetailsData.getTransactionList().Add(tempTransaction);
 
@@ -270,6 +292,8 @@ public class TransactionData
                     else if (transactionSummarySecondSubDataDict.ContainsKey(owner + year + month))
                     {
                         Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                        tempTransaction.SetDateTime(transaction.datetime);
+                        tempTransaction.SetPaymentMethod(transaction.paymentMethod);
                         tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
                         transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
@@ -294,6 +318,8 @@ public class TransactionData
                     else if (transactionSummaryFirstSubDataDict.ContainsKey(owner + year))
                     {
                         Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                        tempTransaction.SetDateTime(transaction.datetime);
+                        tempTransaction.SetPaymentMethod(transaction.paymentMethod);
                         tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
                         transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
@@ -320,12 +346,9 @@ public class TransactionData
                     }
                     else
                     {
-                        Debug.Log("GetTransactionsSortedByOwner>>>>GetTransactionID>>" + transaction.GetTransactionID());
-                        Debug.Log("GetTransactionsSortedByOwner>>>>day>>" + day);
-                        Debug.Log("GetTransactionsSortedByOwner>>>>month>>" + month);
-                        Debug.Log("GetTransactionsSortedByOwner>>>>year>>" + year);
-
                         Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                        tempTransaction.SetDateTime(transaction.datetime);
+                        tempTransaction.SetPaymentMethod(transaction.paymentMethod);
                         tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
                         transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");
@@ -356,6 +379,8 @@ public class TransactionData
                 else
                 {
                     Transaction tempTransaction = new Transaction(transaction.GetTransactionID());
+                    tempTransaction.SetDateTime(transaction.datetime);
+                    tempTransaction.SetPaymentMethod(transaction.paymentMethod);
                     tempTransaction.itemListData.itemRowDataListContainer.itemRowDataList.Add(itemRowData);
 
                     transactionSummaryDetailsData = new TransactionSummaryDetailsData(transaction.GetTransactionID() + "");

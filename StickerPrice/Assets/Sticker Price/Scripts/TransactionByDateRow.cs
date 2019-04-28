@@ -68,8 +68,6 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
 
             foreach (Transform t in ts)
             {
-                Debug.Log("InitiateTransactionRows>>>ObjectName>>" + t.gameObject.name);
-
                 switch (t.gameObject.name)
                 {
                     case "MainTitle":
@@ -132,7 +130,7 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
                     switch (t.gameObject.name)
                     {
                         case "FirstSubPanelMainText":
-                            t.gameObject.GetComponent<Text>().text = tsFirstSubData.GetPrimaryKey() + " $" + tsFirstSubData.GetTotalPrice();
+                            t.gameObject.GetComponent<Text>().text = tsFirstSubData.GetPrimaryKey() + "\n$" + tsFirstSubData.GetTotalPrice();
                             break;
                         case "FirstSubPanelSubText":
                             t.gameObject.GetComponent<Text>().text = "";
@@ -230,7 +228,7 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
                     switch (t.gameObject.name)
                     {
                         case "ThirdSubPanelMainText":
-                            t.gameObject.GetComponent<Text>().text = tsSubDetailsData.GetPrimaryKey() + " \n $" + tsSubDetailsData.GetTotalPrice();
+                            t.gameObject.GetComponent<Text>().text = tsSubDetailsData.GetPrimaryKey() + "\n$" + tsSubDetailsData.GetTotalPrice();
                             break;
                         case "ThirdSubPanelSubText":
                             t.gameObject.GetComponent<Button>().GetComponentInChildren<Text>().text = firstSubPanelSubText;
