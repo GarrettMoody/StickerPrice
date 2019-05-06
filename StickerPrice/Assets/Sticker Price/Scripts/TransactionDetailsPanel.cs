@@ -30,14 +30,14 @@ public class TransactionDetailsPanel : MonoBehaviour
         if (isOwnerSelected)
         {
             transactionSummaryDataList = transactionData.GetTransactionsSortedByOwner();
-            headerPanelDate.GetComponent<Text>().text = splitMainePanelName[1] + " " + splitMainePanelName[2] + " " + splitMainePanelName[3];
-            headerPanelOwner.GetComponent<Text>().text = splitMainePanelName[0];
+            headerPanelDate.GetComponent<Text>().text = "Transaction Date: "+ splitMainePanelName[1] + " " + splitMainePanelName[2] + " " + splitMainePanelName[3];
+            headerPanelOwner.GetComponent<Text>().text = "Owner: "+ splitMainePanelName[0];
         }
         else
         {
             transactionSummaryDataList = transactionData.GetTransactionsSortedByDate();
-            headerPanelDate.GetComponent<Text>().text = splitMainePanelName[0] + " " + splitMainePanelName[1] + " " + splitMainePanelName[2];
-            headerPanelOwner.GetComponent<Text>().text = splitMainePanelName[3];
+            headerPanelDate.GetComponent<Text>().text = "Transaction Date: " + splitMainePanelName[0] + " " + splitMainePanelName[1] + " " + splitMainePanelName[2];
+            headerPanelOwner.GetComponent<Text>().text = "Owner: " + splitMainePanelName[3];
         }
 
         displayTransactionDetails(false, "");

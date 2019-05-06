@@ -130,10 +130,13 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
                     switch (t.gameObject.name)
                     {
                         case "FirstSubPanelMainText":
-                            t.gameObject.GetComponent<Text>().text = tsFirstSubData.GetPrimaryKey() + "\n$" + tsFirstSubData.GetTotalPrice();
+                            t.gameObject.GetComponent<Text>().text = tsFirstSubData.GetPrimaryKey();
                             break;
                         case "FirstSubPanelSubText":
                             t.gameObject.GetComponent<Text>().text = "";
+                            break;
+                        case "FirstSubPanelPrice":
+                            t.gameObject.GetComponent<Text>().text = "$" + tsFirstSubData.GetTotalPrice();
                             break;
                     }
                 }
@@ -173,10 +176,13 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
                     switch (t.gameObject.name)
                     {
                         case "SecondSubPanelMainText":
-                            t.gameObject.GetComponent<Text>().text = tsSecondSubData.GetPrimaryKey() + "\n$" + tsSecondSubData.GetTotalPrice();
+                            t.gameObject.GetComponent<Text>().text = tsSecondSubData.GetPrimaryKey();
                             break;
                         case "SecondSubPanelSubText":
                             t.gameObject.GetComponent<Text>().text = "";
+                            break;
+                        case "SecondSubPanelPrice":
+                            t.gameObject.GetComponent<Text>().text = "$" + tsSecondSubData.GetTotalPrice();
                             break;
                     }
                 }
@@ -228,11 +234,14 @@ public class TransactionByDateRow : ContentRow, IPointerClickHandler
                     switch (t.gameObject.name)
                     {
                         case "ThirdSubPanelMainText":
-                            t.gameObject.GetComponent<Text>().text = tsSubDetailsData.GetPrimaryKey() + "\n$" + tsSubDetailsData.GetTotalPrice();
+                            t.gameObject.GetComponent<Text>().text = tsSubDetailsData.GetPrimaryKey();
                             break;
-                        case "ThirdSubPanelSubText":
+                        case "ThirdSubPanelSubTextImage":
                             t.gameObject.GetComponent<Button>().GetComponentInChildren<Text>().text = firstSubPanelSubText;
                             t.gameObject.GetComponent<Button>().gameObject.SetActive(shouldSubTextBeVisible);
+                            break;
+                        case "ThirdSubPanelPrice":
+                            t.gameObject.GetComponent<Text>().text = "$" + tsSubDetailsData.GetTotalPrice();
                             break;
                     }
                 }

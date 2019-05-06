@@ -50,9 +50,6 @@ public class TransactionDetailsRow : ContentRow, IPointerClickHandler
                         case "TransactionPanelMainText":
                             t.gameObject.GetComponent<Text>().text = "Transaction #" + tsDetailsData.GetPrimaryKey() + ", " + tsDetailsData.GetTransactionTime() + " - $" + tsDetailsData.GetTotalPrice();
                             break;
-                        case "TransactionPanelSubText":
-                            t.gameObject.GetComponent<Text>().text = "";
-                            break;
                     }
                 }
 
