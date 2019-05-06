@@ -711,3 +711,8 @@
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.CollabProxy.Editor.pdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.TextMeshPro.pdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Analytics.DataPrivacy.pdb
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.WebGL.Extensions.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.WindowsStandalone.Extensions.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/nunit.framework.pdb
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.WebGL.Extensions.dll.mdb
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.WindowsStandalone.Extensions.dll.mdb

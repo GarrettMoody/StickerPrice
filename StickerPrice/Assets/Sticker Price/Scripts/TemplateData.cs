@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
+using UnityEngine;
 
 public class TemplateData
 {
-    private string filePath = "Assets/Sticker Price/Data Files/Templates.json";
+    private string filePath = Application.persistentDataPath + "/Templates.json";
     private FileUtility fileUtility = new FileUtility();
     private List<Template> templateList = new List<Template>();
 

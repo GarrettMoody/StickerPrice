@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
+using UnityEngine;
 
 public class StickerData {
 
-    private string filePath = "Assets/Sticker Price/Data Files/SavedStickers.json";
+    private string filePath = Application.persistentDataPath + "/SavedStickers.json";
     private FileUtility fileUtility = new FileUtility();
     private List<Sticker> stickerList = new List<Sticker>();
 

@@ -24,12 +24,11 @@ public class ScanPanel : MonoBehaviour
     private Quaternion baseRotation; //Rotation of the camera
 
     [Tooltip("The amount of time the scanner will read after clicking the scan button.")]
-    public const float SCAN_TIMER = .25f;
+    public const float SCAN_TIMER = 1f;
     public PopupMessage scanError;
 
-
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         camTexture = new WebCamTexture(WebCamTexture.devices[0].name, 480, 640, 60);
         scanDisplay.texture = camTexture;
@@ -100,17 +99,17 @@ public class ScanPanel : MonoBehaviour
     {
         scanReady = false;
         bool addItem = true; //do we still need to add the item to the list?
-        foreach (ItemRow row in itemList.GetRows())
-        {
-            if (row.GetScanString() == result.Text)
-            { //Does item already exist in list
-                row.SetQuantity(row.GetQuantity() + 1); //item already exists, add quantity
-                addItem = false;
-            }
-        }
+        //foreach (ItemRow row in itemList.GetRows())
+        //{
+        //    if (row.GetScanString() == result.Text)
+        //    { //Does item already exist in list
+        //        row.SetQuantity(row.GetQuantity() + 1); //item already exists, add quantity
+        //        addItem = false;
+        //    }
+        //}
 
         //Check if we still need to add the item to the list or if we already added quantity to an existing item
-        if (addItem)
+        if (true)
         { 
             String[] resultString = new string[4];
             resultString = result.Text.Split('|');

@@ -14,7 +14,7 @@ public class TransactionData
         public List<Transaction> transactionList = new List<Transaction>();
     }
 
-    private string filePath = "Assets/Sticker Price/Data Files/Transactions.json";
+    private string filePath = Application.persistentDataPath + "/Transactions.json";
     private FileUtility fileUtility = new FileUtility();
     [JsonProperty("transactionListContainer")]
     public TransactionListContainer transactionListContainer = new TransactionListContainer();
@@ -25,7 +25,8 @@ public class TransactionData
     }
 
     private void WriteTransactionsToFile()
-    { 
+    {
+        Debug.Log("File Path:" + filePath);
         fileUtility.ClearFile(filePath);
         fileUtility.WriteJson(filePath, JsonConvert.SerializeObject(transactionListContainer, Formatting.Indented));
     }

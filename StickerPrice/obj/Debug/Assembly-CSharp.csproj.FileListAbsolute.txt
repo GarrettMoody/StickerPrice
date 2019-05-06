@@ -433,7 +433,6 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/afsalva/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Assembly-CSharp.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Assembly-CSharp.pdb
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Boo.Lang.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/mscorlib.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Newtonsoft.Json.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/nunit.framework.dll
@@ -516,8 +515,6 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.VRModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.WindModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.XRModule.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityScript.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityScript.Lang.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/zxing.unity.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ClusterInputModule.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.ClusterRendererModule.dll
@@ -530,10 +527,6 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Legacy.NRefactory.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.UNetWeaver.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.IvyParser.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Boo.Lang.Compiler.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Boo.Lang.PatternMatching.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Boo.Lang.Parser.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Boo.Lang.Useful.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Cecil.Pdb.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.Cecil.Mdb.dll
@@ -683,7 +676,6 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.csproj.CopyComplete
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.pdb
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Microsoft.CSharp.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Microsoft.Win32.Primitives.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/netstandard.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.AppContext.dll
@@ -691,7 +683,6 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Collections.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Collections.NonGeneric.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Collections.Specialized.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ComponentModel.Annotations.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ComponentModel.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ComponentModel.EventBasedAsync.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ComponentModel.Primitives.dll
@@ -727,7 +718,6 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Linq.Parallel.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Linq.Queryable.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Net.Http.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Net.Http.Rtc.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Net.NameResolution.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Net.NetworkInformation.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Net.Ping.dll
@@ -742,9 +732,6 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Numerics.Vectors.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ObjectModel.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Reflection.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Reflection.Emit.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Reflection.Emit.ILGeneration.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Reflection.Emit.Lightweight.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Reflection.Extensions.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Reflection.Primitives.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Resources.Reader.dll
@@ -770,11 +757,6 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Security.Cryptography.X509Certificates.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Security.Principal.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Security.SecureString.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ServiceModel.Duplex.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ServiceModel.Http.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ServiceModel.NetTcp.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ServiceModel.Primitives.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ServiceModel.Security.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Text.Encoding.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Text.Encoding.Extensions.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Text.RegularExpressions.dll
@@ -793,8 +775,6 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Xml.XPath.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Xml.XPath.XDocument.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.UnityTestProtocolModule.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Configuration.dll
-/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.EnterpriseServices.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Transactions.dll
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.TextMeshPro.Editor.pdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Unity.PackageManagerUI.Editor.pdb
@@ -804,3 +784,18 @@ C:/Users/admin/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSh
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.UnityTestProtocolModule.dll.mdb
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEngine.UnityTestProtocolModule.xml
 /Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/obj/Debug/Assembly-CSharp.csprojAssemblyReference.cache
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ComponentModel.Composition.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Diagnostics.Tracing.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Drawing.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.IO.Compression.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.IO.Compression.FileSystem.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Net.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.ServiceModel.Web.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Web.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Windows.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/System.Xml.Serialization.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/nunit.framework.pdb
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/Boo.Lang.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.dll.mdb
+/Users/garrettmoody/Documents/GitHub/StickerPrice/StickerPrice/Temp/bin/Debug/UnityEditor.UI.xml
