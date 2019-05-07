@@ -2,10 +2,11 @@
 using Newtonsoft.Json;
 using System.Linq;
 using UnityEngine;
+using System.IO;
 
 public class TemplateData
 {
-    private string filePath = Application.persistentDataPath + "/Templates.json";
+    private string filePath = Path.Combine(Application.streamingAssetsPath, "Templates.json");
     private FileUtility fileUtility = new FileUtility();
     private List<Template> templateList = new List<Template>();
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System;
 using UnityEngine;
 using System.Globalization;
+using System.IO;
 
 [Serializable]
 public class TransactionData
@@ -14,7 +15,7 @@ public class TransactionData
         public List<Transaction> transactionList = new List<Transaction>();
     }
 
-    private string filePath = Application.persistentDataPath + "/Transactions.json";
+    private string filePath = Path.Combine(Application.streamingAssetsPath, "Transactions.json");
     private FileUtility fileUtility = new FileUtility();
     [JsonProperty("transactionListContainer")]
     public TransactionListContainer transactionListContainer = new TransactionListContainer();

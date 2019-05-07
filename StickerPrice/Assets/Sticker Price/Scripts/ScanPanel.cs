@@ -33,7 +33,7 @@ public class ScanPanel : MonoBehaviour
         camTexture = new WebCamTexture(WebCamTexture.devices[0].name, 480, 640, 60);
         scanDisplay.texture = camTexture;
         scanDisplay.material.mainTexture = camTexture;
-        baseRotation = transform.rotation;
+        //baseRotation = transform.rotation;
         camTexture.Play();
     }
 
@@ -42,7 +42,7 @@ public class ScanPanel : MonoBehaviour
         currentDateTime.text = System.DateTime.Now.ToString("dd MMM yyyy hh:mm tt");
 
         //Edit camera raw data to rotate correctly
-        transform.rotation = baseRotation * Quaternion.AngleAxis(camTexture.videoRotationAngle, Vector3.up);
+        //transform.rotation = baseRotation * Quaternion.AngleAxis(camTexture.videoRotationAngle, Vector3.up);
 
         if (scanReady)
         {

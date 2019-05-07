@@ -2,10 +2,11 @@
 using Newtonsoft.Json;
 using System.Linq;
 using UnityEngine;
+using System.IO;
 
 public class StickerData {
 
-    private string filePath = Application.persistentDataPath + "/SavedStickers.json";
+    private string filePath = Path.Combine(Application.streamingAssetsPath, "SavedStickers.json");
     private FileUtility fileUtility = new FileUtility();
     private List<Sticker> stickerList = new List<Sticker>();
 

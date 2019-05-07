@@ -1,0 +1,44 @@
+[
+  {
+    "stickerName": "Sticker 2",
+    "itemDescription": "Sticker 2",
+    "price": "$5.00",
+    "dateSaved": "03/04/2019 20:08:01",
+    "owner": "Garrett",
+    "quantity": 0,
+    "template": {
+      "templateId": "22805",
+      "size": "1.5 X 1.5",
+      "qrCode": "",
+      "numberPerSheet": "25"
+    }
+  },
+  {
+    "stickerName": "Sticker 1",
+    "itemDescription": "Sticker 1",
+    "price": "$5.00",
+    "dateSaved": "03/04/2019 20:08:10",
+    "owner": "Garrett",
+    "quantity": 0,
+    "template": {
+      "templateId": "22805",
+      "size": "1.5 X 1.5",
+      "qrCode": "",
+      "numberPerSheet": "25"
+    }
+  },
+  {
+    "stickerName": "T shirt 2",
+    "itemDescription": "T shirt 2",
+    "price": "$5.00",
+    "dateSaved": "03/31/2019 09:46:26",
+    "owner": "Garrett",
+    "quantity": 0,
+    "template": {
+      "templateId": "22805",
+      "size": "1.5 X 1.5",
+      "qrCode": "",
+      "numberPerSheet": "25"
+    }
+  }
+]
