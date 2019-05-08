@@ -15,7 +15,7 @@ public class TransactionData
         public List<Transaction> transactionList = new List<Transaction>();
     }
 
-    private string filePath = Path.Combine(Application.streamingAssetsPath, "Transactions.json");
+    private string filePath = ExecutionOrder.filePath + "/Transactions.json";
     private FileUtility fileUtility = new FileUtility();
     [JsonProperty("transactionListContainer")]
     public TransactionListContainer transactionListContainer = new TransactionListContainer();

@@ -4,11 +4,13 @@ using UnityEngine;
 using System.IO;
 using System;
 using Newtonsoft.Json;
+using System.Text;
 
 public class FileUtility {
 
 	public List<string> ReadFromFile(string filePath)
     {
+        Debug.Log("Reading:" + filePath);
         List<string> values = new List<string>();
         StreamReader reader = new StreamReader(filePath);
         while (!reader.EndOfStream)
@@ -21,6 +23,10 @@ public class FileUtility {
 
     public string ReadJson(string filePath)
     {
+        if (!File.Exists(filePath))
+        {
+            File.Create(filePath).Dispose();
+        }
         StreamReader reader = new StreamReader(filePath);
         string json = reader.ReadToEnd();
         reader.Close();
@@ -29,6 +35,7 @@ public class FileUtility {
 
     public void WriteToFile(string filePath, List<string> values)
     {
+        Debug.Log("Writing:" + filePath);
         StreamWriter writer = new StreamWriter(filePath, true);
         values.ForEach(writer.WriteLine);
         writer.Close();
@@ -36,7 +43,13 @@ public class FileUtility {
 
     public void WriteJson(string filePath, string json)
     {
-        File.WriteAllText(filePath, json);
+        if(!File.Exists(filePath))
+        {
+            File.Create(filePath).Dispose();
+            Debug.Log("File Created:" + filePath);
+        }
+        byte[] jsonArray = Encoding.ASCII.GetBytes(json);
+        File.WriteAllBytes(filePath, jsonArray);
     }
 
     public void ClearFile(string filePath)

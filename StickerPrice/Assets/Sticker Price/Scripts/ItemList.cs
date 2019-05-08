@@ -17,7 +17,7 @@ public class ItemList : ContentList
     public AdjustPanel priceAdjustPanel;
     public ItemRow itemPrefab;
     public ItemListData itemListData;
-    private const float TAX_AMOUNT = 0.05f;
+    private const float TAX_AMOUNT = 0.00f;
 	
 	// Use this for initialization
 	public override void Start ()

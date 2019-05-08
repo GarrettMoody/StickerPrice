@@ -6,7 +6,7 @@ using System.IO;
 
 public class TemplateData
 {
-    private string filePath = Path.Combine(Application.streamingAssetsPath, "Templates.json");
+    private string filePath = ExecutionOrder.readFilePath + "/Templates.json";
     private FileUtility fileUtility = new FileUtility();
     private List<Template> templateList = new List<Template>();
 
