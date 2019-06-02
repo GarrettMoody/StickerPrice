@@ -15,7 +15,7 @@ public class Toolbar : MonoBehaviour {
     public GameObject scanPanel;
     public GameObject readyForPrint;
     public GameObject moreMenu;
-    public GameObject trackerSummary;
+    public TrackerSummary trackerSummary;
 
 
     public void CreateButtonOnClickListener()
@@ -43,6 +43,7 @@ public class Toolbar : MonoBehaviour {
     public void TrackButtonOnClickListener()
     {
         DeactivateAllPages();
+        trackerSummary.Awake();
         trackerSummary.gameObject.SetActive(true);
     }
 

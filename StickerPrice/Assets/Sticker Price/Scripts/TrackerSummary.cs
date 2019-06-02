@@ -29,7 +29,7 @@ public class TrackerSummary : MonoBehaviour
     //    LoadFavoriteStickerListFromFile();
     //}
 
-    private void LoadTransactionListFromFile()
+    public void LoadTransactionListFromFile()
     {
 
         TransactionData transactionData = new TransactionData();
